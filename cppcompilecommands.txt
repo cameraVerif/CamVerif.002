@@ -1,0 +1,33 @@
+g++ renderMinMaxCpp_2.cpp -o renderMinMaxCpp_2
+g++ renderMinMaxCpp_3.cpp -o renderMinMaxCpp_3
+g++ renderImageAtPosClipped2.cpp -o renderImageAtPosClipped2
+g++ renderImageAtPosClipped6_interval3.cpp -o renderImageAtPosClipped6_interval3
+g++ renderImageAtPosClipped6_interval4.cpp -o renderImageAtPosClipped6_interval4
+g++ renderImageAtPosClipped6_image1.cpp -o renderImageAtPosClipped6_image1
+g++ renderImageAtPosClipped6_image1_180p.cpp -o renderImageAtPosClipped6_image1_180p
+
+
+ 1555  export PYTHONPATH=$PYTHONPATH:/home/habeeb/projectDrone2/env2_/verification_interval_2/eran_master/ELINA/python_interface
+ 1556  export PYTHONPATH=$PYTHONPATH:/home/habeeb/projectDrone2/env2_/verification_interval_2/eran_master/tf_verify
+
+export PYTHONPATH=$PYTHONPATH:/home/habeeb/projectDrone2/intervalImage1/eran_master/ELINA/python_interface
+export PYTHONPATH=$PYTHONPATH:/home/habeeb/projectDrone2/intervalImage1/eran_master/tf_verify
+
+
+g++ renderImageAtPosClipped6_interval6.cpp -o renderImageAtPosClipped6_interval6
+g++ renderImageAtPosClipped6_image3.cpp -o renderImageAtPosClipped6_image3
+
+
+g++ renderImageAtPosClipped2.cpp -o renderImageAtPosClipped2
+
+
+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
+
+
+
+g++ renderImageAtPosClipped6_interval7.cpp -o renderImageAtPosClipped6_interval7
+g++ renderImageAtPosClipped6_image4.cpp -o renderImageAtPosClipped6_image4
+
+
+
+

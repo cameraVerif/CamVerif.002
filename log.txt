@@ -1,0 +1,10 @@
+Program Started @ : 2025-01-08 17:05:20.444974
+
+Number of edges = 186
+Initial region cons: And(10*xp0 >= 1,
+    100*xp0 <= 11,
+    10*yp0 >= 45,
+    100*yp0 <= 451,
+    10*zp0 >= 1945,
+    100*zp0 <= 19451)
+Target region cons: Constraint_System {-x0+200>=0, -x1+5>=0, -x2+169>=0, x2-100>=0, x1-4>=0, x0+200>=0}
