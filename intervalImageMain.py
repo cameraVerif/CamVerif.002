@@ -16,7 +16,7 @@ import pythonRenderAnImage2
 import singleTriangelInvRegionZ3_2
 # import eran_master.tf_verify.interval_image_translator_2habeeb as deepPoly
 # import interval_image_translator_3habeeb
-import anytree
+# import anytree
 import os
 import sys
 import itertools
@@ -3164,11 +3164,7 @@ def computeTriangleInvariantRegions2(currTriangle,currGroupName, currGroupRegion
             scheck2.add(And(xp0 ==m[xp0], yp0 == m[yp0], zp0 == m[zp0]))
             if(scheck2.check() != sat):                
                 # sleep(3)
-                continue
-        
-             
-            
-            
+                continue             
             
             fA = 1
             
@@ -3200,46 +3196,29 @@ def computeTriangleInvariantRegions2(currTriangle,currGroupName, currGroupRegion
 
             else:                
                
+                #######The following code can be removed in the final code
                 eFile = open("ErrorLog.txt","a")
                 eFile.write("Error in finding the region for the triangle "+str(currTriangle)+"\n")
                 eFile.write("Current position = "+str(posXp)+", "+str(posYp)+", "+str(posZp)+"\n")
                 eFile.write("Current consOfReg = "+str(consOfReg)+"\n")
                 eFile.close()
-
-                nmBound = 0.0001
-                
+                nmBound = 0.00001                
                 consOfReg2 =   str(posXp-nmBound) +"<=xp0, xp0<="+ str(posXp+nmBound)+"," \
                     + str(posYp-nmBound) +"<=yp0, yp0<="+ str(posYp+nmBound)+"," \
-                    + str(posZp-nmBound) +"<=zp0, zp0<="+ str(posZp+nmBound)
-                
-                currImageSetCons = eval("And("+str(consOfReg2)+")")
-               
+                    + str(posZp-nmBound) +"<=zp0, zp0<="+ str(posZp+nmBound)                
+                currImageSetCons = eval("And("+str(consOfReg2)+")")               
                 s2.add(Not(currImageSetCons))  
                 intervalImageFunctions1.updateSingleIntervalImage(currTriangleIntervalImage,  currTriangle, minmaxDepths, centerPointImage)
                 tempConsString = consOfReg2
 
 
                 # sleep(5) 
-                # break
-            
-
-            
-       
-            
+                # break           
             set_param('parallel.enable', True)
             s2.set("sat.local_search_threads", 28)
             s2.set("sat.threads", 28)
             # break
-
-
-
-
-                       
-            
-            
-          
-
-             
+       
         currImageSetConString = tempConsString
         
         if fA ==1:
@@ -3258,7 +3237,7 @@ def computeTriangleInvariantRegions2(currTriangle,currGroupName, currGroupRegion
                 mindepth = gurobiGetDepths4.getDepthInterval(currImageSetConString,vert_x,vert_y,vert_z, currGroupRegionCons )
                 mindepth = math.sqrt(mindepth)
                 
-                maxdepth = mindepth + environment.depthOfTheInitialCube
+                maxdepth = mindepth + environment.depthOfTheInitialCube ###it can be replaced with the gurobi maxdepth function
                 # print("mindepth, maxdepth =", mindepth,maxdepth)
                 
                 depthInformation[dataToComputeDepth[inVert][3]] = [inVert, mindepth,maxdepth]
@@ -3274,7 +3253,7 @@ def computeTriangleInvariantRegions2(currTriangle,currGroupName, currGroupRegion
                 #                                                         currGroupRegionCons,edgeVertexIndices, currTriangleVertices)
                                                                         
                 mindepth = math.sqrt(mindepth)                                                        
-                maxdepth = mindepth + environment.depthOfTheInitialCube
+                maxdepth = mindepth + environment.depthOfTheInitialCube ###can use gurobi here also, to get more accurate max depth
                 
                 if mindepth == 0:
                     maxdepth = 1000
@@ -3510,49 +3489,8 @@ def computePixelIntervals(currGroupName, currGroupRegionCons, fromSplitRegion=0)
         if(numberOfreg[i] > 0):
             updateGlobalIntervalImage2(i,numberOfreg[i])
         
-        # print("\ndone, numberOfreg[i] : ", numberOfreg[i])
-        # sleep(2)
-        
-        # tempGlobal = []
-        # if numberOfreg[i] >0:
-        #     # print("Update global interval image")
-        #     # tempGlobal.append(globalIntervalImage.keys())
-            
-        #     # print(globalIntervalImage.keys())
-        #     # print(tempGlobal)
-            
-            
-            
-        #     updateGlobalIntervalImage(numberOfreg[i])
-        
-            # print("globalIntervalImage =", globalIntervalImage)
-            # print("global image befor check\n\n\n")
-            
-            
-            # print("\n\n checking key inclusion")
-            # # print(globalIntervalImage.keys())
-            # # print(tempGlobal)
-            # for key in globalIntervalImage.keys():
-            #     if key not in tempGlobal:
-            #         print(key)
-            #         print("\n")
-            
-            # print("\n\n checking key inclusion done")       
-            
-            # print(globalIntervalImage.keys())
-            
-            # allGlobalIntervalImages.append(globalIntervalImage)
-    # exit()
-    # print(numberOfreg)
-    
-    # print("Dictionary of triangle interval images: ", dictionaryOfTriangleIntervalImages)
-    # print("Interval Image Generated.")
-    # print(numberOfreg)
-    # exit()
-    # generateGlobalIntervalImageFromTriangleIntImages(dictionaryOfTriangleIntervalImages, globalIntervalImage)
-    # print("global IntervalImage = ", globalIntervalImage)
-    
-    # print("Preparing final Interval Image")
+       
+           
     
     prepareFinalIntervalImage(globalIntervalImage)
     

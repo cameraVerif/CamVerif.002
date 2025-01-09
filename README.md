@@ -9,6 +9,16 @@ For interval image computation only:
  - **`pyparma ppl`**: (https://pypi.org/project/pyparma/).
  - **`Gurobi`**: install Gurobi optimizer.
 
+To run the full code:
+    - pip install z3==0.2.0
+    - pip install z3-solver==4.12.1.0
+    - pip install skl2onnx==1.16.0
+    - pip install onnxoptimizer==0.3.13
+    - pip install anytree==2.8.0
+    - pip install opencv-python==4.6.0.66
+    - pip install cython==0.29.32
+    - pip install pyparma==0.5.0
+    - Install alpha-beta-CROWN from https://github.com/Verified-Intelligence/alpha-beta-CROWN
 ---------------------------------------------------------------
 Setup Scene
 -----------------
