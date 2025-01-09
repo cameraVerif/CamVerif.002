@@ -25,13 +25,13 @@ import ast
 
 from collections import Counter
 
-import tensorflow as tf
-import pandas as pd
-import matplotlib.pyplot as plt
-from tensorflow.keras import datasets, layers, models
-import numpy as np
-import cv2 
-from tensorflow.keras.models import load_model
+# import tensorflow as tf
+# import pandas as pd
+# import matplotlib.pyplot as plt
+# from tensorflow.keras import datasets, layers, models
+# import numpy as np
+# import cv2 
+# from tensorflow.keras.models import load_model
 
 #import gurobiGetDepths2
 import gurobiGetDepths4
@@ -42,11 +42,11 @@ import singleTriangleFunctions1
 import oldInvComputation1
 # import oldInvRegionSolver
 
-import cv2
-import onnx
-import onnxruntime
+# import cv2
+# import onnx
+# import onnxruntime
 
-from onnx import numpy_helper
+# from onnx import numpy_helper
 
 posZp100 = -1000 
 
@@ -3466,9 +3466,6 @@ def computePixelIntervals(currGroupName, currGroupRegionCons, fromSplitRegion=0)
 
 
 
-
-
-
     for i in range(0 , environment.numOfTriangles): 
     # for i in range(16 , environment.numOfTriangles): 
     # for i in [x for x in range(0,1)]: 
@@ -3567,22 +3564,12 @@ def computePixelIntervals(currGroupName, currGroupRegionCons, fromSplitRegion=0)
     generateVnnlbPropertyfile.generate_vnnlib_files2(finalGlobalIntervalImage)
     # print("VNNLIB files generated")
     
-
-    
-    
-    
-    
-        
-     
-    
-
-
 currAbsGroupName = "A_"
 currAbsGroupRegionCons = environment.initCubeCon
 
 print("Pixel Intervals are generating with the following parmeters")
-print(currAbsGroupName)
-print(currAbsGroupRegionCons)
+print("Region Name: ", currAbsGroupName)
+print("Region Constraints: ", currAbsGroupRegionCons)
 print("Number of edges: ", environment.numOfEdges)
 
 computePixelIntervals( currAbsGroupName, currAbsGroupRegionCons)
