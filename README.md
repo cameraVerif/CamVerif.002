@@ -4,11 +4,12 @@
 Requirements
 ------------------
 
-For interval image computation only:
+## For interval image computation only:
  - **`z3`**: install z3 python.
  - **`pyparma ppl`**: (https://pypi.org/project/pyparma/).
  - **`Gurobi`**: install Gurobi optimizer.
-To run the full code:
+
+## To run the full code:
     - pip install z3==0.2.0
     - pip install z3-solver==4.12.1.0
     - pip install skl2onnx==1.16.0
@@ -18,6 +19,8 @@ To run the full code:
     - pip install cython==0.29.32
     - pip install pyparma==0.5.0
     - Install alpha-beta-CROWN from https://github.com/Verified-Intelligence/alpha-beta-CROWN
+
+
 ---------------------------------------------------------------
 Setup Scene
 -----------------
@@ -135,4 +138,16 @@ The intervals for each pixel in the image are saved in two files:
 - `globalMax.txt` — Contains the upper bounds of intervals for each pixel.
 
 The code uses the default camera setup specified in camera.py. If you have modified it, please restore it to the default parameters.
+
+---------------------------------------------------------------------------------------
+
+To Run Full code
+--------------------------
+
+
+
+
+
+
+
 
