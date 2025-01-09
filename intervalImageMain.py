@@ -3546,7 +3546,7 @@ def computePixelIntervals(currGroupName, currGroupRegionCons, fromSplitRegion=0)
             
             # allGlobalIntervalImages.append(globalIntervalImage)
     # exit()
-    print(numberOfreg)
+    # print(numberOfreg)
     
     # print("Dictionary of triangle interval images: ", dictionaryOfTriangleIntervalImages)
     # print("Interval Image Generated.")
@@ -3583,6 +3583,8 @@ currAbsGroupRegionCons = environment.initCubeCon
 print("Pixel Intervals are generating with the following parmeters")
 print(currAbsGroupName)
 print(currAbsGroupRegionCons)
+print("Number of edges: ", environment.numOfEdges)
+
 computePixelIntervals( currAbsGroupName, currAbsGroupRegionCons)
-print("Interval image generated. Pixel min values: globalMin.txt. Pixel max values: globalMax.txt ")   
+print("Interval image generated. Pixel min values are in : globalMin.txt. Pixel max values are in: globalMax.txt ")   
     

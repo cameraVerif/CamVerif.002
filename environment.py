@@ -1,5 +1,3 @@
-
-
 from z3 import *
 from pyparma import *
 import anytree
@@ -33,22 +31,12 @@ spuriousCollisionData = {}
 splitRegionPd =dict()
 splitCount = 0
 numberOfSplit = 5
-# numberOfRandomPointsToCheck = 10
-
-#envs
-
 totalNumRefinment=0
-
 A = anytree.Node("A")
-
 groupFrustum = {}
 
-networkName = "OGmodel_pb_converted.onnx"
-netInterpreterPath = "/home/habeeb/project2/alpha-beta-CROWN-mainfromLap/complete_verifier/abcrown.py"
 refineCountNew = 0
 spuriousCollisionCount=0
-
-
 
 vertices = scene.vertices
 numOfVertices = scene.numOfVertices
@@ -59,14 +47,10 @@ vertColours = scene.vertColours
 tedges = scene.tedges
 
 z3timeout = 0
-
 initFlag = 0
 outFileName = "Env_11_12_8_abs_1_195_20Steps_1.txt"
 initialImageCount = 0
-
 allInSameGrp = dict()
-
-
 groupCount =1
 groupFrustumFlag = {}
 GloballoopCount = 0
@@ -75,16 +59,6 @@ pplOutputFileName = "constraintsFromPPL.txt"
 pplpathHullOutputFileName = "pathHullOutput.txt"
 collisionCheckStartTriangle = 4
 pplSingleImageConstraintOutput = "singleImageconstraintsFromPPL.txt"
-
-# imageWidth =49
-# imageHeight = 49
-# canvasWidth = 0.9872
-# canvasHeight = 0.735
-# focalLength = 35
-# # t =0.35820895522388063
-# # b =-0.35820895522388063
-# # l =-0.35820895522388063
-# # r =0.35820895522388063
 
 imageWidth = camera.imageWidth
 imageHeight = camera.imageHeight
@@ -96,24 +70,32 @@ t = camera.t
 b = camera.b
 l = camera.l
 r = camera.r
-
-
 n = camera.nearClippingPlane
 f = camera.farClippingPlane
 
-
 grpCubePoses = dict()
 imageGroupStack = []
-
 absStack = []
-
 xp0, yp0, zp0 = Reals('xp0 yp0 zp0')
-
 
 def printLog(message):
     print(message)
 
 
+networkName = "OGmodel_pb_converted.onnx"
+netInterpreterPath = "/home/habeeb/project2/alpha-beta-CROWN-mainfromLap/complete_verifier/abcrown.py"
+
+
+#####################Initial region ################################################
+'''
+The following constraints represent the initial region. If you are computing the interval image of a region, these constraints define the region. Each constraint must have integer coefficients. Do not use the division operator in the constraints; instead, rearrange the constraints to avoid using the division operator.
+
+Step 1: Write the constraints in the intiFrusCons list.
+Step 2: Copy the same constraints into the initCubeCon variable inside the And() function.
+Step 3: Add individual constraints to the pd3 polyhedron as shown below.
+Step 4: Provide one point within the region as the middle point and assign it to midPoints["A"].
+Step 5: Assign the depth of the initial region (in meters) to the variable depthOfTheInitialCube.
+'''
 
 intiFrusCons = [10*xp0>=1,100*xp0<=11,10*yp0>=45,100*yp0<=451, 10*zp0>=1945,100*zp0<=19451]
 initCubeCon = And(10*xp0>=1,100*xp0<=11,10*yp0>=45,100*yp0<=451, 10*zp0>=1945,100*zp0<=19451)
@@ -135,15 +117,20 @@ currentMidPoint = midPoints["A"]
 currentMidPointString = str(currentMidPoint[0])+"_"+str(currentMidPoint[1])+"_"+str(currentMidPoint[2])
 processedMidPoints[currentMidPointString] = "A"
 
-
-
 depthOfTheInitialCube = .01 ##in meters
 
 
+######################target region #####################################
+####################<<<<<<<<<<Modify the following constraint>>>>>>>>>>>>>>>>>>>>>####
+targetRegionPolyhedron = NNC_Polyhedron(3)
+targetRegionPolyhedron.add_constraint(xp0>=-200)
+targetRegionPolyhedron.add_constraint(xp0<=200)
+targetRegionPolyhedron.add_constraint(yp0>=4)
+targetRegionPolyhedron.add_constraint(yp0<=5)
+targetRegionPolyhedron.add_constraint(zp0>=100)
+targetRegionPolyhedron.add_constraint(zp0<=169)
 
-
-
-
+##################################################################################
 
 groupCube["G_0"] = pd3.minimized_constraints()
 groupCube["G_1"] = pd3.minimized_constraints()
@@ -152,8 +139,6 @@ groupCube["G_2"] = pd3.minimized_constraints()
 groupCube["A"] = pd3.minimized_constraints()
 # groupCube["A_1"] = pd3.minimized_constraints()
 # groupCube["A_2"] = pd3.minimized_constraints()
-
-
 
 groupCubeZ3["G_0"] = initCubeCon
 groupCubeZ3["G_1"] = initCubeCon
@@ -165,21 +150,6 @@ groupCubeZ3["A"] = initCubeCon
 groupCube["initCubeCon"] = pd3.minimized_constraints()
 groupCubePostRegion["initCubeCon"] = pd3.minimized_constraints()
 groupCubePostRegion["A"] = pd3.minimized_constraints()
-
-
-
-
-targetRegionPolyhedron = NNC_Polyhedron(3)
-targetRegionPolyhedron.add_constraint(xp0>=-200)
-targetRegionPolyhedron.add_constraint(xp0<=200)
-targetRegionPolyhedron.add_constraint(yp0>=4)
-targetRegionPolyhedron.add_constraint(yp0<=5)
-targetRegionPolyhedron.add_constraint(zp0>=100)
-targetRegionPolyhedron.add_constraint(zp0<=169)
-
-
-
-
 
 z0 = 194.5
 z1 = 194.51
