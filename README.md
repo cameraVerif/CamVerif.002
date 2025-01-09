@@ -3,9 +3,9 @@
 
 Requirements
 ------------------
-will add soon
- <!-- - **`z3`**: install z3 python.
- - **`pyparma ppl`**: (https://pypi.org/project/pyparma/). -->
+
+ - **`z3`**: install z3 python.
+ - **`pyparma ppl`**: (https://pypi.org/project/pyparma/).
 
 Setup Scene
 -----------------
@@ -96,7 +96,7 @@ python renderAnImage.py 1 5 120 abc
 
 To create a high-resolution image, adjust the parameters in the `camera.py` file.
 
-<!-- Compute Interval Image
+Compute Interval Image
 --------------------------
 
 Define the region constraints in the `environment.py` file by setting the `initCubeCon` variable. This variable defines the region constraint in 3D space using three variables for each dimension: `xp0` for the x-axis, `yp0` for the y-axis, and `zp0` for the z-axis. An example constraint is provided below:
@@ -107,7 +107,7 @@ Define the region constraints in the `environment.py` file by setting the `initC
 initCubeCon = And(10*xp0>=1, 1000*xp0<=101, 10*yp0>=45, 1000*yp0<=4501, 10*zp0>=1215, 1000*zp0<=121501)
 ```
 
-> **Note**: Make sure that all coefficients are real numbers and avoid division operators in the constraint.
+> **Note**: Make sure that all coefficients are integer numbers and avoid division operators in the constraint.
 
 To compute an interval image, run:
 
@@ -120,6 +120,5 @@ The intervals for each pixel in the image are saved in two files:
 - `globlaMin.txt` — Contains the lower bounds of intervals for each pixel.
 - `globalMax.txt` — Contains the upper bounds of intervals for each pixel.
 
-The code uses the default camera setup specified in `camera.py`. -->
-
+The code uses the default camera setup specified in camera.py. If you have modified it, please restore it to the default parameters.
 

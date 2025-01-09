@@ -88,7 +88,10 @@ netInterpreterPath = "/home/habeeb/project2/alpha-beta-CROWN-mainfromLap/complet
 
 #####################Initial region ################################################
 '''
-The following constraints represent the initial region. If you are computing the interval image of a region, these constraints define the region. Each constraint must have integer coefficients. Do not use the division operator in the constraints; instead, rearrange the constraints to avoid using the division operator.
+The following constraints represent the initial region.
+If you are computing the interval image of a region, these constraints define the region. 
+Each constraint must have integer coefficients. Do not use the division operator in the constraints; instead, 
+rearrange the constraints to avoid using the division operator.
 
 Step 1: Write the constraints in the intiFrusCons list.
 Step 2: Copy the same constraints into the initCubeCon variable inside the And() function.
