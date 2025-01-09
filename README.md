@@ -4,9 +4,12 @@
 Requirements
 ------------------
 
+For interval image computation only:
  - **`z3`**: install z3 python.
  - **`pyparma ppl`**: (https://pypi.org/project/pyparma/).
+ - **`Gurobi`**: install Gurobi optimizer.
 
+---------------------------------------------------------------
 Setup Scene
 -----------------
 The scene contains a set of objects, and each object is defined using triangle meshes. Each triangle has three vertices, and each vertex has an associated RGB color.
@@ -75,7 +78,7 @@ The `tedges` list for these edges is:
 tedges = [0,1, 1,2, 2,0, 2,3, 3,0, 0,2]
 ```
 
-
+-----------------------------------------------------------------------------
 
 Image rendering
 ----------------------
@@ -95,6 +98,8 @@ python renderAnImage.py 1 5 120 abc
 ```
 
 To create a high-resolution image, adjust the parameters in the `camera.py` file.
+
+---------------------------------------------------------------------------------------
 
 Compute Interval Image
 --------------------------
