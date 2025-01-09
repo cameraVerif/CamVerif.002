@@ -19,6 +19,7 @@ Requirements
     - pip install cython==0.29.32
     - pip install pyparma==0.5.0
     - Install alpha-beta-CROWN from https://github.com/Verified-Intelligence/alpha-beta-CROWN
+    - Install the gurobi optimizer.
 
 
 ---------------------------------------------------------------
