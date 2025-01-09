@@ -125,6 +125,14 @@ python renderAnImage.py 1 5 120 abc
 
 To create a high-resolution image, adjust the parameters in the `camera.py` file.
 
+**Example:**
+
+```bash
+imageWidth = 1920 #pixels
+imageHeight = 1080 #pixels
+```
+
+
 ---------------------------------------------------------------------------------------
 
 Compute Interval Image
