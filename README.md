@@ -8,7 +8,6 @@ For interval image computation only:
  - **`z3`**: install z3 python.
  - **`pyparma ppl`**: (https://pypi.org/project/pyparma/).
  - **`Gurobi`**: install Gurobi optimizer.
-
 To run the full code:
     - pip install z3==0.2.0
     - pip install z3-solver==4.12.1.0
