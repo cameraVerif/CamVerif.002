@@ -18,6 +18,19 @@ Requirements
     - pip install opencv-python==4.6.0.66
     - pip install cython==0.29.32
     - pip install pyparma==0.5.0
+    - pip install numpy==1.21.5
+    - pip install tensorflow==2.4.1
+    - pip install pandas==1.3.4
+    - pip install matplotlib==3.5.1
+    - pip install gurobipy==9.5.1
+    - pip install onnx==1.11.0
+    - pip install onnxruntime==1.11.0
+    - pip install torchvision==0.12.0
+    - pip install appdirs==1.4.4
+    - pip install tqdm==4.64.0
+    - pip install onnx2pytorch==0.4.1
+    - pip install sortedcontainers==2.4.0
+    - pip install psutil==5.8.0
     - Install alpha-beta-CROWN from https://github.com/Verified-Intelligence/alpha-beta-CROWN
     - Install the gurobi optimizer.
 
