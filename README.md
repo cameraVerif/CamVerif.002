@@ -164,7 +164,7 @@ The code uses the default camera setup specified in camera.py. If you have modif
 ---------------------------------------------------------------------------------------
 
 Follow the steps below to execute the full code:
-
+------------------------------------
 ### Steps
 
 1. **Define the Scene**
