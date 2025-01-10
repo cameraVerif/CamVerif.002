@@ -4,6 +4,8 @@ import anytree
 import scene
 import camera
 
+
+#####TODO: remove unused variables.
 global dnnOutput, imagesMap, numOfVertices, vertices, numOfTriangles, nvertices, groupFrustum,\
         initFlag,imageGroup, outFileName, initialImageCount, imagePos, imageGroupStack,groupCount,groupFrustumFlag,\
         GloballoopCount, pplInputFileName, pplOutputFileName, initialZP, pplpathHullOutputFileName, \
@@ -88,16 +90,16 @@ netInterpreterPath = "/home/habeeb/project2/alpha-beta-CROWN-mainfromLap/complet
 
 #####################Initial region ################################################
 '''
-The following constraints represent the initial region.
-If you are computing the interval image of a region, these constraints define the region. 
-Each constraint must have integer coefficients. Do not use the division operator in the constraints; instead, 
-rearrange the constraints to avoid using the division operator.
+The following constraints represent the initial region.  
+If you are computing the interval image of a region, these constraints define the region.  
+Each constraint must have integer coefficients. Do not use the division operator in the constraints; instead, rearrange them to avoid using division.
 
-Step 1: Write the constraints in the intiFrusCons list.
-Step 2: Copy the same constraints into the initCubeCon variable inside the And() function.
-Step 3: Add individual constraints to the pd3 polyhedron as shown below.
-Step 4: Provide one point within the region as the middle point and assign it to midPoints["A"].
-Step 5: Assign the depth of the initial region (in meters) to the variable depthOfTheInitialCube.
+1. **Write the constraints** in the `intiFrusCons` list.  
+2. **Copy the same constraints** into the `initCubeCon` variable inside the `And()` function.  
+3. **Add individual constraints** to the `pd3` polyhedron as shown below.  
+4. **Provide one point** within the region as the middle point and assign it to `midPoints["A"]`.  
+5. **Assign the depth** of the initial region (in meters) to the variable `depthOfTheInitialCube`."
+
 '''
 
 intiFrusCons = [10*xp0>=1,100*xp0<=11,10*yp0>=45,100*yp0<=451, 10*zp0>=1945,100*zp0<=19451]
@@ -135,6 +137,7 @@ targetRegionPolyhedron.add_constraint(zp0<=169)
 
 ##################################################################################
 
+#######################DO not change##############################################
 groupCube["G_0"] = pd3.minimized_constraints()
 groupCube["G_1"] = pd3.minimized_constraints()
 groupCube["G_2"] = pd3.minimized_constraints()
@@ -154,7 +157,8 @@ groupCube["initCubeCon"] = pd3.minimized_constraints()
 groupCubePostRegion["initCubeCon"] = pd3.minimized_constraints()
 groupCubePostRegion["A"] = pd3.minimized_constraints()
 
-z0 = 194.5
-z1 = 194.51
+z0 = 194.5 #dummy1
+z1 = 194.51 #dummy2
 
 randomLoopLimit = 1000
+#################################################################################
