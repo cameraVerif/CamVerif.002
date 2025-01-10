@@ -197,8 +197,8 @@ Follow the steps below to execute the full code:
 6. **Outputs**
    - The program will store its outputs in the `log.txt` file.
 
-
-Will update soon..
+---------
+Note: The code is not fully fine-tuned or polished. A more recent version will be provided soon.
 
 
 
