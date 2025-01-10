@@ -163,8 +163,39 @@ The code uses the default camera setup specified in camera.py. If you have modif
 
 ---------------------------------------------------------------------------------------
 
-To Run Full code
---------------------------
+Follow the steps below to execute the full code:
+
+### Steps
+
+1. **Define the Scene**
+   - Set up the scene (`scene.py`) as described above in the scene setup section.
+   - Ensure that the camera setup (in `camera.py`) is the default one.
+
+2. **Provide Initial Region Convex Polyhedron Constraints**
+   - Specify the constraints for the initial region (in `environment.py`) in terms of convex polyhedra as described in the compute interval image section above.
+
+3. **Provide Target Region Polyhedron Constraints**
+   - Define the constraints for the target region using polyhedron representations.
+   - Just add the constraints to the `targetRegionPolyhedron` variable in the `environment.py` file.
+
+4. **Define DNN Interpreter Settings**
+   - Assign the neural network file name to the `networkName` variable in the `environment.py` file.
+   - The network must be in `.onnx` format.
+   - Assign the path to the alpha-beta-CROWN interpreter in the `netInterpreterPath` variable.
+     - Example:
+       ```python
+       networkName = "model1.onnx"
+       netInterpreterPath = "/home/user1/complete_verifier/abcrown.py"
+       ```
+
+5. **Start the Main Function**
+   - Begin the execution of the main function to run the program by running:
+     ```bash
+     python main_abs_1.py
+     ```
+
+6. **Outputs**
+   - The program will store its outputs in the `log.txt` file.
 
 
 Will update soon..
