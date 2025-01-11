@@ -3793,8 +3793,8 @@ def computePixelIntervals(currGroupName, currGroupRegionCons, fromSplitRegion=0)
     pythonRenderAnImage2.renderAnImage(posXp2,posYp2,posZp2,"testImage1")
     
     iisc_net_dnnoutput = getDNNOutput_onnx("images/testImage1.ppm",environment.networkName)
-    print("iisc net output = ", iisc_net_dnnoutput)
-    print("deeppoly outputs = ",deepPolyOutputs)
+    # print("iisc net output = ", iisc_net_dnnoutput)
+    # print("deeppoly outputs = ",deepPolyOutputs)
   
     
     
