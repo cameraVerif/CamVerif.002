@@ -104,6 +104,8 @@ The `tedges` list for these edges is:
 tedges = [0,1, 1,2, 2,0, 2,3, 3,0, 0,2]
 ```
 
+- Sample scenes are available inside the `sampleScenes` folder.
+
 -----------------------------------------------------------------------------
 
 Image rendering
@@ -132,7 +134,7 @@ imageWidth = 1920 #pixels
 imageHeight = 1080 #pixels
 ```
 
-
+- The `imgName.txt` file stores the actual integer values of each pixel corresponding to the generated `imgName.ppm` file.
 ---------------------------------------------------------------------------------------
 
 Compute Interval Image
