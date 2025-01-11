@@ -670,10 +670,10 @@ def checkForRandomPoints(currGroupName, triangle,currRegionPPL,currDnnOutput, nu
                     # print("\n\n\n")
                     # global collisionFlag
                     # collisionFlag = 1
-                    print(datetime.now())
-                    # print("time Taken = ", datetime.now() - programStartTime)
-                    print("program finished with collision")
-                    # sleep(10)
+                    # print(datetime.now())
+                    # # print("time Taken = ", datetime.now() - programStartTime)
+                    # print("program finished with collision")
+                    # # sleep(10)
                     
                     exit(0)
                     return 
@@ -873,8 +873,9 @@ def checkForRandomPoints(currGroupName, triangle,currRegionPPL,currDnnOutput, nu
                     
                 
                 else:
-                    print("checkCollisionValidity==> NO Collision with image"+str(i))
-                    print("\n\n\n")
+                    # print("checkCollisionValidity==> NO Collision with image"+str(i))
+                    # print("\n\n\n")
+                    pass
             else:
                 
                 pass
@@ -1013,9 +1014,9 @@ def splitRegionAndCheckCollisionValidity(currGroup, triangle,currRegionPPL,dnnOu
                 newFormula1 = Exists([xp0,yp0,zp0],And( currGroupCons ,xp1==xp0+.5,yp1==yp0,zp1==zp0-.866))  
                 
             
-            print("new formula --->")
-            print(newFormula1)
-            # sleep(2)
+            # print("new formula --->")
+            # print(newFormula1)
+            # # sleep(2)
             
             set_option(rational_to_decimal=False)
             set_option(precision=10)
@@ -1027,7 +1028,7 @@ def splitRegionAndCheckCollisionValidity(currGroup, triangle,currRegionPPL,dnnOu
             t  = Then(t2, t1)
             print (t(g))
             
-            print("\n\n converting to PPL expression")
+            # print("\n\n converting to PPL expression")
             oldExp = t(g)[0]
             # print(oldExp)
             updatedExpString =[]
@@ -1051,11 +1052,11 @@ def splitRegionAndCheckCollisionValidity(currGroup, triangle,currRegionPPL,dnnOu
             
             updateExp = []
             
-            print("\n\n")
+            # print("\n\n")
             for n in range(0,len(t(g)[0])):
                 exp = t(g)[0][n]
-                print("current expression to conversion")
-                print(exp)
+                # print("current expression to conversion")
+                # print(exp)
                 
                 # exp = str(exp).replace("xp0","xp1")
                 # exp = str(exp).replace("yp0","yp1")
@@ -1067,7 +1068,7 @@ def splitRegionAndCheckCollisionValidity(currGroup, triangle,currRegionPPL,dnnOu
                 try:
                     exp = eval(str(exp).replace("\n",""))
                 except:
-                    print("exception handled2 main_abs_1 @108")
+                    # print("exception handled2 main_abs_1 @108")
                     exit(0)
                 
                 newExp = floatingpointExpToRational4.converteToPPLExpression(exp)
@@ -1077,13 +1078,13 @@ def splitRegionAndCheckCollisionValidity(currGroup, triangle,currRegionPPL,dnnOu
                 newExp = newExp.replace("yp1","yp0")
                 newExp = newExp.replace("zp1","zp0")
                 newExp = newExp.replace("\n", "")
-                print("\n\n")
-                print("returned expression ")
-                print(newExp)
+                # print("\n\n")
+                # print("returned expression ")
+                # print(newExp)
                 updateExp.append(newExp)
-            print("\n\n")
-            print("oldExp = ",oldExp)
-            print("updateExp = ",updateExp)
+            # print("\n\n")
+            # print("oldExp = ",oldExp)
+            # print("updateExp = ",updateExp)
             
             
             pd4 = NNC_Polyhedron(3)
@@ -1109,18 +1110,18 @@ def splitRegionAndCheckCollisionValidity(currGroup, triangle,currRegionPPL,dnnOu
             createPoly = reload(createPoly)   
             pd4= createPoly.getPoly()
 
-            print("next region")
-            print(pd4.minimized_constraints())
+            # print("next region")
+            # print(pd4.minimized_constraints())
             
             pd5 = NNC_Polyhedron(3)
             pd5.add_constraints(currImageCons)
             
-            print("current region cons :", pd5.minimized_constraints()) 
-            print("next region cons : ", pd4.minimized_constraints())
+            # print("current region cons :", pd5.minimized_constraints()) 
+            # print("next region cons : ", pd4.minimized_constraints())
             
             pd5.poly_hull_assign(pd4)
             
-            print("path hull cons ", pd5.minimized_constraints())  
+            # print("path hull cons ", pd5.minimized_constraints())  
             
             pathHullConString = pd5.minimized_constraints()  
             
@@ -1133,8 +1134,8 @@ def splitRegionAndCheckCollisionValidity(currGroup, triangle,currRegionPPL,dnnOu
             pathHullConString = pathHullConString.replace("}"," ")
             pathHullConString = "And("+str(pathHullConString)+")"
             
-            print("\n after replacing path hull cons\n")
-            print("\n\n",pathHullConString)
+            # print("\n after replacing path hull cons\n")
+            # print("\n\n",pathHullConString)
             
         
             
@@ -1142,34 +1143,35 @@ def splitRegionAndCheckCollisionValidity(currGroup, triangle,currRegionPPL,dnnOu
             #global collisionFlag
             #collisionFlag = 0
             
-            print("checking collision of pathHull with the triangle "+str(t))
+            # print("checking collision of pathHull with the triangle "+str(t))
             collision = checkForCollision(pathHullConString, triangle)
             
-            print("collision status = ", collision)
+            # print("collision status = ", collision)
             
             if(collision == 1):
-                print("Collision detected ")
+                # print("Collision detected ")
                 if(variableToSplit == "xp0"):
-                    print("Current region is xp0")
-                    print("Splitting for yp0")
+                    # print("Current region is xp0")
+                    # print("Splitting for yp0")
                     # sleep(3)
                     splitRegionAndCheckCollisionValidity(currGroup, triangle,currSplitRegionPd.minimized_constraints(),dnnOutput, "yp0", numberOfSplits)
                 elif(variableToSplit == "yp0"):
-                    print("Current region is yp0")
-                    print("Splitting for zp0")
+                    # print("Current region is yp0")
+                    # print("Splitting for zp0")
                     # sleep(3)
                     splitRegionAndCheckCollisionValidity(currGroup, triangle,currSplitRegionPd.minimized_constraints(),dnnOutput, "zp0", numberOfSplits)
                 else:
                     ##TODO
-                    print("switch to old implementation and check.")
+                    # print("switch to old implementation and check.")
                    
-                    print("currGroup = ", currGroup)
+                    # print("currGroup = ", currGroup)
                     # sleep(2)
                     checkForRandomPoints(currGroup, triangle,currSplitRegionPd.minimized_constraints(),dnnOutput, numberOfRandomPointsToCheck = 500)
-                    print("sleeping")
+                    # print("sleeping")
                     # sleep(3)
             else:
-                print("No collision with the current region")
+                # print("No collision with the current region")
+                pass
                     
                     
                     
@@ -1391,7 +1393,7 @@ def refineAndCheckCollisionValidity2(intersectionRegionConZ3,dnnOutput, triangle
     sCheck1= Solver()
     sCheck1.add(currentRegionCons)
     if(sCheck1.check() == unsat):
-        print("No valid region to refine")
+        # print("No valid region to refine")
         return 0 
     
 
@@ -1477,8 +1479,8 @@ def refineAndCheckCollisionValidity2(intersectionRegionConZ3,dnnOutput, triangle
     # print("Computing interval image of the current region.")
     set_option(rational_to_decimal=False)
     
-    print("Convert region to ppl polyhedra, for the interval image computation")
-    print("currentRegionCons = ", currentRegionCons)
+    # print("Convert region to ppl polyhedra, for the interval image computation")
+    # print("currentRegionCons = ", currentRegionCons)
     
     
     # z3Cons = ""
@@ -1529,7 +1531,7 @@ def refineAndCheckCollisionValidity2(intersectionRegionConZ3,dnnOutput, triangle
     
         input_string = str(c)
         if input_string.startswith("And(") and input_string.endswith(")"):
-            print("The string starts with 'And(' and ends with ')'")
+            # print("The string starts with 'And(' and ends with ')'")
             trimmed_string = input_string[4:-1]  # Remove "And(" and the final ")"
             input_string = trimmed_string
             
@@ -1551,7 +1553,7 @@ def refineAndCheckCollisionValidity2(intersectionRegionConZ3,dnnOutput, triangle
         z3ConsList.extend(elements)
 
     # z3ConsList = z3Cons.split(",") 
-    print("z3ConsList = ", z3ConsList)
+    # print("z3ConsList = ", z3ConsList)
     updateExp = []    
 
    
@@ -1831,7 +1833,7 @@ def refineAndCheckCollisionValidity2(intersectionRegionConZ3,dnnOutput, triangle
 
                         # print("cornerPointsOfProjection = ", cornerPointsOfProjection)
                         # print("nextRegionMinMaxValues = ", nextRegionMinMaxValues)
-                        print("going to call the refineandcheck function")
+                        # print("going to call the refineandcheck function")
                       
 
                         constraintToPassString = str(currSplitRegionPd.minimized_constraints())
@@ -1934,7 +1936,8 @@ def refineAndCheckCollisionValidity2(intersectionRegionConZ3,dnnOutput, triangle
                         #     else:
                         #         print("Small cube has some non matching dnn output")
                     else:
-                        print("small cube is outside the intersection region.")
+                        # print("small cube is outside the intersection region.")
+                        pass
     
     
     return 10                   
@@ -1982,7 +1985,7 @@ def handleMultipleLevelOfRefinement(triangle):
         # print("len of dataToFromProcessing = ", len(dataFromProcessing)) 
         for i in range(0,len(dataFromProcessing)):
             currFileDataToBackTrack = dataFromProcessing[i]
-            print("currFileDataToBackTrack = ", currFileDataToBackTrack)
+            # print("currFileDataToBackTrack = ", currFileDataToBackTrack)
             
             currGroupToBacktrackName = currFileDataToBackTrack[4]
             
@@ -2334,7 +2337,7 @@ def checkValidityOfCollision(currGroup, triangle,currRegionPPL,dnnOutput,pd5):
     # handleMultipleLevelOfRefinement(triangle)
     # print("Skipping Handle multilevel")
 
-    print("time taken @end ", datetime.now()-validityCheckStartTime)
+    # print("time taken @end ", datetime.now()-validityCheckStartTime)
     if isValidCollision == 1:
         # print("True collision detected !!!!!!!")
         return 1, intersectionRegionConZ3

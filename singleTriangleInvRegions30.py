@@ -3559,7 +3559,7 @@ def computePixelIntervals(currGroupName, currGroupRegionCons, fromSplitRegion=0)
             
             # allGlobalIntervalImages.append(globalIntervalImage)
     # exit()
-    print(numberOfreg)
+    # print(numberOfreg)
     
     # print("Dictionary of triangle interval images: ", dictionaryOfTriangleIntervalImages)
     # print("Interval Image Generated.")
@@ -3567,6 +3567,31 @@ def computePixelIntervals(currGroupName, currGroupRegionCons, fromSplitRegion=0)
     # exit()
     # generateGlobalIntervalImageFromTriangleIntImages(dictionaryOfTriangleIntervalImages, globalIntervalImage)
     # print("global IntervalImage = ", globalIntervalImage)
+    
+    s20 = Solver()
+    set_param('parallel.enable', True)
+    set_option(rational_to_decimal=True)
+    set_option(precision=1000)
+    set_param('parallel.enable', True)
+    s20.set("sat.local_search_threads", 28)
+    s20.set("sat.threads", 28)
+    
+    s20.add(simplify(currGroupRegionCons))
+    s20.check()
+    m20 = s20.model()
+    # print(m)
+    # sleep(1)
+    posXp2 = (eval("m20[xp0].numerator_as_long()/m20[xp0].denominator_as_long()"))
+    posYp2 = (eval("m20[yp0].numerator_as_long()/m20[yp0].denominator_as_long()"))
+    posZp2 = (eval("m20[zp0].numerator_as_long()/m20[zp0].denominator_as_long()"))
+
+
+    
+    
+   
+    pythonRenderAnImage2.renderAnImage(posXp2,posYp2,posZp2,"testImage1")
+    
+    iisc_net_dnnoutput = getDNNOutput_onnx("images/testImage1.ppm",environment.networkName)
     
     # print("Preparing final Interval Image")
     
@@ -3585,7 +3610,7 @@ def computePixelIntervals(currGroupName, currGroupRegionCons, fromSplitRegion=0)
    
     
     # print("Generate vnnlb files")
-    generateVnnlbPropertyfile.generate_vnnlib_files2(finalGlobalIntervalImage)
+    generateVnnlbPropertyfile.generate_vnnlib_files3(finalGlobalIntervalImage)
     # print("VNNLIB files generated")
     
 
@@ -3769,30 +3794,7 @@ def computePixelIntervals(currGroupName, currGroupRegionCons, fromSplitRegion=0)
     #original code
     
     
-    s20 = Solver()
-    set_param('parallel.enable', True)
-    set_option(rational_to_decimal=True)
-    set_option(precision=1000)
-    set_param('parallel.enable', True)
-    s20.set("sat.local_search_threads", 28)
-    s20.set("sat.threads", 28)
     
-    s20.add(simplify(currGroupRegionCons))
-    s20.check()
-    m20 = s20.model()
-    # print(m)
-    # sleep(1)
-    posXp2 = (eval("m20[xp0].numerator_as_long()/m20[xp0].denominator_as_long()"))
-    posYp2 = (eval("m20[yp0].numerator_as_long()/m20[yp0].denominator_as_long()"))
-    posZp2 = (eval("m20[zp0].numerator_as_long()/m20[zp0].denominator_as_long()"))
-
-
-    
-    
-   
-    pythonRenderAnImage2.renderAnImage(posXp2,posYp2,posZp2,"testImage1")
-    
-    iisc_net_dnnoutput = getDNNOutput_onnx("images/testImage1.ppm",environment.networkName)
     # print("iisc net output = ", iisc_net_dnnoutput)
     # print("deeppoly outputs = ",deepPolyOutputs)
   

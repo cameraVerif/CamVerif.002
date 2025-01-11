@@ -1,9 +1,9 @@
 
 
 
-numOfTriangles = 4*4+50# 290+4*4 # 290 # 4+1+1
-numOfVertices = 4*6+(50*3)#+6*4# 290*3 # 6+3+3
-numOfEdges =  4*9+(50*3)#+9*4 #290*3# 9+3+3
+numOfTriangles = 4*4+0# 290+4*4 # 290 # 4+1+1
+numOfVertices = 4*6+(0*3)#+6*4# 290*3 # 6+3+3
+numOfEdges =  4*9+(0*3)#+9*4 #290*3# 9+3+3
 
 
 vertices = [

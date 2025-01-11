@@ -1,5 +1,5 @@
-Program Started project2 2025-01-08 17:05:20.441813
-number of edges = 186And(10*xp0 >= 1,
+Program Started project2 2025-01-11 12:05:33.719598
+number of edges = 36And(10*xp0 >= 1,
     100*xp0 <= 11,
     10*yp0 >= 45,
     100*yp0 <= 451,

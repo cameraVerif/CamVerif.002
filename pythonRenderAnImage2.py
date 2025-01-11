@@ -1869,7 +1869,7 @@ def computeScreenCoordinates():
 def renderAnImage(xp, yp, zp, currImage): 
     frameBuffer.clear()
     depthBuffer.clear()    
-    computeScreenCoordinates()  
+    # computeScreenCoordinates()  
     # renderATriangle(6,0.1,4.5,194.5)
     # renderATriangle(2,0.1,4.5,194.5)
     
@@ -1983,6 +1983,7 @@ def renderAnImage(xp, yp, zp, currImage):
     #         tempFile.write(str(25)+str("\n"))
     #         tempFile.write(str(24)+str("\n"))
     tempFile =  open("defaultPPM.txt","w")
+    environment.defaultImg.clear()
     for i in range(0, imageWidth * imageHeight):
         if frameBuffer.get(i):
             # print(i)

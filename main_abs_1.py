@@ -158,8 +158,6 @@ loopCount = 1
 targetReachCount = 0
 alreadyProcessedCount = 0
 
-# for pre, fill, node in anytree.RenderTree(environment.A):
-#     print("%s%s" % (pre, node.name))
 
 
 # print("current stack : ", environment.absStack)
@@ -168,8 +166,7 @@ whileLoopCount = 1
 while (environment.absStack):
    
     # print("while loop count = ", whileLoopCount)
-    for pre, fill, node in anytree.RenderTree(environment.A):
-        print("%s%s" % (pre, node.name))
+    
     
     whileLoopCount += 1
 
