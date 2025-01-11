@@ -279,14 +279,7 @@ def generate_vnnlib_files3(finalGlobalIntervalImage):
         if finalGlobalIntervalImage.get(i):
             # print(i*3," ==> ", globalIntervalImage[i])
                     
-            tempString += "(assert (>= X_"+str(i*3+0)+" "+str(min(rD/255,finalGlobalIntervalImage[i][0]/255))+"))\n"
-            tempString += "(assert (<= X_"+str(i*3+0)+" "+str(max(rD/255,finalGlobalIntervalImage[i][1]/255))+"))\n"
-            
-            tempString += "(assert (>= X_"+str(i*3+1)+" "+str(min(gD/255,finalGlobalIntervalImage[i][2]/255))+"))\n"
-            tempString += "(assert (<= X_"+str(i*3+1)+" "+str(max(gD/255,finalGlobalIntervalImage[i][3]/255))+"))\n"
-            
-            tempString += "(assert (>= X_"+str(i*3+2)+" "+str(min(bD/255,finalGlobalIntervalImage[i][4]/255))+"))\n"
-            tempString += "(assert (<= X_"+str(i*3+2)+" "+str(max(bD/255,finalGlobalIntervalImage[i][5]/255))+"))\n"
+           
             
             tempList.append(min(rD,finalGlobalIntervalImage[i][0]))
             tempList.append(max(rD,finalGlobalIntervalImage[i][1]))
@@ -296,15 +289,7 @@ def generate_vnnlib_files3(finalGlobalIntervalImage):
             tempList.append(max(bD,finalGlobalIntervalImage[i][5]))
             
         else:
-            tempString += "(assert (>= X_"+str(i*3+0)+" "+str(min(rD/255,1/255))+"))\n"
-            tempString += "(assert (<= X_"+str(i*3+0)+" "+str(max(rD/255,1/255))+"))\n"
-            
-            tempString += "(assert (>= X_"+str(i*3+1)+" "+str(min(gD/255,25/255))+"))\n"
-            tempString += "(assert (<= X_"+str(i*3+1)+" "+str(max(gD/255,25/255))+"))\n"
-            
-            tempString += "(assert (>= X_"+str(i*3+2)+" "+str(min(bD/255,24/255))+"))\n"
-            tempString += "(assert (<= X_"+str(i*3+2)+" "+str(max(bD/255,24/255))+"))\n"
-            
+           
             
             tempList.append(min(rD,1))
             tempList.append(max(rD,1))
@@ -363,34 +348,6 @@ def generate_vnnlib_files3(finalGlobalIntervalImage):
     # f0.close()  
         
         
-    
-    f = open("prop_y0.vnnlb", "w")
-    f.write(tempString)
-
-    tempString2 = "(assert (or\n"
-    tempString2 += " (and (>= Y_0 Y_1) (>= Y_0 Y_2))))"
-    f.write(tempString2)
-    f.close()   
-
-    # print("(assert (or")
-    # print(" (and (>= Y_0 Y_1) (>= Y_0 Y_2))))")   
-        
-    f = open("prop_y1.vnnlb", "w")
-    f.write(tempString)
-    tempString2 = "(assert (or\n"
-    tempString2 += " (and (>= Y_1 Y_0) (>= Y_1 Y_2))))"
-    f.write(tempString2)
-    f.close()  
-
-    f = open("prop_y2.vnnlb", "w")
-    f.write(tempString)
-    tempString2 = "(assert (or\n"
-    tempString2 += " (and (>= Y_2 Y_0) (>= Y_2 Y_1))))"
-    f.write(tempString2)
-    f.close()  
-
-    del tempString2
-    del tempString
     
 
 
