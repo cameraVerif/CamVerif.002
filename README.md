@@ -134,7 +134,7 @@ imageWidth = 1920 #pixels
 imageHeight = 1080 #pixels
 ```
 
-- The `imgName.txt` file stores the actual integer values of each pixel corresponding to the generated `imgName.ppm` file.
+- The `imgName.txt` file stores the actual values of each pixel corresponding to the generated `imgName.ppm` file.
 ---------------------------------------------------------------------------------------
 
 Compute Interval Image
