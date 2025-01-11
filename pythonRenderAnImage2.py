@@ -2012,45 +2012,8 @@ def renderAnImage(xp, yp, zp, currImage):
 # renderAnImage(50,4.5,198.5,"test")
 
 
+    
 
-# import cv2
-# import onnx
-# import onnxruntime
-# import sys
-# 
-# def getDNNOutput_onnx(inputImage,networkName):
-#     # dnnOutput = 1
-#     # model = onnx.load(networkName)
-
-#     image = cv2.imread(inputImage)    
-#     image = cv2.resize(image, (49, 49)).copy()
-#     np.set_printoptions(threshold=sys.maxsize)
-#     # print("\n\n")
-    
-#     # print(image)
-    
-#     # print("\n------------\n")
-
-#     if networkName == "iisc_net1.onnx":
-#         a, b, c = image.shape
-#         image = image.reshape(1, c,b,a)
-#         # print(image.shape)
-#     else:
-#         a, b, c = image.shape
-#         image = image.reshape(1, a,b,c)
-#         # print(image.shape)
-#         # 
-
-#     image = image.astype(np.float32) / 255.0
-#     # image2 = tf.convert_to_tensor(image)
-    
-#     # print("\n\n")
-    
-#     # print(image)
-    
-#     # print("\n\n")
-    
-#     # exit()
     
 
 #     session = onnxruntime.InferenceSession(networkName)
