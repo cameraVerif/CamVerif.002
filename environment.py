@@ -12,7 +12,7 @@ global dnnOutput, imagesMap, numOfVertices, vertices, numOfTriangles, nvertices,
         collisionCheckStartTriangle, pplSingleImageConstraintOutput,grpCubePoses,\
         x0,x1,y0,y1,z0,z1, intiFrusCons, initCubeCon, randomLoopLimit,numOfEdges,\
         canvasWidth, canvasHeight, focalLength,t,b,l,r,n,f,imageCons,groupRegionConsPPL,\
-        groupCube,allInSameGrp,groupCubeZ3, targetRegionPolyhedron, \
+        groupCube,allInSameGrp,groupCubeZ3, targetRegionPolyhedron, defaultImg, \
         groupCubePostRegion,z3timeout,absStack, splitRegionPd, splitCount,spuriousCollisionCount,\
         imageWidth, imageHeight, depthOfTheInitialCube, A, numberOfSplit,refineCountNew,\
 midPoints, processedMidPoints, spuriousCollisionData, vertColours, totalNumRefinment, networkName, netInterpreterPath
@@ -21,6 +21,7 @@ imagesMap = dict()
 imageGroup = dict()
 imageCons = dict()
 imagePos = dict()
+defaultImg = dict()
 groupRegionConsPPL = dict()
 groupCube = dict()
 groupCubeZ3 = dict()

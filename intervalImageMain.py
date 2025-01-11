@@ -16,7 +16,7 @@ import pythonRenderAnImage2
 import singleTriangelInvRegionZ3_2
 # import eran_master.tf_verify.interval_image_translator_2habeeb as deepPoly
 # import interval_image_translator_3habeeb
-# import anytree
+import anytree
 import os
 import sys
 import itertools
@@ -25,13 +25,13 @@ import ast
 
 from collections import Counter
 
-# import tensorflow as tf
-# import pandas as pd
-# import matplotlib.pyplot as plt
-# from tensorflow.keras import datasets, layers, models
-# import numpy as np
-# import cv2 
-# from tensorflow.keras.models import load_model
+import tensorflow as tf
+import pandas as pd
+import matplotlib.pyplot as plt
+from tensorflow.keras import datasets, layers, models
+import numpy as np
+import cv2 
+from tensorflow.keras.models import load_model
 
 #import gurobiGetDepths2
 import gurobiGetDepths4
@@ -42,11 +42,11 @@ import singleTriangleFunctions1
 import oldInvComputation1
 # import oldInvRegionSolver
 
-# import cv2
-# import onnx
-# import onnxruntime
+import cv2
+import onnx
+import onnxruntime
 
-# from onnx import numpy_helper
+from onnx import numpy_helper
 
 posZp100 = -1000 
 
@@ -3164,7 +3164,11 @@ def computeTriangleInvariantRegions2(currTriangle,currGroupName, currGroupRegion
             scheck2.add(And(xp0 ==m[xp0], yp0 == m[yp0], zp0 == m[zp0]))
             if(scheck2.check() != sat):                
                 # sleep(3)
-                continue             
+                continue
+        
+             
+            
+            
             
             fA = 1
             
@@ -3196,29 +3200,46 @@ def computeTriangleInvariantRegions2(currTriangle,currGroupName, currGroupRegion
 
             else:                
                
-                #######The following code can be removed in the final code
                 eFile = open("ErrorLog.txt","a")
                 eFile.write("Error in finding the region for the triangle "+str(currTriangle)+"\n")
                 eFile.write("Current position = "+str(posXp)+", "+str(posYp)+", "+str(posZp)+"\n")
                 eFile.write("Current consOfReg = "+str(consOfReg)+"\n")
                 eFile.close()
-                nmBound = 0.00001                
+
+                nmBound = 0.0001
+                
                 consOfReg2 =   str(posXp-nmBound) +"<=xp0, xp0<="+ str(posXp+nmBound)+"," \
                     + str(posYp-nmBound) +"<=yp0, yp0<="+ str(posYp+nmBound)+"," \
-                    + str(posZp-nmBound) +"<=zp0, zp0<="+ str(posZp+nmBound)                
-                currImageSetCons = eval("And("+str(consOfReg2)+")")               
+                    + str(posZp-nmBound) +"<=zp0, zp0<="+ str(posZp+nmBound)
+                
+                currImageSetCons = eval("And("+str(consOfReg2)+")")
+               
                 s2.add(Not(currImageSetCons))  
                 intervalImageFunctions1.updateSingleIntervalImage(currTriangleIntervalImage,  currTriangle, minmaxDepths, centerPointImage)
                 tempConsString = consOfReg2
 
 
                 # sleep(5) 
-                # break           
+                # break
+            
+
+            
+       
+            
             set_param('parallel.enable', True)
             s2.set("sat.local_search_threads", 28)
             s2.set("sat.threads", 28)
             # break
-       
+
+
+
+
+                       
+            
+            
+          
+
+             
         currImageSetConString = tempConsString
         
         if fA ==1:
@@ -3237,7 +3258,7 @@ def computeTriangleInvariantRegions2(currTriangle,currGroupName, currGroupRegion
                 mindepth = gurobiGetDepths4.getDepthInterval(currImageSetConString,vert_x,vert_y,vert_z, currGroupRegionCons )
                 mindepth = math.sqrt(mindepth)
                 
-                maxdepth = mindepth + environment.depthOfTheInitialCube ###it can be replaced with the gurobi maxdepth function
+                maxdepth = mindepth + environment.depthOfTheInitialCube
                 # print("mindepth, maxdepth =", mindepth,maxdepth)
                 
                 depthInformation[dataToComputeDepth[inVert][3]] = [inVert, mindepth,maxdepth]
@@ -3253,7 +3274,7 @@ def computeTriangleInvariantRegions2(currTriangle,currGroupName, currGroupRegion
                 #                                                         currGroupRegionCons,edgeVertexIndices, currTriangleVertices)
                                                                         
                 mindepth = math.sqrt(mindepth)                                                        
-                maxdepth = mindepth + environment.depthOfTheInitialCube ###can use gurobi here also, to get more accurate max depth
+                maxdepth = mindepth + environment.depthOfTheInitialCube
                 
                 if mindepth == 0:
                     maxdepth = 1000
@@ -3315,19 +3336,18 @@ def computeTriangleInvariantRegions2(currTriangle,currGroupName, currGroupRegion
         
     
         
-        if numberOfInvRegions > environment.depthOfTheInitialCube*10000:            
+        if numberOfInvRegions > 99:            
             # print("Current Triangle = "+str(currTriangle))
-           
+            eFile = open("ErrorLog.txt","a")
+            eFile.write("more that 100 inv regions for "+str(currTriangle)+"\n")
+            eFile.write("Current position = "+str(posXp)+", "+str(posYp)+", "+str(posZp)+"\n")
+            # eFile.write("Current consOfReg = "+str(consOfReg)+"\n")
+            eFile.close()
             scale = math.pow(10,10)#
             s2.add(xp0 * scale == ToInt(xp0 * scale))
             s2.add(yp0 * scale == ToInt(yp0 * scale))
             s2.add(zp0 * scale == ToInt(zp0 * scale))
-        if numberOfInvRegions > environment.depthOfTheInitialCube*10000 + 5:
-            eFile = open("ErrorLog.txt","a")
-            eFile.write("more inv regions for "+str(currTriangle)+"\n")
-            eFile.write("Current position = "+str(posXp)+", "+str(posYp)+", "+str(posZp)+"\n")
-            # eFile.write("Current consOfReg = "+str(consOfReg)+"\n")
-            eFile.close()
+        if numberOfInvRegions > 100:
             s2.add(Not(currGroupRegionCons))
             # exit()
             # break
@@ -3431,7 +3451,21 @@ def computePixelIntervals(currGroupName, currGroupRegionCons, fromSplitRegion=0)
 
 
     numberOfreg = [0]*environment.numOfTriangles
- 
+    # for i in range(0, 2):  
+    # for i in range(0, 200): 
+    
+    # for i in [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14
+    #           ,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29
+    #           ,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44
+    #           ,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59
+    #           ,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74
+    #           ,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89
+    #           ,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104
+    #           ,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119
+    #           ,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135
+    #           ,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151
+    #           ,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167
+    #           ]:
 
 
     s100 = Solver()
@@ -3442,6 +3476,29 @@ def computePixelIntervals(currGroupName, currGroupRegionCons, fromSplitRegion=0)
     global posZp100
     posZp100 = (eval("m100[zp0].numerator_as_long()/m100[zp0].denominator_as_long()"))
     # print("posZP100", posZp100)
+
+    s20 = Solver()
+    set_param('parallel.enable', True)
+    set_option(rational_to_decimal=True)
+    set_option(precision=1000)
+    set_param('parallel.enable', True)
+    s20.set("sat.local_search_threads", 28)
+    s20.set("sat.threads", 28)
+    s20.add(simplify(currGroupRegionCons))
+    s20.check()
+    m20 = s20.model()
+    # print(m)
+    # sleep(1)
+    posXp2 = (eval("m20[xp0].numerator_as_long()/m20[xp0].denominator_as_long()"))
+    posYp2 = (eval("m20[yp0].numerator_as_long()/m20[yp0].denominator_as_long()"))
+    posZp2 = (eval("m20[zp0].numerator_as_long()/m20[zp0].denominator_as_long()"))
+    pythonRenderAnImage2.renderAnImage(posXp2,posYp2,posZp2,"testImage1")
+    
+   
+    
+    
+
+
 
 
 
@@ -3489,12 +3546,52 @@ def computePixelIntervals(currGroupName, currGroupRegionCons, fromSplitRegion=0)
         if(numberOfreg[i] > 0):
             updateGlobalIntervalImage2(i,numberOfreg[i])
         
-       
-           
+        # print("\ndone, numberOfreg[i] : ", numberOfreg[i])
+        # sleep(2)
+        
+        # tempGlobal = []
+        # if numberOfreg[i] >0:
+        #     # print("Update global interval image")
+        #     # tempGlobal.append(globalIntervalImage.keys())
+            
+        #     # print(globalIntervalImage.keys())
+        #     # print(tempGlobal)
+            
+            
+            
+        #     updateGlobalIntervalImage(numberOfreg[i])
+        
+            # print("globalIntervalImage =", globalIntervalImage)
+            # print("global image befor check\n\n\n")
+            
+            
+            # print("\n\n checking key inclusion")
+            # # print(globalIntervalImage.keys())
+            # # print(tempGlobal)
+            # for key in globalIntervalImage.keys():
+            #     if key not in tempGlobal:
+            #         print(key)
+            #         print("\n")
+            
+            # print("\n\n checking key inclusion done")       
+            
+            # print(globalIntervalImage.keys())
+            
+            # allGlobalIntervalImages.append(globalIntervalImage)
+    # exit()
+    
     
     prepareFinalIntervalImage(globalIntervalImage)
     
+    # print("Final Interval Image = ", finalGlobalIntervalImage)
+    
    
+    
+   
+
+                                                                                                                            
+
+
 
    
     
@@ -3502,6 +3599,13 @@ def computePixelIntervals(currGroupName, currGroupRegionCons, fromSplitRegion=0)
     generateVnnlbPropertyfile.generate_vnnlib_files2(finalGlobalIntervalImage)
     # print("VNNLIB files generated")
     
+
+    
+    
+    
+   
+
+
 currAbsGroupName = "A_"
 currAbsGroupRegionCons = environment.initCubeCon
 

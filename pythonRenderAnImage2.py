@@ -1821,7 +1821,46 @@ def renderATriangle(currTriangle,xp, yp,zp):
         #     currTriangle, currTriangleIntervalImage, currImageColours)
         # # print("Current Triangle Interval Image = ", currTriangleIntervalImage)
         
+def computeScreenCoordinates():
+    filmAspectRatio = filmApertureWidth / filmApertureHeight
+    deviceAspectRatio = imageWidth / imageHeight
+
+    nearClippingPlane = environment.n
+    farClippingPlane = environment.f
+    
+    top = ((filmApertureHeight * inchToMm / 2) / focalLength) * nearClippingPlane
+    right = ((filmApertureWidth * inchToMm / 2) / focalLength) *  nearClippingPlane
+    
+    xscale = 1
+    yscale = 1
+    
+    # case kOverscan:
+    if (filmAspectRatio > deviceAspectRatio):
+        yscale = filmAspectRatio / deviceAspectRatio
+    else:
+        xscale = deviceAspectRatio / filmAspectRatio;
+         
+    right *= xscale;
+    top *= yscale;
+    
+    bottom = -top;
+    left = -right;
+    
+    t = top
+    r = right
+    b = bottom
+    l = left
         
+    n = nearClippingPlane
+    f = farClippingPlane
+    global mProj   
+    mProj = [
+        [2 * n / (r - l), 0, 0, 0],
+        [0,2 * n / (t - b),0,0],
+        [(r + l) / (r - l), (t + b) / (t - b), -(f + n) / (f - n), -1 ],
+        [0,0,-2 * f * n / (f - n),0]
+    ]
+            
 
     
 
@@ -1829,7 +1868,8 @@ def renderATriangle(currTriangle,xp, yp,zp):
 
 def renderAnImage(xp, yp, zp, currImage): 
     frameBuffer.clear()
-    depthBuffer.clear()      
+    depthBuffer.clear()    
+    computeScreenCoordinates()  
     # renderATriangle(6,0.1,4.5,194.5)
     # renderATriangle(2,0.1,4.5,194.5)
     
@@ -1931,17 +1971,33 @@ def renderAnImage(xp, yp, zp, currImage):
         image.tofile(f)
     # print("Rendering Done")
 
-    tempFile =  open("imagePPM.txt","w")
+    # tempFile =  open("imagePPM.txt","w")
+    # for i in range(0, imageWidth * imageHeight):
+    #     if frameBuffer.get(i):
+    #         # print(i)
+    #         tempFile.write(str(frameBuffer[i][0])+str("\n"))
+    #         tempFile.write(str(frameBuffer[i][1])+str("\n"))
+    #         tempFile.write(str(frameBuffer[i][2])+str("\n"))
+    #     else:
+    #         tempFile.write(str(1)+str("\n"))
+    #         tempFile.write(str(25)+str("\n"))
+    #         tempFile.write(str(24)+str("\n"))
+    tempFile =  open("defaultPPM.txt","w")
     for i in range(0, imageWidth * imageHeight):
         if frameBuffer.get(i):
             # print(i)
-            tempFile.write(str(frameBuffer[i][0])+str("\n"))
-            tempFile.write(str(frameBuffer[i][1])+str("\n"))
-            tempFile.write(str(frameBuffer[i][2])+str("\n"))
+            tempFile.write(str(max(0, min(255, abs(frameBuffer[i][0]))))+str("\n"))
+            tempFile.write(str(max(0, min(255, abs(frameBuffer[i][1]))))+str("\n"))
+            tempFile.write(str(max(0, min(255, abs(frameBuffer[i][2]))))+str("\n"))
+            environment.defaultImg[i] = [max(0, min(255, abs(frameBuffer[i][0]))),
+                                         max(0, min(255, abs(frameBuffer[i][1]))),
+                                         max(0, min(255, abs(frameBuffer[i][2])))]
         else:
             tempFile.write(str(1)+str("\n"))
             tempFile.write(str(25)+str("\n"))
             tempFile.write(str(24)+str("\n"))
+            environment.defaultImg[i] = [1,25,24]
+
 
 
 # # renderAnImage(0.1,4.5,120.5,"test")
