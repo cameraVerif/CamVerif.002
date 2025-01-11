@@ -4,6 +4,10 @@
   "Using experimental implementation that allows 'batch_size > 1'."
 /home/habeeb/anaconda3/envs/abc_iisc/lib/python3.7/site-packages/torch/nn/functional.py:749: UserWarning: Note that order of the arguments: ceil_mode and return_indices will changeto match the args list in nn.MaxPool2d in a future release.
   warnings.warn("Note that order of the arguments: ceil_mode and return_indices will change"
+/home/habeeb/anaconda3/envs/abc_iisc/lib/python3.7/site-packages/onnx2pytorch/operations/reshape.py:36: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  if (shape[0] == 1 and (len(shape) == 4 or len(shape) == 2)
+/home/habeeb/anaconda3/envs/abc_iisc/lib/python3.7/site-packages/onnx2pytorch/operations/reshape.py:55: TracerWarning: Iterating over a tensor might cause the trace to be incorrect. Passing a tensor of different shape won't change the number of iterations executed (and might lead to errors or silently give incorrect results).
+  shape = [x if x != 0 else input.size(i) for i, x in enumerate(shape)]
 Configurations:
 
 general:
@@ -184,14 +188,13 @@ attack:
 debug:
   lp_test: null
 
-Experiments at Sat Jan 11 12:07:52 2025 on habeeb-Lenovo-IdeaPad-S540-15IML-D
+Experiments at Sat Jan 11 13:46:07 2025 on habeeb-Lenovo-IdeaPad-S540-15IML-D
 Internal results will be saved to abc_out_y2.txt.
 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 0, vnnlib ID: 0 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Using onnx OGmodel_pb_converted.onnx
 Using vnnlib prop_y2.vnnlb
-.compiled file md5: 1aa51f602fcac1abe65968609e5658ab does not match the current vnnlib md5: 27e031507bbc1456069969f08563ab85. Regenerating...
-7203 inputs and 3 outputs in vnnlib
+Precompiled vnnlib file found at prop_y2.vnnlb.compiled
 Loading onnx OGmodel_pb_converted.onnx wih quirks {}
 model converted
 ConvertModel(
@@ -213,14 +216,54 @@ ConvertModel(
 )
 Attack parameters: initialization=uniform, steps=100, restarts=30, alpha=0.07449999451637268, initialization=uniform, GAMA=False
 Model output of first 5 examples:
- tensor([[-7.25225115,  6.73018408, -0.08534458]])
-pgd early stop
+ tensor([[-6.84264946,  6.13979721,  0.37836063]])
 Adv example prediction (first 2 examples and 2 restarts):
- tensor([[[-3.98040199,  1.73166609,  2.24226046]]])
+ tensor([[[-6.58054447,  5.58051491,  0.68812424]]])
 PGD attack margin (first 2 examles and 10 specs):
- tensor([[[-6.22266245, -0.51059437]]])
-number of violation:  2
-Attack finished in 0.1020 seconds.
-PGD attack succeeded!
-Result: sat
-Time: 0.21388006210327148
+ tensor([[[-7.26866865,  4.89239073]]])
+number of violation:  1
+Attack finished in 4.1734 seconds.
+PGD attack failed
+Total VNNLIB file length: 1, max property batch size: 1, total number of batches: 1
+
+Properties batch 0, size 1
+Remaining timeout: 355.78330516815186
+##### Instance 0 first 10 spec matrices: [[[ 1.  0. -1.]
+  [ 0.  1. -1.]]]
+thresholds: [0. 0.] ######
+Model prediction is: tensor([-6.84264898,  6.13979721,  0.37836063])
+Traceback (most recent call last):
+  File "/home/habeeb/project2/alpha-beta-CROWN-mainfromLap/complete_verifier/abcrown.py", line 652, in <module>
+    main()
+  File "/home/habeeb/project2/alpha-beta-CROWN-mainfromLap/complete_verifier/abcrown.py", line 575, in main
+    refined_betas=refined_betas, attack_images=all_adv_candidates, attack_margins=attack_margins)
+  File "/home/habeeb/project2/alpha-beta-CROWN-mainfromLap/complete_verifier/abcrown.py", line 406, in complete_verifier
+    rhs=rhs, timeout=timeout, attack_images=this_spec_attack_images)
+  File "/home/habeeb/project2/alpha-beta-CROWN-mainfromLap/complete_verifier/abcrown.py", line 209, in bab
+    timeout=timeout, refined_betas=refined_betas, rhs=rhs)
+  File "/home/habeeb/project2/alpha-beta-CROWN-mainfromLap/complete_verifier/batch_branch_and_bound.py", line 399, in relu_bab_parallel
+    domain, x, stop_criterion_func=stop_criterion(decision_thresh))
+  File "/home/habeeb/project2/alpha-beta-CROWN-mainfromLap/complete_verifier/beta_CROWN_solver.py", line 1069, in build_the_model
+    (self.x,), share_slopes=share_slopes, c=self.c, bound_upper=False)
+  File "/home/habeeb/project2/alpha-beta-CROWN-mainfromLap/complete_verifier/auto_LiRPA/optimized_bounds.py", line 1023, in init_slope
+    intermediate_layer_bounds=intermediate_layer_bounds)
+  File "/home/habeeb/project2/alpha-beta-CROWN-mainfromLap/complete_verifier/auto_LiRPA/bound_general.py", line 1321, in compute_bounds
+    self.check_prior_bounds(final)
+  File "/home/habeeb/project2/alpha-beta-CROWN-mainfromLap/complete_verifier/auto_LiRPA/bound_general.py", line 849, in check_prior_bounds
+    self.check_prior_bounds(n)
+  File "/home/habeeb/project2/alpha-beta-CROWN-mainfromLap/complete_verifier/auto_LiRPA/bound_general.py", line 849, in check_prior_bounds
+    self.check_prior_bounds(n)
+  File "/home/habeeb/project2/alpha-beta-CROWN-mainfromLap/complete_verifier/auto_LiRPA/bound_general.py", line 849, in check_prior_bounds
+    self.check_prior_bounds(n)
+  [Previous line repeated 9 more times]
+  File "/home/habeeb/project2/alpha-beta-CROWN-mainfromLap/complete_verifier/auto_LiRPA/bound_general.py", line 857, in check_prior_bounds
+    node.inputs[i], prior_checked=True)
+  File "/home/habeeb/project2/alpha-beta-CROWN-mainfromLap/complete_verifier/auto_LiRPA/bound_general.py", line 959, in compute_intermediate_bounds
+    unstable_size=unstable_size)
+  File "/home/habeeb/project2/alpha-beta-CROWN-mainfromLap/complete_verifier/auto_LiRPA/backward_bound.py", line 156, in backward_general
+    A, lower_b, upper_b = l.bound_backward(l.lA, l.uA, *l.inputs)
+  File "/home/habeeb/project2/alpha-beta-CROWN-mainfromLap/complete_verifier/auto_LiRPA/operators/shape.py", line 507, in bound_backward
+    return [(_bound_oneside(last_lA), _bound_oneside(last_uA))], 0, 0
+  File "/home/habeeb/project2/alpha-beta-CROWN-mainfromLap/complete_verifier/auto_LiRPA/operators/shape.py", line 505, in _bound_oneside
+    return last_A.permute(self.perm_inv_inc_one)
+AttributeError: 'Patches' object has no attribute 'permute'

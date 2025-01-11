@@ -1,4 +1,4 @@
-Program Started project2 2025-01-11 12:05:33.719598
+Program Started project2 2025-01-11 13:44:47.008479
 number of edges = 36And(10*xp0 >= 1,
     100*xp0 <= 11,
     10*yp0 >= 45,

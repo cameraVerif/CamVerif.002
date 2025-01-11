@@ -119,12 +119,11 @@ pd3.add_constraint(10*zp0>=1945)
 pd3.add_constraint(100*zp0<=19451)
 
 midPoints["A"] = [0.1,4.5,194.5] ##front left bottom corner of the  initial region, (anyone point from the region is enough)
+depthOfTheInitialCube = .01 ##in meters
+
 currentMidPoint = midPoints["A"]
 currentMidPointString = str(currentMidPoint[0])+"_"+str(currentMidPoint[1])+"_"+str(currentMidPoint[2])
 processedMidPoints[currentMidPointString] = "A"
-
-depthOfTheInitialCube = .01 ##in meters
-
 
 ######################target region #####################################
 ####################<<<<<<<<<<Modify the following constraint>>>>>>>>>>>>>>>>>>>>>####

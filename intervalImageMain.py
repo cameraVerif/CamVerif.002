@@ -3495,13 +3495,6 @@ def computePixelIntervals(currGroupName, currGroupRegionCons, fromSplitRegion=0)
     pythonRenderAnImage2.renderAnImage(posXp2,posYp2,posZp2,"testImage1")
     
    
-    
-    
-
-
-
-
-
     for i in range(0 , environment.numOfTriangles): 
     # for i in range(16 , environment.numOfTriangles): 
     # for i in [x for x in range(0,1)]: 
@@ -3541,6 +3534,7 @@ def computePixelIntervals(currGroupName, currGroupRegionCons, fromSplitRegion=0)
         #     continue
         # numberOfreg[i] = computeTriangleInvariantRegions(i,currGroupName, currGroupRegionCons)
         
+        # print(i)
         numberOfreg[i] = computeTriangleInvariantRegions2(i,currGroupName, currGroupRegionCons)
         
         if(numberOfreg[i] > 0):

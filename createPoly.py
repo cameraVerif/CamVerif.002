@@ -9,6 +9,6 @@ def getPoly():
     pd3.add_constraint(1*100*xp0<=11*1)
     pd3.add_constraint(1*2*yp0>=9*1)
     pd3.add_constraint(1*100*yp0<=451*1)
-    pd3.add_constraint(1*2*zp0>=369*1)
-    pd3.add_constraint(1*100*zp0<=18451*1)
+    pd3.add_constraint(1*2*zp0>=385*1)
+    pd3.add_constraint(1*100*zp0<=19251*1)
     return pd3
