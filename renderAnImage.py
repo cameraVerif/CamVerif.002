@@ -1892,9 +1892,9 @@ def renderAnImage(xp, yp, zp, currImage):
         f.write(bytearray(ppm_header, 'ascii'))
         image.tofile(f)
     
-    print("Image ", str(currImage)+".ppm saved successfully.")
     
-    tempFile =  open("defaultPPM.txt","w")
+    
+    tempFile =  open(str(currImage)+".txt","w")
     for i in range(0, imageWidth * imageHeight):
         if frameBuffer.get(i):
             # print(i)
@@ -1905,6 +1905,8 @@ def renderAnImage(xp, yp, zp, currImage):
             tempFile.write(str(1)+str("\n"))
             tempFile.write(str(25)+str("\n"))
             tempFile.write(str(24)+str("\n"))
+    print("Image ", str(currImage)+".ppm saved successfully.")
+    print("Image ", str(currImage)+".txt saved successfully.")
 
 
 # Defining main function
