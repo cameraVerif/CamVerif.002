@@ -3336,19 +3336,20 @@ def computeTriangleInvariantRegions2(currTriangle,currGroupName, currGroupRegion
         
     
         
-        if numberOfInvRegions > 99:            
+        if numberOfInvRegions > environment.depthOfTheInitialCube*10000:            
             # print("Current Triangle = "+str(currTriangle))
-            eFile = open("ErrorLog.txt","a")
-            eFile.write("more that 100 inv regions for "+str(currTriangle)+"\n")
-            eFile.write("Current position = "+str(posXp)+", "+str(posYp)+", "+str(posZp)+"\n")
-            # eFile.write("Current consOfReg = "+str(consOfReg)+"\n")
-            eFile.close()
+            
             scale = math.pow(10,10)#
             s2.add(xp0 * scale == ToInt(xp0 * scale))
             s2.add(yp0 * scale == ToInt(yp0 * scale))
             s2.add(zp0 * scale == ToInt(zp0 * scale))
-        if numberOfInvRegions > 100:
+        if numberOfInvRegions > (environment.depthOfTheInitialCube*10000)+20:
             s2.add(Not(currGroupRegionCons))
+            eFile = open("ErrorLog.txt","a")
+            eFile.write("more than expected inv regions for "+str(currTriangle)+"\n")
+            eFile.write("Current position = "+str(posXp)+", "+str(posYp)+", "+str(posZp)+"\n")
+            # eFile.write("Current consOfReg = "+str(consOfReg)+"\n")
+            eFile.close()
             # exit()
             # break
             # sleep(1)
