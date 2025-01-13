@@ -35,6 +35,10 @@ filmApertureHeight = 0.735
 imageWidth = 49 #pixels
 imageHeight = 49 #pixels
 
+
+# imageWidth = 1920
+# imageHeight = 1080
+
 focalLength = 35
 
 nearClippingPlane = 1

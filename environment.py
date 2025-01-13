@@ -12,7 +12,7 @@ global dnnOutput, imagesMap, numOfVertices, vertices, numOfTriangles, nvertices,
         collisionCheckStartTriangle, pplSingleImageConstraintOutput,grpCubePoses,\
         x0,x1,y0,y1,z0,z1, intiFrusCons, initCubeCon, randomLoopLimit,numOfEdges,\
         canvasWidth, canvasHeight, focalLength,t,b,l,r,n,f,imageCons,groupRegionConsPPL,\
-        groupCube,allInSameGrp,groupCubeZ3, targetRegionPolyhedron, defaultImg, \
+        groupCube,allInSameGrp,groupCubeZ3, targetRegionPolyhedron, defaultImg, initRegionPolyhedron, defIVImag, \
         groupCubePostRegion,z3timeout,absStack, splitRegionPd, splitCount,spuriousCollisionCount,\
         imageWidth, imageHeight, depthOfTheInitialCube, A, numberOfSplit,refineCountNew,\
 midPoints, processedMidPoints, spuriousCollisionData, vertColours, totalNumRefinment, networkName, netInterpreterPath
@@ -24,6 +24,7 @@ imagePos = dict()
 defaultImg = dict()
 groupRegionConsPPL = dict()
 groupCube = dict()
+defIVImag =dict()
 groupCubeZ3 = dict()
 groupCubePostRegion =dict()
 
@@ -124,6 +125,7 @@ depthOfTheInitialCube = .01 ##in meters
 currentMidPoint = midPoints["A"]
 currentMidPointString = str(currentMidPoint[0])+"_"+str(currentMidPoint[1])+"_"+str(currentMidPoint[2])
 processedMidPoints[currentMidPointString] = "A"
+initRegionPolyhedron = pd3
 
 ######################target region #####################################
 ####################<<<<<<<<<<Modify the following constraint>>>>>>>>>>>>>>>>>>>>>####
