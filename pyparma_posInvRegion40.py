@@ -2733,7 +2733,12 @@ def computeRegion(currGroupName, currZP, numberOfFullyInsideVertices, insideVert
     
     currImageName.startswith("split")
 
-    if(currImageName != "singlePosImage" and (not currImageName.startswith("split"))):
+    if currGroupName == "singleImagePosFinal":
+        currImageCube_ph.add_constraints(
+            environment.singleImagePolyh)
+        # print("singleImagePosFinal")
+
+    elif(currImageName != "singlePosImage" and (not currImageName.startswith("split"))):
         # print("pos from original computation")
         pathLength = currImageName.count('_')
         currImage_cubeName = ""
@@ -3709,7 +3714,11 @@ def computeRegion3(currGroupName, currZP, numberOfFullyInsideVertices, insideVer
     
     currImageName.startswith("split")
 
-    if(currImageName != "singlePosImage" and (not currImageName.startswith("split"))):
+    if currGroupName == "singleImagePosFinal":
+        currImageCube_ph.add_constraints(
+            environment.singleImagePolyh)
+        # print("singleImagePosFinal")
+    elif(currImageName != "singlePosImage" and (not currImageName.startswith("split"))):
         # print("pos from original computation")
         pathLength = currImageName.count('_')
         currImage_cubeName = ""

@@ -14,7 +14,7 @@ global dnnOutput, imagesMap, numOfVertices, vertices, numOfTriangles, nvertices,
         canvasWidth, canvasHeight, focalLength,t,b,l,r,n,f,imageCons,groupRegionConsPPL,\
         groupCube,allInSameGrp,groupCubeZ3, targetRegionPolyhedron, defaultImg, initRegionPolyhedron, defIVImag, \
         groupCubePostRegion,z3timeout,absStack, splitRegionPd, splitCount,spuriousCollisionCount,\
-        imageWidth, imageHeight, depthOfTheInitialCube, A, numberOfSplit,refineCountNew,\
+        imageWidth, imageHeight, depthOfTheInitialCube, A, numberOfSplit,refineCountNew,singleImagePolyh,\
 midPoints, processedMidPoints, spuriousCollisionData, vertColours, totalNumRefinment, networkName, netInterpreterPath
 dnnOutput = dict()
 imagesMap = dict()
@@ -159,6 +159,7 @@ groupCube["initCubeCon"] = pd3.minimized_constraints()
 groupCubePostRegion["initCubeCon"] = pd3.minimized_constraints()
 groupCubePostRegion["A"] = pd3.minimized_constraints()
 
+singleImagePolyh = pd3.minimized_constraints()
 z0 = 194.5 #dummy1
 z1 = 194.51 #dummy2
 
