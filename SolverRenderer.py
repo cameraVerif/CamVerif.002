@@ -364,10 +364,19 @@ def updateGlobalIntervalImage2(currTriangle,numOfRegions):
     # print("global IntervalImage = ", globalIntervalImage)
     
     for currPixel, currIntervals in currTrIntImage.items():
+
+        if currPixel == 6981/3:
+            print("pixel 6979")
+            print("currTriangle = ", currTriangle)
+            print("currData = ", currIntervals)
+            # sleep(2)
         # print(currPixel, ": ", currIntervals)
         if globalIntervalImage.get(currPixel):
             # print("pixel present in global image")
+            
             currData = globalIntervalImage[currPixel]
+
+            
             if(currIntervals[6] < currData[0][0]):
                 globalIntervalImage[currPixel][0][0] = min(currData[0][0], currIntervals[7])
                 globalIntervalImage[currPixel].append(currIntervals)
@@ -3259,7 +3268,7 @@ def computeTriangleInvariantRegions2(currTriangle,currGroupName, currGroupRegion
                 maxdepth = mindepth 
 
                 # print(vert_x, vert_y, vert_z)
-                # print("mindepth, maxdepth =", mindepth,maxdepth)
+                print("mindepth, maxdepth =", mindepth,maxdepth)
                 
                 depthInformation[dataToComputeDepth[inVert][3]] = [inVert, mindepth,maxdepth]
             # print("\n-------")
@@ -3277,10 +3286,10 @@ def computeTriangleInvariantRegions2(currTriangle,currGroupName, currGroupRegion
                 # maxdepth = mindepth + environment.depthOfTheInitialCube
                 maxdepth = mindepth 
                 
-                if mindepth == 0:
-                    maxdepth = 1000
+                # if mindepth == 0:
+                #     maxdepth = 1000
                 
-                # print("mindepth, maxdepth =", mindepth,maxdepth)
+                print("mindepth, maxdepth =", mindepth,maxdepth)
                 # sleep(20)          
                 
                 depthInformation[dataToComputeDepth[numberOfFullyInsideVertices+intVert][8]] = [numberOfFullyInsideVertices+intVert,
@@ -3480,7 +3489,26 @@ def computePixelIntervals(currGroupName, currGroupRegionCons, imgName, fromSplit
         image.tofile(f)
     
 
+    tempFile.close()
+    tempFile =  open("globalMax3.txt","w")
+
     
+    for i in range(0,imageWidth*imageHeight):
+        if finalGlobalIntervalImage.get(i):
+           
+
+            tempFile.write(str(max(0, min(255, abs(int(finalGlobalIntervalImage[i][1])))))+str("\n"))
+            tempFile.write(str(max(0, min(255, abs(int(finalGlobalIntervalImage[i][3])))))+str("\n"))
+            tempFile.write(str(max(0, min(255, abs(int(finalGlobalIntervalImage[i][5])))) )+str("\n"))
+
+       
+            
+        else:
+            tempFile.write(str(1)+str("\n"))
+            tempFile.write(str(25)+str("\n"))
+            tempFile.write(str(24)+str("\n"))
+
+    tempFile.close()
 
     print("Image ", str(currImage)+".ppm saved successfully.")
     print("Image ", str(currImage)+".txt saved successfully.")
@@ -3548,4 +3576,6 @@ def solver_rendrer():
     computePixelIntervals( "singleImagePosFinal", currRegionCons, imgName)
     print("Done")   
     
-   
+
+
+# solver_rendrer()

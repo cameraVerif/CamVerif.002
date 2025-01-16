@@ -7,5 +7,5 @@ def getPoly():
     pd3 = NNC_Polyhedron(3)
     pd3.add_constraint(10* xp0 == 1)
     pd3.add_constraint(2* yp0 == 9)
-    pd3.add_constraint(2* zp0 == 243)
+    pd3.add_constraint(100* zp0 == 19451)
     return pd3
