@@ -3479,7 +3479,7 @@ def computePixelIntervals(currGroupName, currGroupRegionCons, imgName, fromSplit
         f.write(bytearray(ppm_header, 'ascii'))
         image.tofile(f)
     
-    
+
     
 
     print("Image ", str(currImage)+".ppm saved successfully.")
