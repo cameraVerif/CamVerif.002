@@ -199,10 +199,17 @@ def drawTriangle(raster0,raster1,raster2,currTriangle,d0,d1,d2,d3,d4,d5, currTri
                 
                 
                 
-                r = w0 * currVertexColours[0][0]*255 + w1 * currVertexColours[1][0]*255 + w2 * currVertexColours[2][0]*255 
-                g = w0 * currVertexColours[0][1]*255 + w1 * currVertexColours[1][1]*255 + w2 * currVertexColours[2][1]*255
-                b = w0 * currVertexColours[0][2]*255 + w1 * currVertexColours[1][2]*255 + w2 * currVertexColours[2][2]*255
+                # r = w0 * currVertexColours[0][0]*255 + w1 * currVertexColours[1][0]*255 + w2 * currVertexColours[2][0]*255 
+                # g = w0 * currVertexColours[0][1]*255 + w1 * currVertexColours[1][1]*255 + w2 * currVertexColours[2][1]*255
+                # b = w0 * currVertexColours[0][2]*255 + w1 * currVertexColours[1][2]*255 + w2 * currVertexColours[2][2]*255
                 
+
+                r =  currVertexColours[0][0]*255 
+                g = currVertexColours[0][1]*255 
+                b =  currVertexColours[0][2]*255 
+
+
+
                 currMinDepth = v0MinDepth * w0 + v1MinDepth * w1 + v2MinDepth * w2
                 currMaxDepth = v0MaxDepth * w0 + v1MaxDepth * w1 + v2MaxDepth * w2
                
