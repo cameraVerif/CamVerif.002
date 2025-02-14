@@ -3610,7 +3610,7 @@ def computePixelIntervals(currGroupName, currGroupRegionCons, fromSplitRegion=0)
    
     
     # print("Generate vnnlb files")
-    generateVnnlbPropertyfile.generate_vnnlib_files3(finalGlobalIntervalImage)
+    generateVnnlbPropertyfile.generate_vnnlib_files2(finalGlobalIntervalImage)
     # print("VNNLIB files generated")
     
 
