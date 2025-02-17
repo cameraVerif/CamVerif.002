@@ -392,7 +392,7 @@ def drawTriangle2(pixelCoordinates, currVertexColours ):
                 w2 = w2 / area
                 oneOverZ = v0Raster[2] * w0 + v1Raster[2] * w1 + v2Raster[2] * w2
                 z = 1 / oneOverZ
-                z = oneOverZ
+                # z = oneOverZ
                 storeZasDepth = z
                 z = round(z,10)
                 # print("z = ",z)
