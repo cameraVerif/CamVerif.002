@@ -51,30 +51,13 @@ from onnx import numpy_helper
 posZp100 = -1000 
 
 
-testPosXp =0
-testPosYp =4.5
-testPosZp = 194.5
+
 
 globalIntervalImage = {}
 finalGlobalIntervalImage = dict()
 allGlobalIntervalImages = []
 currTriangleUniquePositions = 0
 edges = []
-
-no_of_vars = 100
-
-pVars = []
-aVars = []
-bVars = []
-cVars = []
-dVars = []
-
-for iii in range(no_of_vars):
-    pVars += [Real('p%d' % iii)]
-    aVars += [Real('a%d' % iii)]
-    bVars += [Real('b%d' % iii)]
-    cVars += [Real('c%d' % iii)]
-    dVars += [Real('d%d' % iii)]
 
 
 
@@ -1164,53 +1147,7 @@ def generateTrianglePosInvRegCons(numberOfFullyInsideVertices,insideVertexDetail
         
         
         
-        
-        # if planeId == 0 or planeId ==1:
-            # print("top/bottom")
-           
-            
-            # s3 = Solver()        
-            # s3.add(u+v+w+g == 1)
-            # s3.add(And(u >= 0, v >= 0,w>=0,g>=0))  
-            # s3.add(p+q == 1)
-            # s3.add(And(p>=0,q>=0)) 
-
-            
-            # s3.add( p*(vertices[insideVertex*3+0] -m[xp0]) + q*(vertices[outsideVertex*3+0] -m[xp0]) == (u*px0+v*px1+w*px2+g*px3 ))
-            # s3.add( p*(vertices[insideVertex*3+1] -m[yp0]) + q*(vertices[outsideVertex*3+1] -m[yp0]) == (u*py0+v*py1+w*py2+g*py3))
-            # s3.add( p*(vertices[insideVertex*3+2] -m[zp0]) + (q*vertices[outsideVertex*3+2] -m[zp0]) == (u*pz0+v*pz1+w*pz2+g*pz3))      
-                   
-            # newYPixel = Real('newYPixel')
-            # cons20 = "newYPixel == ((68.39567*(p*(vertices[insideVertex*3+1] -m[yp0]) + q*(vertices[outsideVertex*3+1] -m[yp0]))/(p*(vertices[insideVertex*3+2] -m[zp0]) + (q*vertices[outsideVertex*3+2] -m[zp0])))+24.5" 
-            # s3.add(eval(cons20))        
-            # print(s3.check())
-            # m3= s3.model()
-            # print(m3)
-            
-            # ypixel = m3[newYPixel]
-            
-    
-            
-        # elif planeId == 2 or planeId ==3:
-            # s3 = Solver()        
-            # s3.add(u+v+w+g == 1)
-            # s3.add(And(u >= 0, v >= 0,w>=0,g>=0))   
-            
-            # s3.add((vertices[insideVertex*3+0] -m[xp0]) + (vertices[outsideVertex*3+0] -m[xp0]) == (u*px0+v*px1+w*px2+g*px3 ))
-            # s3.add( (vertices[insideVertex*3+1] -m[yp0]) +(vertices[outsideVertex*3+1] -m[yp0]) == (u*py0+v*py1+w*py2+g*py3))
-            # s3.add( (vertices[insideVertex*3+2] -m[zp0]) +(vertices[outsideVertex*3+2] -m[zp0]) == (u*pz0+v*pz1+w*pz2+g*pz3))      
-            
-                   
-            # newXPixel = Real('newXPixel')
-            # cons20 = "newXPixel == ((-68.39567*(xv0))/(zv0))+24.5" 
-            # s3.add(eval(cons20))        
-            # print(s3.check())
-            # m3= s3.model()
-            # print(m3)
-            
-            # xpixel = m3[newXPixel]
-            
-                   
+      
             
         
            
@@ -1241,42 +1178,6 @@ def generateTrianglePosInvRegCons(numberOfFullyInsideVertices,insideVertexDetail
         
         
         
-        
-        
-        
-        
-       
-        # print("xpixel, ypixel, m ==> ", xpixel,ypixel, m)
-        #og
-        # cons1 =  "( (((-68.39567*(xl - xp0) )/ (zl-zp0) )+ 24.5 ) >= xpixel )"
-        # cons2 = "( (((-68.39567*(xl -xp0 ) )/ (zl -zp0) )+ 24.5 ) < xpixel+1 )"
-        # cons3 = "( (((68.39567*(yl -yp0) )/ (zl-zp0) )+ 24.5 ) >= ypixel )"
-        # cons4 =  "( (((68.39567*(yl -yp0) )/ (zl-zp0) )+ 24.5 ) < ypixel+1 )"
-        
-        
-        # cons1 =  "( (((-68.39567*(xl ) )/ (zl) )+ 24.5 ) >= xpixel )"
-        # cons2 = "( (((-68.39567*(xl  ) )/ (zl) )+ 24.5 ) < xpixel+1 )"
-        # cons3 = "( (((68.39567*(yl ) )/ (zl) )+ 24.5 ) >= ypixel )"
-        # cons4 =  "( (((68.39567*(yl ) )/ (zl) )+ 24.5 ) < ypixel+1 )"
-        
-        
-        # cons1 =  "( (((-68.39567*((p0*xv0+(1-p0)*xv1) - xp0) )/ ((p0*zv0+(1-p0)*zv1)-zp0) )+ 24.5 ) >= xpixel )"
-        # cons2 = "( (((-68.39567*((p0*xv0+(1-p0)*xv1) -xp0 ) )/ ((p0*zv0+(1-p0)*zv1) -zp0) )+ 24.5 ) < xpixel+1 )"
-        # cons3 = "( (((68.39567*((p0*yv0+(1-p0)*yv1) -yp0) )/ ((p0*zv0+(1-p0)*zv1)-zp0) )+ 24.5 ) >= ypixel )"
-        # cons4 =  "( (((68.39567*((p0*yv0+(1-p0)*yv1) -yp0) )/ ((p0*zv0+(1-p0)*zv1)-zp0) )+ 24.5 ) < ypixel+1 )"
-        
-        
-        # cons1 =  "( (-68.39567*(x - xp0)  + 24.5 * (z-zp0) ) >= xpixel *(z-zp0) )"
-        # cons2 = "(  (-68.39567*(x -xp0)  + 24.5 * (z-zp0) ) < (xpixel+1)*(z-zp0) )"
-        # cons3 = "(  (68.39567*(y -yp0) + 24.5 *(z-zp0) ) >= ypixel *(z-zp0) )"
-        # cons4 =  "( (68.39567*(y -yp0) + 24.5 * (z-zp0) ) < (ypixel+1) * (z-zp0) )"
-        
-        # s101 = Solver()
-        # s101.add(environment.initCubeCon)
-        # print(s101.check())
-        
-        # allCons = Exists(p0, And(eval(cons1), eval(cons2), eval(cons3), eval(cons4)))
-        # allCons = And(eval(cons1), eval(cons2), eval(cons3), eval(cons4))
         
         allCons = And(eval(cons1), eval(cons2), eval(cons3), eval(cons4))
         
@@ -1673,24 +1574,6 @@ def planeEdgeIntersectionUpdated(plane,insideVertex, outsideVertex,m, newCode = 
         # print("insideFraction  : ",insideFraction)
         # print("outsideFraction  : ",outsideFraction)
         intersectionPoint = [0,0,0,0]
-        # intersectionPoint[0] =  eval("(1- outsideFraction)*xv0+ outsideFraction*xv1")
-        # intersectionPoint[1] = eval("(1- outsideFraction)*yv0+ outsideFraction*yv1")
-        # intersectionPoint[2] = eval("(1- outsideFraction)*zv0+ outsideFraction*zv1")
-        # intersectionPoint[3] = eval("(1- outsideFraction)*wv0+ outsideFraction*wv1")
-        # intersectionPoint[0] = m2[p]*xv0+m2[q]*xv1
-        # intersectionPoint[1] = m2[p]*yv0+m2[q]*yv1
-        # intersectionPoint[2] = m2[p]*zv0+m2[q]*zv1
-        # intersectionPoint[3] = m2[p]*wv0+m2[q]*wv1
-        
-        
-        # print("intersection point  x : ", (str((1- outsideFraction)*eval(str(xv0))+ outsideFraction*eval(str(xv1)))))
-        # print("intersection point  y : ", (str((1- outsideFraction)*eval(str(yv0))+ outsideFraction*eval(str(yv1)))))
-        
-        # print("intersection point  z : ", (str((1- outsideFraction)*eval(str(zv0))+ outsideFraction*eval(str(zv1)))))
-        
-        # print("intersection point  w : ", (str((1- outsideFraction)*eval(str(wv0))+ outsideFraction*eval(str(wv1)))))
-        
-        # print(intersectionPoint)
         
         
         # print("Intersection points using mp and mq :", eval("m[p]")*eval("xv0")+eval("m[q]")*eval("xv1"))
@@ -1742,67 +1625,7 @@ def planeEdgeIntersectionUpdated(plane,insideVertex, outsideVertex,m, newCode = 
             intersectionPoint[2] = eval("(1- outsideFraction)*zv0+ outsideFraction*zv1")
             
         
-        # s4 = Solver()
-        # h,f = Reals('h f')
-        # s4.add(h+f == 1)
-        # s4.add(And(h>=0,f>=0))  
-        
-        # c,d = Reals('c d')
-        # s4.add(And(c>=0, c<49))
-        # s4.add(And(d>=48.9999, d<=49))
-        
-        # s4.add(xv1-xp0 == (h*x0+f*x1))
-        # s4.add(yv1-yp0 == (h*y0+f*y1))
-        # s4.add(zv1-zp0 == (h*z0+f*z1))
-        
-        # print(s4.check())
-        # m3 = s4.model()
-        # print(m3)
-        
-        # cons1 = ( (((-68.39567*(xv1-xp0 ) )/ (zv1-zp0) )+ 24.5 ) == 26 )
-        # cons2 =  ( (((68.39567*(yv1-yp0 ) )/ (zv1-zp0) )+ 24.5 ) == d )
-        # s4.add(simplify(And(cons1,cons2)))
-        
-        # print(s4.check())
-        # m = s4.model()
-        # print(m)
-        
-        
-        # s4 = Solver()
-        # h,f = Reals('h f')
-        # s4.add(h+f == 1)
-        # s4.add(And(h>=0,f>=0))  
-        
-        # c,d = Reals('c d')
-        # s4.add(And(c>=0, c<49))
-        # s4.add(And(d>=48.9999, d<=49))
-        
-        # s4.add(xv0-xp0 == (h*x2+f*x3))
-        # s4.add(yv0-yp0 == (h*y2+f*y3))
-        # s4.add(zv0-zp0 == (h*z2+f*z3))
-        
-        # print(s4.check())
-        # m3 = s4.model()
-        # print(m3)
-        
-        # cons1 = ( (((-68.39567*(xv0-xp0 ) )/ (zv0-zp0) )+ 24.5 ) == 26 )
-        # cons2 =  ( (((68.39567*(yv0-yp0 ) )/ (zv0-zp0) )+ 24.5 ) == d )
-        # s4.add(simplify(And(cons1,cons2)))
-        
-        # print(s4.check())
-        # m = s4.model()
-        # print(m)
-        
-        # exit()
-        ##########################################################################################
-        
-        # print("\n\n\n point in plane intersection point using u v w")
-        
-        # print(m[u]*x0+m[v]*x1+m[w]*x2+m[g]*x3)
-        # print(m[u]*y0+m[v]*y1+m[w]*y2+m[g]*y3)
-        # print(m[u]*z0+m[v]*z1+m[w]*z2+m[g]*z3)
-        # print("\n\n")
-        # print("Returning planeEdgeIntersection")
+      
         return 1 , vertexPixelValue2, intersectionPoint,m2[p],m2[q]
     elif result == unsat:
         # 

@@ -296,16 +296,16 @@ def getDepthIntervals3(currImageSetConString,dataToComputeDepth,
     
     pixelConsList = []
 
-    wx = m.addVar(lb=-GRB.INFINITY, name="wx")  
-    wy = m.addVar(lb=-GRB.INFINITY, name="wy")
+    # wx = m.addVar(lb=-GRB.INFINITY, name="wx")  
+    # wy = m.addVar(lb=-GRB.INFINITY, name="wy")
 
-    # Enforce the fraction constraint: w * (zl - zp0) = (xl - xp0)
-    m.addConstr(wx * (zl - zp0) == (xl - xp0), name="xfraction_constraint")
-    m.addConstr(wy * (zl - zp0) == (yl - yp0), name="yfraction_constraint")
+    # # Enforce the fraction constraint: w * (zl - zp0) = (xl - xp0)
+    # m.addConstr(wx * (zl - zp0) == (xl - xp0), name="xfraction_constraint")
+    # m.addConstr(wy * (zl - zp0) == (yl - yp0), name="yfraction_constraint")
 
-    pixelConsList = [ str(xpixel)+" <= -68.39567*wx+24.5", str(ypixel)+" <= 68.39567*wy+24.5",
-                        str(xpixel+1)+" >= -68.39567*wx+24.5", str(ypixel+1)+" >= 68.39567*wy+24.5"
-                    ]
+    # pixelConsList = [ str(xpixel)+" <= -68.39567*wx+24.5", str(ypixel)+" <= 68.39567*wy+24.5",
+    #                     str(xpixel+1)+" >= -68.39567*wx+24.5", str(ypixel+1)+" >= 68.39567*wy+24.5"
+    #                 ]
     
 
 
@@ -318,33 +318,33 @@ def getDepthIntervals3(currImageSetConString,dataToComputeDepth,
     
     
     # # # pixelConsList.append("68.39567*(yl -yp0)  >= (49-24.5)*(zl -zp0) ")
-    for i in range(0, len(pixelConsList)):
-        consName = "qp_"+str(i)
-        print(consName, " :", pixelConsList[i])
-        currCons = pixelConsList[i]
-        # exec(f"m.addConstr({currCons})")
-        try:
-            exec(f"m.addConstr({currCons})")
+    # for i in range(0, len(pixelConsList)):
+    #     consName = "qp_"+str(i)
+    #     # print(consName, " :", pixelConsList[i])
+        # currCons = pixelConsList[i]
+        # # exec(f"m.addConstr({currCons})")
+        # try:
+        #     exec(f"m.addConstr({currCons})")
         
-        except NotImplementedError:
-            # currCons = currCons.replace("<","+0.000000000000000001<=")
-            # currCons = currCons.replace(">","-0.000000000000000001>=")
-            currCons = currCons.replace("<","<=")
-            currCons = currCons.replace(">",">=")
-            exec(f"m.addConstr({currCons})")
-            # print("Exception handled")
-            # return 0,0
-            # sleep(2)
-        except OverflowError:
+        # except NotImplementedError:
+        #     # currCons = currCons.replace("<","+0.000000000000000001<=")
+        #     # currCons = currCons.replace(">","-0.000000000000000001>=")
+        #     currCons = currCons.replace("<","<=")
+        #     currCons = currCons.replace(">",">=")
+        #     exec(f"m.addConstr({currCons})")
+        #     # print("Exception handled")
+        #     # return 0,0
+        #     # sleep(2)
+        # except OverflowError:
             
-            print("overflow error")
+        #     print("overflow error")
             
-            sleep(20)
-            exit(0)
-        except Exception as e:
-            print(str(e))
-            print("error occured")
-            exit(0)
+        #     sleep(20)
+        #     exit(0)
+        # except Exception as e:
+        #     print(str(e))
+        #     print("error occured")
+        #     exit(0)
             
     
     # # pixelConsList = ["-68.39567*(p*("+str(vertices[insideVertex*3+0])+"-xp0)+q*("+str(vertices[outsideVertex*3+0])+" -xp0))  <= (42 -24.5)*(p*("+str(vertices[insideVertex*3+2])+"-zp0)+q*("+str(vertices[outsideVertex*3+2])+" -zp0) )"]

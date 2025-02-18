@@ -282,31 +282,7 @@ def updateGlobalIntervalImage(numOfCurrInvRegions):
             # print("currentPixel present in the global image")
             currentIntValue = globalIntervalImage[currentPixel]
             
-            # if(currentPixel == 1324):
-            #     print("1324 currentPixel present in the global image")
-            #     print("current global value = ", currentIntValue)
-            #     print("Current triangle value = ", currPixelInterval)
-            #     sleep(10)
-            ##################overapproximation########TOREMOVE#######
-            
-            # tempList = []
-            # tempList.append(currentIntValue)
-            # tempList.append(currPixelInterval)
-            
-            # tempIntervals = [0]*8
-            
-            # for k in range(0,4):                
-            #     kth_elements = [sublist[2*k+0] for sublist in tempList]
-            #     k1th_elements = [sublist[2*k+1] for sublist in tempList]
-                
-            #     kth_elements = [float(x) for x in kth_elements]
-            #     k1th_elements = [float(x) for x in k1th_elements]
-                
-            #     tempIntervals[2*k+0] = min(kth_elements)
-            #     tempIntervals[2*k+1] = max(k1th_elements)
-            
-            # globalIntervalImage[currentPixel] = tempIntervals   
-            
+          
             ##################overapproximation###############
             
             #if current global depth's min is greater than the current pixel max depth then
@@ -683,41 +659,7 @@ def getVertexPixelValueIntersectZ3(x,y,z, plane):
         # print("current pixel = ", currPixels)
         # global stopRoundingFlag
         # # print("stopRounding Flag = ", stopRoundingFlag)
-        # if stopRoundingFlag == 0:
-        #     if (float(str(ta2).replace("?","")) > 0.999):
-        #         ta1 = int(ta1)+1
-        #     else:
-        #         ta1 = int(ta1)
-            
-        #     if (float(str(tb2).replace("?","")) > 0.999):
-        #         tb1 = int(tb1)+1
-        #     else:
-        #         tb1 = int(tb1)
-        # else:
-        #     if plane ==0 :
-        #         tb1 = 0
-        #     elif plane ==1 :
-        #         tb1 = 49
-        #     elif plane ==2 :
-        #         ta1 = 49
-        #     elif plane ==3 :
-        #         ta1 = 0
-            
-        
-        # global currentImageRepeatCount
-        # # print("currentImageRepeatCount = ", currentImageRepeatCount)
-        # if currentImageRepeatCount > 5:
-        #     if (float(str(ta2).replace("?","")) < 0.0001) :
-        #         ta1 = int(ta1)-1
-        #         print("executing rounding ta1")
-        #         # sleep(3)
-            
-        #     if (float(str(tb2).replace("?","")) < 0.0001) :
-        #         tb1 = int(tb1)-1
-        #         print("executing rounding tb1")
-        #         # sleep(3)
-            
-            
+      
         
 
 
