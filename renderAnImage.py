@@ -393,16 +393,26 @@ def drawTriangle2(pixelCoordinates, currVertexColours ):
                 w0 = w0 / area
                 w1 = w1 / area
                 w2 = w2 / area
-                oneOverZ = v0Raster[2] * w0 + v1Raster[2] * w1 + v2Raster[2] * w2
+                # oneOverZ = v0Raster[2] * w0 + v1Raster[2] * w1 + v2Raster[2] * w2
+                # z = 1 / oneOverZ
+                # # z = oneOverZ
+                # storeZasDepth = z
+                # z = round(z,10)
+                # # print("z = ",z)
+
+                #mapped back to the camera space
+                tz0 = (v0Raster[2]+-1.002002002002002)/-2.002002002002002
+                tz1 = (v1Raster[2]+-1.002002002002002)/-2.002002002002002
+                tz2 = (v2Raster[2]+-1.002002002002002)/-2.002002002002002
+                # print("tz0 = ", tz0, " tz1 = ", tz1, " tz2 = ", tz2)
+                oneOverZ = w0*tz0 + w1*tz1 + w2*tz2
+                # print("oneOverZ = ",oneOverZ)
+             
                 z = 1 / oneOverZ
-                # z = oneOverZ
-                storeZasDepth = z
-                z = round(z,10)
-                # print("z = ",z)
                 
-                r = w0 * currVertexColours[0][0]*255 + w1 * currVertexColours[1][0]*255 + w2 * currVertexColours[2][0]*255 
-                g = w0 * currVertexColours[0][1]*255 + w1 * currVertexColours[1][1]*255 + w2 * currVertexColours[2][1]*255
-                b = w0 * currVertexColours[0][2]*255 + w1 * currVertexColours[1][2]*255 + w2 * currVertexColours[2][2]*255
+                # r = w0 * currVertexColours[0][0]*255 + w1 * currVertexColours[1][0]*255 + w2 * currVertexColours[2][0]*255 
+                # g = w0 * currVertexColours[0][1]*255 + w1 * currVertexColours[1][1]*255 + w2 * currVertexColours[2][1]*255
+                # b = w0 * currVertexColours[0][2]*255 + w1 * currVertexColours[1][2]*255 + w2 * currVertexColours[2][2]*255
 
                 r =  currVertexColours[0][0]*255 
                 g = currVertexColours[0][1]*255 
