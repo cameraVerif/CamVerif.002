@@ -157,7 +157,8 @@ def pixelValue(point, w):
     
     raster0 = min(imageWidth - 1, int((t0 + 1) * 0.5 * imageWidth))
     raster1 = min(imageHeight - 1, int((1 - (t1 + 1) * 0.5) * imageHeight))
-    raster2 = t2
+    # raster2 = t2
+    raster2 = w
     
     
     
@@ -400,15 +401,20 @@ def drawTriangle2(pixelCoordinates, currVertexColours ):
                 # z = round(z,10)
                 # # print("z = ",z)
 
-                #mapped back to the camera space
-                tz0 = (v0Raster[2]+-1.002002002002002)/-2.002002002002002
-                tz1 = (v1Raster[2]+-1.002002002002002)/-2.002002002002002
-                tz2 = (v2Raster[2]+-1.002002002002002)/-2.002002002002002
-                # print("tz0 = ", tz0, " tz1 = ", tz1, " tz2 = ", tz2)
-                oneOverZ = w0*tz0 + w1*tz1 + w2*tz2
-                # print("oneOverZ = ",oneOverZ)
+                # #mapped back to the camera space
+                # tz0 = (v0Raster[2]+-1.002002002002002)/-2.002002002002002
+                # tz1 = (v1Raster[2]+-1.002002002002002)/-2.002002002002002
+                # tz2 = (v2Raster[2]+-1.002002002002002)/-2.002002002002002
+                # # print("tz0 = ", tz0, " tz1 = ", tz1, " tz2 = ", tz2)
+                # oneOverZ = w0*tz0 + w1*tz1 + w2*tz2
+                # # print("oneOverZ = ",oneOverZ)
              
+                # z = 1 / oneOverZ
+
+                oneOverZ = (1/v0Raster[2]) * w0 + (1/v1Raster[2]) * w1 + (1/v2Raster[2] * w2)
                 z = 1 / oneOverZ
+
+
                 
                 # r = w0 * currVertexColours[0][0]*255 + w1 * currVertexColours[1][0]*255 + w2 * currVertexColours[2][0]*255 
                 # g = w0 * currVertexColours[0][1]*255 + w1 * currVertexColours[1][1]*255 + w2 * currVertexColours[2][1]*255
@@ -557,7 +563,8 @@ def generateTriangles2(tr_vertex_coordinates, tr_vertex_ws, tr_num_of_vertices,e
     
     raster0[0] = min(imageWidth - 1, (int)((t0 + 1) * 0.5 * imageWidth)) 
     raster0[1] = min(imageHeight - 1,(int)((1 - (t1 + 1) * 0.5) * imageHeight))
-    raster0[2] = t2
+    # raster0[2] = t2
+    raster0[2] = tr_vertex_ws[edge1[0]]
     
     firstVertex = edge1[0]
     secondVertex = edge1[1]
@@ -587,8 +594,8 @@ def generateTriangles2(tr_vertex_coordinates, tr_vertex_ws, tr_num_of_vertices,e
         
         raster1[0] = min(imageWidth - 1, (int)((t0 + 1) * 0.5 * imageWidth)) 
         raster1[1] = min(imageHeight - 1,(int)((1 - (t1 + 1) * 0.5) * imageHeight))
-        raster1[2] = t2
-        
+        # raster1[2] = t2
+        raster1[2] = tr_vertex_ws[secondVertex]
         
         # d2 = depthInformation[secondVertex][1]
         # d3 = depthInformation[secondVertex][2]
@@ -603,7 +610,8 @@ def generateTriangles2(tr_vertex_coordinates, tr_vertex_ws, tr_num_of_vertices,e
         
         raster2[0] = min(imageWidth - 1, (int)((t0 + 1) * 0.5 * imageWidth)) 
         raster2[1] = min(imageHeight - 1,(int)((1 - (t1 + 1) * 0.5) * imageHeight))
-        raster2[2] = t2
+        # raster2[2] = t2
+        raster2[2] = tr_vertex_ws[thirdVertex]
         
        
         # d4 = depthInformation[thirdVertex][1]

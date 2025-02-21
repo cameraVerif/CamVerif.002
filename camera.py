@@ -39,6 +39,9 @@ imageHeight = 49 #pixels
 # imageWidth = 1920
 # imageHeight = 1080
 
+# imageWidth = 1080
+# imageHeight = 1080
+
 focalLength = 35
 
 nearClippingPlane = 1
