@@ -29,8 +29,8 @@ errorTriangleList = []
 # imageHeight = 1080
 
 
-# imageWidth = 49
-# imageHeight = 49
+imageWidth = 49
+imageHeight = 49
 
 canvasWidth = environment.canvasWidth
 canvasHeight = environment.canvasHeight
@@ -392,7 +392,7 @@ def drawTriangle2(pixelCoordinates, currVertexColours ):
                 w2 = w2 / area
                 oneOverZ = v0Raster[2] * w0 + v1Raster[2] * w1 + v2Raster[2] * w2
                 z = 1 / oneOverZ
-                # z = oneOverZ
+                z = oneOverZ
                 storeZasDepth = z
                 z = round(z,10)
                 # print("z = ",z)
@@ -1821,46 +1821,7 @@ def renderATriangle(currTriangle,xp, yp,zp):
         #     currTriangle, currTriangleIntervalImage, currImageColours)
         # # print("Current Triangle Interval Image = ", currTriangleIntervalImage)
         
-def computeScreenCoordinates():
-    filmAspectRatio = filmApertureWidth / filmApertureHeight
-    deviceAspectRatio = imageWidth / imageHeight
-
-    nearClippingPlane = environment.n
-    farClippingPlane = environment.f
-    
-    top = ((filmApertureHeight * inchToMm / 2) / focalLength) * nearClippingPlane
-    right = ((filmApertureWidth * inchToMm / 2) / focalLength) *  nearClippingPlane
-    
-    xscale = 1
-    yscale = 1
-    
-    # case kOverscan:
-    if (filmAspectRatio > deviceAspectRatio):
-        yscale = filmAspectRatio / deviceAspectRatio
-    else:
-        xscale = deviceAspectRatio / filmAspectRatio;
-         
-    right *= xscale;
-    top *= yscale;
-    
-    bottom = -top;
-    left = -right;
-    
-    t = top
-    r = right
-    b = bottom
-    l = left
         
-    n = nearClippingPlane
-    f = farClippingPlane
-    global mProj   
-    mProj = [
-        [2 * n / (r - l), 0, 0, 0],
-        [0,2 * n / (t - b),0,0],
-        [(r + l) / (r - l), (t + b) / (t - b), -(f + n) / (f - n), -1 ],
-        [0,0,-2 * f * n / (f - n),0]
-    ]
-            
 
     
 
@@ -1868,8 +1829,8 @@ def computeScreenCoordinates():
 
 def renderAnImage(xp, yp, zp, currImage): 
     frameBuffer.clear()
-    depthBuffer.clear()    
-    # computeScreenCoordinates()  
+    depthBuffer.clear()  
+    print(xp, yp, zp)    
     # renderATriangle(6,0.1,4.5,194.5)
     # renderATriangle(2,0.1,4.5,194.5)
     
@@ -1971,38 +1932,21 @@ def renderAnImage(xp, yp, zp, currImage):
         image.tofile(f)
     # print("Rendering Done")
 
-    # tempFile =  open("imagePPM.txt","w")
-    # for i in range(0, imageWidth * imageHeight):
-    #     if frameBuffer.get(i):
-    #         # print(i)
-    #         tempFile.write(str(frameBuffer[i][0])+str("\n"))
-    #         tempFile.write(str(frameBuffer[i][1])+str("\n"))
-    #         tempFile.write(str(frameBuffer[i][2])+str("\n"))
-    #     else:
-    #         tempFile.write(str(1)+str("\n"))
-    #         tempFile.write(str(25)+str("\n"))
-    #         tempFile.write(str(24)+str("\n"))
-    tempFile =  open("defaultPPM.txt","w")
-    environment.defaultImg.clear()
+    tempFile =  open("imagePPM.txt","w")
     for i in range(0, imageWidth * imageHeight):
         if frameBuffer.get(i):
             # print(i)
-            tempFile.write(str(max(0, min(255, abs(frameBuffer[i][0]))))+str("\n"))
-            tempFile.write(str(max(0, min(255, abs(frameBuffer[i][1]))))+str("\n"))
-            tempFile.write(str(max(0, min(255, abs(frameBuffer[i][2]))))+str("\n"))
-            environment.defaultImg[i] = [max(0, min(255, abs(frameBuffer[i][0]))),
-                                         max(0, min(255, abs(frameBuffer[i][1]))),
-                                         max(0, min(255, abs(frameBuffer[i][2])))]
+            tempFile.write(str(frameBuffer[i][0])+str("\n"))
+            tempFile.write(str(frameBuffer[i][1])+str("\n"))
+            tempFile.write(str(frameBuffer[i][2])+str("\n"))
         else:
             tempFile.write(str(1)+str("\n"))
             tempFile.write(str(25)+str("\n"))
             tempFile.write(str(24)+str("\n"))
-            environment.defaultImg[i] = [1,25,24]
-
 
 
 # # renderAnImage(0.1,4.5,120.5,"test")
-# renderAnImage(0.6,4.5,140.644,"test3")
+# renderAnImage(0.6,4.5,193.644,"test")
 
 
 # print("Error Triangle list", errorTriangleList)
@@ -2012,8 +1956,45 @@ def renderAnImage(xp, yp, zp, currImage):
 # renderAnImage(50,4.5,198.5,"test")
 
 
-    
 
+# import cv2
+# import onnx
+# import onnxruntime
+# import sys
+# 
+# def getDNNOutput_onnx(inputImage,networkName):
+#     # dnnOutput = 1
+#     # model = onnx.load(networkName)
+
+#     image = cv2.imread(inputImage)    
+#     image = cv2.resize(image, (49, 49)).copy()
+#     np.set_printoptions(threshold=sys.maxsize)
+#     # print("\n\n")
+    
+#     # print(image)
+    
+#     # print("\n------------\n")
+
+#     if networkName == "iisc_net1.onnx":
+#         a, b, c = image.shape
+#         image = image.reshape(1, c,b,a)
+#         # print(image.shape)
+#     else:
+#         a, b, c = image.shape
+#         image = image.reshape(1, a,b,c)
+#         # print(image.shape)
+#         # 
+
+#     image = image.astype(np.float32) / 255.0
+#     # image2 = tf.convert_to_tensor(image)
+    
+#     # print("\n\n")
+    
+#     # print(image)
+    
+#     # print("\n\n")
+    
+#     # exit()
     
 
 #     session = onnxruntime.InferenceSession(networkName)

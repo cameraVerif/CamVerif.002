@@ -15,7 +15,10 @@ import camera
 import scene
 import pyparma_posInvRegion40
 import oldInvComputation1
-import pythonRenderAnImage2
+# import pythonRenderAnImage2
+import renderAnImageForP3
+
+import os
 
 
 import tensorflow as tf
@@ -868,7 +871,7 @@ def getInvariantRegion(currTriangle, posXp, posYp, posZp, m,currGroupName):
 
     edgeVertexIndices = [edge0_v0, edge0_v1,edge1_v0, edge1_v1, edge2_v0, edge2_v1 ]
 
-    print("edgeVertexIndices: ", edgeVertexIndices)
+    # print("edgeVertexIndices: ", edgeVertexIndices)
 
     globalInsideVertexDataToPPL.clear()
     globalIntersectingVertexDataToPPL.clear()
@@ -1569,7 +1572,7 @@ def getInvariantRegion(currTriangle, posXp, posYp, posZp, m,currGroupName):
             eFile.write("Current consOfReg = "+str(consOfReg)+"\n")
             eFile.close()
 
-            nmBound = 0.0001
+            nmBound = 0.01
             # consOfReg2 =   str(m[xp0]-nmBound) +"<=xp0, xp0<="+ str(m[xp0]+nmBound)+"," \
             #     + str(m[yp0]-nmBound) +"<=yp0, yp0<="+ str(m[yp0]+nmBound)+"," \
             #     + str(m[zp0]-nmBound) +"<=zp0, zp0<="+ str(m[zp0]+nmBound)
@@ -1635,25 +1638,30 @@ def computeInvRegions(currGroupName, currGroupRegionCons, dnnOutput, fromSplitRe
     s2.set("sat.local_search_threads", 28)
     s2.set("sat.threads", 28)
     # s2.set("timeout",2000)    
-    set_option(max_args=10000000, max_lines=1000000, max_depth=10000000, max_visited=1000000)
+    # set_option(max_args=10000000, max_lines=1000000, max_depth=10000000, max_visited=1000000)
 
     s2.add(simplify(currGroupRegionCons))
 
     triaglesInvRegions = dict()
     triaglesInvRegions.clear()
 
-    os.remove("ErrorLog.txt")
-    with open("ErrorLog.txt", "w") as f:
-        f.write(str(datetime.now())+"\n\n")
+    scale = 10000#
+    s2.add(xp0 * scale == ToInt(xp0 * scale))
+    s2.add(yp0 * scale == ToInt(yp0 * scale))
+    s2.add(zp0 * scale == ToInt(zp0 * scale))
+
+    # os.remove("ErrorLog.txt")
+    # with open("ErrorLog.txt", "w") as f:
+    #     f.write(str(datetime.now())+"\n\n")
 
     numberOfInvRegions = 0
     while(s2.check() ==sat):
         numberOfInvRegions +=1
-        print("Number of Invariant Regions: ", numberOfInvRegions)
+        # print("Number of Invariant Regions: ", numberOfInvRegions)
         m = s2.model()
         print(m)
 
-        sleep(2)
+        # sleep(2)
         
         posXp = (eval("m[xp0].numerator_as_long()/m[xp0].denominator_as_long()"))
         posYp = (eval("m[yp0].numerator_as_long()/m[yp0].denominator_as_long()"))
@@ -1661,6 +1669,7 @@ def computeInvRegions(currGroupName, currGroupRegionCons, dnnOutput, fromSplitRe
 
         notTheCurrentPosCons1 = Or(xp0!= m[xp0], yp0!=m[yp0],zp0!= m[zp0])
         for i in range(0, scene.numOfTriangles):
+            # print("Triangle: ", i)
             regionExist, currTriangleInvRegion = getInvariantRegion(i, posXp, posYp, posZp, m,currGroupName)
 
             # print("currTriangleInvRegion: ", currTriangleInvRegion)
@@ -1682,7 +1691,7 @@ def computeInvRegions(currGroupName, currGroupRegionCons, dnnOutput, fromSplitRe
         
 
 
-        pythonRenderAnImage2.renderAnImage(posXp,posYp, posZp,"RefineImage2_0")
+        renderAnImageForP3.renderAnImage(posXp,posYp, posZp,"RefineImage2_0")
     
         
         print("running dnn")
@@ -1690,7 +1699,7 @@ def computeInvRegions(currGroupName, currGroupRegionCons, dnnOutput, fromSplitRe
         # currImageDnnOutput= getDNNOutput("images/"+str("RefineImage2_0.ppm"))
         # currImageDnnOutput = 1
         print("running on second model")
-        iisc_net_dnnoutput = getDNNOutput_onnx("images/"+str("RefineImage2_0.ppm"),'OGmodel_pb_converted.onnx')
+        iisc_net_dnnoutput = getDNNOutput_onnx("images/"+str("RefineImage2_0.ppm"),environment.networkName)
         
         if iisc_net_dnnoutput == dnnOutput:
             regionsToReturn.append([currInvCons])
@@ -1698,8 +1707,9 @@ def computeInvRegions(currGroupName, currGroupRegionCons, dnnOutput, fromSplitRe
         
         print("dnnOutput: ", dnnOutput)
         print("iisc_net_dnnoutput: ", iisc_net_dnnoutput)
-        print("Number of Invariant Regions: ", numberOfInvRegions)
-        sleep(5)
+        print("Final Number of Invariant Regions>>: ", numberOfInvRegions)
+        # sleep(5)
+        # print(str(currInvCons))
         
         s2.add(Not(currInvCons))
         
@@ -1721,12 +1731,12 @@ def computeInvRegions(currGroupName, currGroupRegionCons, dnnOutput, fromSplitRe
 
 
 
-# currGroupName ="G_"
-# # currGroupRegionCons = environment.initCubeCon
+# currGroupName ="A_"
+# currGroupRegionCons = environment.initCubeCon
 
-# currGroupRegionCons = And(10*xp0>=36,1000*xp0<=3605,10*yp0>=45,10*yp0<=45, 10*zp0>=1755,10*zp0<=1755)
+# # currGroupRegionCons = And(10*xp0>=36,1000*xp0<=3605,10*yp0>=45,10*yp0<=45, 10*zp0>=1755,10*zp0<=1755)
 
-# computeInvRegions(currGroupName, currGroupRegionCons)
+# computeInvRegions(currGroupName, currGroupRegionCons,1)
 
 
 

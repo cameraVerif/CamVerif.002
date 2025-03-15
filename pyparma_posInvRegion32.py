@@ -18,14 +18,15 @@ def mygcd(a, b):
 def lcm(a, b):
     # #print("computing lcm")
     # return a*b //mygcd(a,b)
-   
+    print(a, b)
     # a = np.asarray(a, dtype='float64')
     # b = np.asarray(b, dtype='float64')
     # print(a,b)
     try:
         return np.lcm(a, b)
     except:
-        
+        print("second method")
+        sleep(4)
         return a*b // mygcd(a, b)
 
 
@@ -63,7 +64,7 @@ def addAvertexPixelConstraint(currZP, vertexNumber, pixelX, pixelY, pd):
     y = vertices[vertexNumber*3+1]
     z = vertices[vertexNumber*3+2]
     if (isinstance(x, float)):
-       
+        print("float x")
         xf = str(Fraction(x).limit_denominator())
         xl = xf.split('/')
         px = int(xl[0])
@@ -77,7 +78,7 @@ def addAvertexPixelConstraint(currZP, vertexNumber, pixelX, pixelY, pd):
         px = x
         qx = 1
     if (isinstance(y, float)):
-       
+        print("float y")
         yf = str(Fraction(y).limit_denominator())
         yl = yf.split('/')
         py = int(yl[0])
@@ -90,7 +91,7 @@ def addAvertexPixelConstraint(currZP, vertexNumber, pixelX, pixelY, pd):
         py = y
         qy = 1
     if (isinstance(z, float)):
-       
+        print("float z")
         zf = str(Fraction(z).limit_denominator())
         zl = zf.split('/')
         pz = int(zl[0])
@@ -163,15 +164,15 @@ def getCurrentPosOutcodeCons2(outcodeP0, pd):
     #print((-2 * f * n / (f - n)))
 
     for i in range(0, numOfVertices):
-        
+        print(i)
         x = vertices[i*3+0]
         y = vertices[i*3+1]
         z = vertices[i*3+2]
-        
+        print(i, ": ", x, y, z)
         if (isinstance(x, float)):
             xf = str(Fraction(x).limit_denominator())
             xl = xf.split('/')
-           
+            print(xl)
             px = int(xl[0])
             if(len(xl) == 2):
                 qx = int(xl[1])
@@ -286,7 +287,8 @@ def findPos(x0, y0, z0, zpos, xpixel, ypixel, planeId):
     cons1 = ""
     cons2 = ""
 
-    
+    print("x0,y0,z0,zpos,xpixel,ypixel,planeId :",
+          x0, y0, z0, zpos, xpixel, ypixel, planeId)
 
     if planeId == 0:
         # print("top plane")
@@ -428,12 +430,15 @@ def findPos(x0, y0, z0, zpos, xpixel, ypixel, planeId):
         del(s)
         return [posx, posy, posz]
     if result == unknown:
-       
+        print("timeout occured trying again")
         del(s)
         sleep(10)
         findPos(x0, y0, z0, zpos, xpixel, ypixel, planeId)
     else:
-       
+        print(result)
+        print("x0,y0,z0,zpos,xpixel,ypixel,planeId :",
+              x0, y0, z0, zpos, xpixel, ypixel, planeId)
+        print("no matching solution found, ")
         del(s)
         global unsatFlag
         unsatFlag = 1
@@ -727,7 +732,8 @@ def computeIntersectingRegion2(planeId, edgeId, insideVertex, outsideVertex, xpi
     # pdIntersection.add_constraint( ( (67*qz*(py - qy*yp0) ) + (24*qy*(pz - qz*zp0)*1 ) ) <= ((pixelY)*qy*(pz - qz*zp0)*1)  )
     # pdIntersection.add_constraint( ( (67*qz*(py - qy*yp0) ) + (24*qy*(pz - qz*zp0)*1 ) ) > (( (pixelY+1))*qy*(pz - qz*zp0)*1)  )
 
-   
+    print(pdIntersection.constraints())
+    print(pdIntersection.minimized_constraints())
     sleep(300)
     exit(0)
     return pdIntersection
@@ -737,6 +743,19 @@ dummyPolyhedraCons = dummyGroupPolyhedra.minimized_constraints()
 
 def computeRegion(currGroupName, currZP, numberOfFullyInsideVertices, insideVertexDetailsToPPL, numberOfIntersectingEdges,
                   intersectingEdgeDataToPPL, posXp1, posYp1, posZp1, mxp, myp, mzp, outcodeP0, currImageName, currGroupPolyhedra=dummyPolyhedraCons):
+    print("\ninside compute region function")
+    print("\n\nPPL: Data received")
+    print(insideVertexDetailsToPPL)
+    print(currImageName)
+    print(insideVertexDetailsToPPL[0][1])
+    # if(currImageName == "A_0" and insideVertexDetailsToPPL[0][0] == 94 ):
+    #     sleep(5)
+    #     insideVertexDetailsToPPL[0][1] =44
+    #     insideVertexDetailsToPPL[0][2] =42
+    print(insideVertexDetailsToPPL)
+    print(intersectingEdgeDataToPPL)
+    # print(outcodeP0)
+    print(mxp, myp, mzp, posXp1, posYp1, posZp1)
 
     mxpOg = mxp
     mypOg = myp
@@ -770,22 +789,23 @@ def computeRegion(currGroupName, currZP, numberOfFullyInsideVertices, insideVert
             currImage_cubeName = currImageName[0:currImageName.rfind("_")]
             #
 
-      
+        print(currImage_cubeName)
 
         currImageCube_ph.add_constraints(
             environment.groupCubePostRegion[currImage_cubeName])
-        
+        print("currImageCube_ph ==> ", currImageCube_ph.minimized_constraints())
 
     elif (currImageName == "singlePosImage"):
-        
+        print("single PosImage")
         currImageCube_ph.add_constraints(currGroupPolyhedra)
-       
+        print("currImageCube_ph ==> ", currImageCube_ph.minimized_constraints())
     else:
-       
+        print("Split region")
+        # sleep(2)
         
         
         currImageCube_ph.add_constraints(environment.splitRegionPd["split_"+str(environment.splitCount)])
-        
+        print("currImageCube_ph ==> ", currImageCube_ph.minimized_constraints())
         
         # sleep(2)
         
@@ -794,7 +814,11 @@ def computeRegion(currGroupName, currZP, numberOfFullyInsideVertices, insideVert
         
 
     imageFrustumPolyhedron.intersection_assign(currImageCube_ph)
-   
+    print("imageFrustumPolyhedron ==> ",
+          imageFrustumPolyhedron.minimized_constraints())
+
+    print("numberOfFullyInsideVertices = ", numberOfFullyInsideVertices)
+
     for i in range(0, numberOfFullyInsideVertices):
 
         currentVertexIndex = insideVertexDetailsToPPL[i][0]
@@ -810,21 +834,23 @@ def computeRegion(currGroupName, currZP, numberOfFullyInsideVertices, insideVert
     # addCamerPosCons(posXp,posYp,posZp,imageFrustumPolyhedron)
     # print(imageFrustumPolyhedron.minimized_constraints())
 
-   
+    print("Fully inside vertices processed ")
+    print(imageFrustumPolyhedron.minimized_constraints())
+    print("\n\n")
 
     # for i in range(0,numberOfIntersectingEdges):
-    
+    print("Intersecting edges started\n")
     pdC = NNC_Polyhedron(3)
     pdC = imageFrustumPolyhedron
 
-    
+    print("Number of intersecting edges = ", numberOfIntersectingEdges)
     for i in range(0, numberOfIntersectingEdges):
         # for i in range(0,0):
 
         edgeId = intersectingEdgeDataToPPL[i][0]
         # if(edgeId ==5 or edgeId ==6 or edgeId ==7):
         #     continue
-        
+        print("Current intersecting edge = ", i, edgeId)
         insideVertex = intersectingEdgeDataToPPL[i][1]
         outsideVertex = intersectingEdgeDataToPPL[i][2]
 
@@ -854,7 +880,7 @@ def computeRegion(currGroupName, currZP, numberOfFullyInsideVertices, insideVert
         if(unsatFlag == 1):
             unsatFlag = 0
             continue
-      
+        print(pd2.minimized_constraints())
         pdC.intersection_assign(pd2)
         # print("\n\n")
 
@@ -921,7 +947,11 @@ def computeRegion(currGroupName, currZP, numberOfFullyInsideVertices, insideVert
 
     # sleep(3)
 
-   
+    print("\nFinal pd cons :")
+    # print(imageFrustumPolyhedron.minimized_constraints())
+    # return str(imageFrustumPolyhedron.minimized_constraints())
+
+    print(pdC.minimized_constraints())
 
     environment.imageCons[currImageName] = pdC.minimized_constraints()
     # return str(pdC.minimized_constraints())

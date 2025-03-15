@@ -1,30 +1,32 @@
+
+
 from z3 import *
 from pyparma import *
 import anytree
-import scene
+
 import camera
+import scene
 
-
-#####TODO: remove unused variables.
 global dnnOutput, imagesMap, numOfVertices, vertices, numOfTriangles, nvertices, groupFrustum,\
         initFlag,imageGroup, outFileName, initialImageCount, imagePos, imageGroupStack,groupCount,groupFrustumFlag,\
-        GloballoopCount, pplInputFileName, pplOutputFileName, initialZP, pplpathHullOutputFileName, \
-        collisionCheckStartTriangle, pplSingleImageConstraintOutput,grpCubePoses,\
-        x0,x1,y0,y1,z0,z1, intiFrusCons, initCubeCon, randomLoopLimit,numOfEdges,\
-        canvasWidth, canvasHeight, focalLength,t,b,l,r,n,f,imageCons,groupRegionConsPPL,\
-        groupCube,allInSameGrp,groupCubeZ3, targetRegionPolyhedron, defaultImg, initRegionPolyhedron, defIVImag, \
-        groupCubePostRegion,z3timeout,absStack, splitRegionPd, splitCount,spuriousCollisionCount,\
-        imageWidth, imageHeight, depthOfTheInitialCube, A, numberOfSplit,refineCountNew,singleImagePolyh,\
-midPoints, processedMidPoints, spuriousCollisionData, vertColours, totalNumRefinment, networkName, netInterpreterPath
+                GloballoopCount, pplInputFileName, pplOutputFileName, initialZP, pplpathHullOutputFileName, \
+                        collisionCheckStartTriangle, pplSingleImageConstraintOutput,grpCubePoses,\
+                                x0,x1,y0,y1,z0,z1, intiFrusCons, initCubeCon, randomLoopLimit,numOfEdges,\
+                                        canvasWidth, canvasHeight, focalLength,t,b,l,r,n,f,imageCons,groupRegionConsPPL,\
+                                                groupCube,allInSameGrp,groupCubeZ3, targetRegionPolyhedron, \
+                                                        groupCubePostRegion,z3timeout,absStack, splitRegionPd, splitCount,\
+                                                                imageWidth, imageHeight, depthOfTheInitialCube, A, numberOfSplit,\
+                                                                        midPoints, processedMidPoints, spuriousCollisionData, vertColours, nnenumFlag, refineCount,\
+                 initRegionMinMaxValues,initRegionCornerPoints, regionMinMaxValues, regionCornerPoints, totalNumRefinment,  networkName, netInterpreterPath
+
+
 dnnOutput = dict()
 imagesMap = dict()
 imageGroup = dict()
 imageCons = dict()
 imagePos = dict()
-defaultImg = dict()
 groupRegionConsPPL = dict()
 groupCube = dict()
-defIVImag =dict()
 groupCubeZ3 = dict()
 groupCubePostRegion =dict()
 
@@ -34,13 +36,13 @@ spuriousCollisionData = {}
 
 splitRegionPd =dict()
 splitCount = 0
-numberOfSplit = 5
-totalNumRefinment=0
-A = anytree.Node("A")
-groupFrustum = {}
+numberOfSplit = 2
+# numberOfRandomPointsToCheck = 10
+refineCount =0
+#envs
+nnenumFlag =0
 
-refineCountNew = 0
-spuriousCollisionCount=0
+A = anytree.Node("A")
 
 vertices = scene.vertices
 numOfVertices = scene.numOfVertices
@@ -50,11 +52,39 @@ numOfEdges = scene.numOfEdges
 vertColours = scene.vertColours
 tedges = scene.tedges
 
+
+regionMinMaxValues = {}  
+regionCornerPoints = {}
+
+totalNumRefinment =0
+
+
+groupFrustum = {}
+# numOfTriangles = 4*4+250# 290+4*4 # 290 # 4+1+1
+# numOfVertices = 4*6+(250*3)#+6*4# 290*3 # 6+3+3
+# numOfEdges =  4*9+(250*3)#+9*4 #290*3# 9+3+3
+
+def printLog(message):
+    print(message)
+
+networkName = "OGmodel_pb_converted.onnx"
+netInterpreterPath = "/home/habeeb/project2/alpha-beta-CROWN-mainfromLap/complete_verifier/abcrown.py"
+
+# #buildings2
+# numOfTriangles = 1729# 290+4*4 # 290 # 4+1+1
+# numOfVertices = 2765#+6*4# 290*3 # 6+3+3
+# numOfEdges =  5187#+9*4 #290*3# 9+3+3
+
+
 z3timeout = 0
+
 initFlag = 0
 outFileName = "Env_11_12_8_abs_1_195_20Steps_1.txt"
 initialImageCount = 0
+
 allInSameGrp = dict()
+
+
 groupCount =1
 groupFrustumFlag = {}
 GloballoopCount = 0
@@ -64,30 +94,28 @@ pplpathHullOutputFileName = "pathHullOutput.txt"
 collisionCheckStartTriangle = 4
 pplSingleImageConstraintOutput = "singleImageconstraintsFromPPL.txt"
 
-imageWidth = camera.imageWidth
-imageHeight = camera.imageHeight
-canvasWidth = camera.filmApertureWidth
-canvasHeight = camera.filmApertureHeight
-focalLength = camera.focalLength
 
 t = camera.t
 b = camera.b
 l = camera.l
 r = camera.r
+imageWidth = camera.imageWidth
+imageHeight = camera.imageHeight
+
 n = camera.nearClippingPlane
 f = camera.farClippingPlane
 
+canvasWidth = camera.filmApertureWidth
+canvasHeight = camera.filmApertureHeight
+focalLength = camera.focalLength
+
+
 grpCubePoses = dict()
 imageGroupStack = []
+
 absStack = []
+
 xp0, yp0, zp0 = Reals('xp0 yp0 zp0')
-
-def printLog(message):
-    print(message)
-
-
-networkName = "OGmodel_pb_converted.onnx"
-netInterpreterPath = "/home/habeeb/project2/alpha-beta-CROWN-mainfromLap/complete_verifier/abcrown.py"
 
 
 #####################Initial region ################################################
@@ -101,7 +129,8 @@ Each constraint must have integer coefficients. Do not use the division operator
 3. **Add individual constraints** to the `pd3` polyhedron as shown below.  
 4. **Provide one point** within the region as the middle point and assign it to `midPoints["A"]`.  
 5. **Assign the depth** of the initial region (in meters) to the variable `depthOfTheInitialCube`."
-
+6. **Assign the minimum and maximum values** of the initial region to the variable `initRegionMinMaxValues`.
+7. **Assign the corner points** of the initial region to the variable `initRegionCornerPoints`.
 '''
 
 intiFrusCons = [10*xp0>=1,100*xp0<=11,10*yp0>=45,100*yp0<=451, 10*zp0>=1945,100*zp0<=19451]
@@ -122,10 +151,23 @@ pd3.add_constraint(100*zp0<=19451)
 midPoints["A"] = [0.1,4.5,194.5] ##front left bottom corner of the  initial region, (anyone point from the region is enough)
 depthOfTheInitialCube = .01 ##in meters
 
+
+initRegionMinMaxValues = [.1,.11,4.5,4.51,194.5,194.51] ##minX, maxX, minY, maxY, minZ, maxZ
+###front left bottom corner, front right bottom corner, front left top corner, front right top corner,
+# back left bottom corner, back right bottom corner, back left top corner, back right top corner
+initRegionCornerPoints = [[0.1,4.5,194.5], [0.11,4.5,194.5], [0.1,4.51,194.5], [0.11,4.51,194.5],
+                          [0.1,4.5,194.51], [0.11,4.5,194.51], [0.1,4.51,194.51], [0.11,4.51,194.51]
+                          ] 
+regionCornerPoints["A"] = initRegionCornerPoints
+regionMinMaxValues["A"] = initRegionMinMaxValues
+
 currentMidPoint = midPoints["A"]
 currentMidPointString = str(currentMidPoint[0])+"_"+str(currentMidPoint[1])+"_"+str(currentMidPoint[2])
 processedMidPoints[currentMidPointString] = "A"
 initRegionPolyhedron = pd3
+
+
+
 
 ######################target region #####################################
 ####################<<<<<<<<<<Modify the following constraint>>>>>>>>>>>>>>>>>>>>>####
@@ -164,4 +206,4 @@ z0 = 194.5 #dummy1
 z1 = 194.51 #dummy2
 
 randomLoopLimit = 1000
-#################################################################################
+#########################################################################################

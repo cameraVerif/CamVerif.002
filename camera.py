@@ -1,63 +1,41 @@
-#########################################################
-#######################################################
-##########default paprameters to restore ###################
-#########This is hard coded in some places################
-################Use this if you are runnig full code###########
-#TODO: Make this parameters dynamic
 
-# filmApertureWidth = 0.9872
-# filmApertureHeight = 0.735
-
-# imageWidth = 49 #pixels
-# imageHeight = 49 #pixels
-
-# focalLength = 35
-
-# nearClippingPlane = 1
-# farClippingPlane = 1000
-
-
-# t =0.35820895522388063
-# b =-0.35820895522388063
-# l =-0.35820895522388063
-# r =0.35820895522388063
-
-# n = nearClippingPlane
-# f = farClippingPlane
-#######################################################
-#####################################################
-##########################################################
-
-
-filmApertureWidth = 0.9872 
+filmApertureWidth = 0.9872
 filmApertureHeight = 0.735
 
-imageWidth = 49 #pixels
-imageHeight = 49 #pixels
-
-
-# imageWidth = 1920
-# imageHeight = 1080
+imageWidth = 49
+imageHeight = 49
 
 # imageWidth = 1080
 # imageHeight = 1080
+
 
 focalLength = 35
 
 nearClippingPlane = 1
 farClippingPlane = 1000
 
-###########Do not modify#########
-n = nearClippingPlane
-f = farClippingPlane
 
+# imageWidth = camera.imageWidth
+# imageHeight = camera.imageHeight
+# canvasWidth = camera.filmApertureWidth
+# canvasHeight = camera.filmApertureHeight
+# focalLength = camera.focalLength
 t =0.35820895522388063
 b =-0.35820895522388063
 l =-0.35820895522388063
 r =0.35820895522388063
-##################################
+#t =0.358213
+#b =-0.358213
+#l =-0.358213
+#r =0.358213
+# t =0.358
+# b =-0.358
+# l =-0.358
+# r =0.358
 
-####1080p camera settings############
+n = nearClippingPlane
+f = farClippingPlane
+
 
 # filmApertureWidth = 0.9872
 # filmApertureHeight = 0.735
@@ -69,4 +47,3 @@ r =0.35820895522388063
 
 # nearClippingPlane = 1
 # farClippingPlane = 1000
-#########################################

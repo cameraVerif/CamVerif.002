@@ -230,9 +230,9 @@ def findLCMandUpdateExp(exp,outList):
         outList.append(currentList)
         
     elif(numArgs ==1):
-        print("\n")
-        # print("\n\n\n\n one argument expression, something wrong\n\n\n")
-        # print(exp)
+        
+        print("\n\n\n\n one argument expression, something wrong\n\n\n")
+        print(exp)
         
  
 
@@ -283,7 +283,7 @@ def floatingExpToRationalExp(exp):
         exp = eval("left "+newOperator+"right")
         #print(exp)
     # else:
-        # print("'not' operator not present")
+    #     print("'not' operator not present")
         
     
     ##print(exp)

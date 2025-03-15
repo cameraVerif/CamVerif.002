@@ -15,7 +15,8 @@ import camera
 import scene
 import pyparma_posInvRegion40
 import oldInvComputation1
-import pythonRenderAnImage2
+# import pythonRenderAnImage2
+import renderAnImageForP3
 
 import os
 
@@ -1699,7 +1700,7 @@ def computeInvRegions(currGroupName, currGroupRegionCons, dnnOutput, uniqueId,  
         
 
 
-        pythonRenderAnImage2.renderAnImage(posXp,posYp, posZp,str(uniqueId)+"RefineImage2_0")
+        renderAnImageForP3.renderAnImage(posXp,posYp, posZp,str(uniqueId)+"RefineImage2_0")
     
         
         # print("running dnn")
@@ -1707,7 +1708,7 @@ def computeInvRegions(currGroupName, currGroupRegionCons, dnnOutput, uniqueId,  
         # # currImageDnnOutput= getDNNOutput("images/"+str("RefineImage2_0.ppm"))
         # # currImageDnnOutput = 1
         # print("running on second model")
-        iisc_net_dnnoutput = getDNNOutput_onnx("images/"+str(uniqueId)+str("RefineImage2_0.ppm"),'OGmodel_pb_converted.onnx')
+        iisc_net_dnnoutput = getDNNOutput_onnx("images/"+str(uniqueId)+str("RefineImage2_0.ppm"),environment.networkName)
         
         if iisc_net_dnnoutput == dnnOutput:
             regionsToReturn.append(currInvCons)

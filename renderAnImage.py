@@ -5,6 +5,7 @@ import numpy as np
 import math
 import array
 import sys
+from scipy.spatial import ConvexHull
 
 from collections import Counter
 
@@ -56,7 +57,7 @@ farClippingPlane = camera.farClippingPlane
 # n = 1
 # f = 1000
 
-
+ClippingTriangleList = []
 # # OpenGL perspective projection matrix
 mProj = [
         [2 * n / (r - l), 0, 0, 0],
@@ -151,7 +152,8 @@ def pixelValue(point, w):
     t1 = point[1]/w
     t2 = point[2]/w
     
-    # print(((t0 + 1) * 0.5 * imageWidth),((1 - (t1 + 1) * 0.5) * imageHeight), t2)
+    # print(((t0 + 1) * 0.5 * imageWidth),(( (t1 + 1) * 0.5) * imageHeight), t2)
+    # print(((t0 + 1) * 0.5 * imageWidth),((1- (t1 + 1) * 0.5) * imageHeight), t2)
     originalPixel = [int((t0 + 1) * 0.5 * imageWidth),int((1 - (t1 + 1) * 0.5) * imageHeight), t2]
     # print("pixel value before min = ",originalPixel  )
     
@@ -228,7 +230,9 @@ def edgeFunction(a, b, c):
    
 
 def drawTriangle2(pixelCoordinates, currVertexColours ):
-    # print("Drawing Triangle: " + str(currTriangle))
+    # print("~~~~~~~~~~~Drawing Triangle: " )
+    # print("pixelCoordinates: " + str(pixelCoordinates))
+    # print("currVertexColours: " + str(currVertexColours))
     
     
     
@@ -289,6 +293,9 @@ def drawTriangle2(pixelCoordinates, currVertexColours ):
         # v0MaxDepth = d5
     
  
+    # print("after first step v0Raster: " + str(tempV0))
+    # print("v0flag: " + str(v0flag))
+
     if(v0flag == 0):
         if(angle1<=angle2):
             tempV1 = raster1
@@ -323,6 +330,8 @@ def drawTriangle2(pixelCoordinates, currVertexColours ):
             # v1MinDepth = d2
             # v1MaxDepth = d3
     
+    # print("after second step v0Raster: " + str(tempV0)+ " , v1Raster: " + str(tempV1))
+    # print("v0flag: " + str(v0flag)+ " , v1flag: " + str(v1flag))
     
     if(v0flag != 0 and v1flag != 0 ):
         tempV2 = raster0
@@ -337,7 +346,9 @@ def drawTriangle2(pixelCoordinates, currVertexColours ):
         # v2MinDepth = d4
         # v2MaxDepth = d5
     
+    # print("after third step v0Raster: " + str(tempV0)+ " , v1Raster: " + str(tempV1)+ " , v2Raster: " + str(tempV2))
     
+
     v0Raster = [0,0,0]
     v1Raster = [0,0,0]
     v2Raster = [0,0,0]
@@ -353,6 +364,8 @@ def drawTriangle2(pixelCoordinates, currVertexColours ):
     v2Raster[0] = tempV0[0]
     v2Raster[1] = tempV0[1]
     v2Raster[2] = tempV0[2]
+
+    # print("v0Raster: " + str(v0Raster)+ " , v1Raster: " + str(v1Raster)+ " , v2Raster: " + str(v2Raster))
     
     xmin = min(v0Raster[0], v1Raster[0], v2Raster[0])
     ymin = min(v0Raster[1], v1Raster[1], v2Raster[1])
@@ -376,13 +389,22 @@ def drawTriangle2(pixelCoordinates, currVertexColours ):
     
     # print("x0", x0, "x1", x1, "y0", y0, "y1", y1)
     
+    # print("v0Raster: " + str(v0Raster)+ " , v1Raster: " + str(v1Raster)+ " , v2Raster: " + str(v2Raster))
+
     area = edgeFunction(v0Raster, v1Raster, v2Raster)
     
     # print("area: " + str(area))
 
     if (area <= 0):
         return
-
+    
+    ###Ensure positive area
+    unique_points = np.unique([ [v0Raster[0],v0Raster[1]], [v1Raster[0],v1Raster[1]], [v2Raster[0],v2Raster[1]] ], axis=0)  # Remove duplicate points
+    hull = ConvexHull(unique_points)
+    # print("Hull volume = ", hull.volume)  # In 2D, 'volume' stores the area
+    
+    # print("\nPixle colouring starts here\n----------------")
+    pixelToColourForPrint = []
     for y in range(y0, y1+1):
         for x in range(x0, x1+1):
             pixelSample = [x + 0.5, y + 0.5, 0]
@@ -394,27 +416,32 @@ def drawTriangle2(pixelCoordinates, currVertexColours ):
                 w0 = w0 / area
                 w1 = w1 / area
                 w2 = w2 / area
-                # oneOverZ = v0Raster[2] * w0 + v1Raster[2] * w1 + v2Raster[2] * w2
-                # z = 1 / oneOverZ
-                # # z = oneOverZ
-                # storeZasDepth = z
-                # z = round(z,10)
-                # # print("z = ",z)
 
-                # #mapped back to the camera space
-                # tz0 = (v0Raster[2]+-1.002002002002002)/-2.002002002002002
-                # tz1 = (v1Raster[2]+-1.002002002002002)/-2.002002002002002
-                # tz2 = (v2Raster[2]+-1.002002002002002)/-2.002002002002002
-                # # print("tz0 = ", tz0, " tz1 = ", tz1, " tz2 = ", tz2)
-                # oneOverZ = w0*tz0 + w1*tz1 + w2*tz2
-                # # print("oneOverZ = ",oneOverZ)
-             
-                # z = 1 / oneOverZ
+
+                #########################################################
+                ####tz0 = 1/(zp-z0) 
+
+                tz0 = (v0Raster[2]+-1.002002002002002)/-2.002002002002002
+                tz1 = (v1Raster[2]+-1.002002002002002)/-2.002002002002002
+                tz2 = (v2Raster[2]+-1.002002002002002)/-2.002002002002002
+                # print("tz0 = ", 1/tz0, " tz1 = ", 1/tz1, " tz2 = ", 1/tz2)
+                oneOverZ = w0*tz0 + w1*tz1 + w2*tz2
+                # print("oneOverZ = ",oneOverZ)
+                z = 1 / oneOverZ
+                # print("z = ",z)  
+                ##########################################################
 
                 oneOverZ = (1/v0Raster[2]) * w0 + (1/v1Raster[2]) * w1 + (1/v2Raster[2] * w2)
                 z = 1 / oneOverZ
 
 
+
+                # oneOverZ = (v0Raster[2]) * w0 + (v1Raster[2]) * w1 + (v2Raster[2] * w2)
+                # # # z = 1 / oneOverZ
+                # z = oneOverZ
+                # # storeZasDepth = z
+                # z = round(z,10)
+                # print("z = ",z)
                 
                 # r = w0 * currVertexColours[0][0]*255 + w1 * currVertexColours[1][0]*255 + w2 * currVertexColours[2][0]*255 
                 # g = w0 * currVertexColours[0][1]*255 + w1 * currVertexColours[1][1]*255 + w2 * currVertexColours[2][1]*255
@@ -433,6 +460,13 @@ def drawTriangle2(pixelCoordinates, currVertexColours ):
                 # r= 0
                 # g = 255
                 # b =0
+                # print(x,y,z, r,g,b)
+
+               
+                
+                # print(x,y)
+                pixelToColourForPrint.append([x,y])
+                   
                
                 if depthBuffer.get(y * imageWidth + x):
                     # print("depthBuffer[y * imageWidth + x] = ",depthBuffer[y * imageWidth + x], "z = ",z)
@@ -440,6 +474,7 @@ def drawTriangle2(pixelCoordinates, currVertexColours ):
                         
                         depthBuffer[y * imageWidth + x] = z
                         frameBuffer[y * imageWidth + x] = [int(r),int(g),int(b)]
+                   
                 else:
                     depthBuffer[y * imageWidth + x] = z
                     frameBuffer[y * imageWidth + x] = [int(r),int(g),int(b)]
@@ -455,6 +490,7 @@ def drawTriangle2(pixelCoordinates, currVertexColours ):
                 #     currTriangleIntervalImage[y*imageWidth+x] = [[r,g,b,currMinDepth,currMaxDepth]]
 
                 # print(y*imageWidth + x,int(r),int(g),int(b))
+    # print("All pixels to colour = ",pixelToColourForPrint )
 
                 
 
@@ -547,6 +583,8 @@ def generateTriangles2(tr_vertex_coordinates, tr_vertex_ws, tr_num_of_vertices,e
     raster1 = [0,0,0]
     raster2 = [0,0,0]
     
+    # print("\n renderTriangle: " + str(currTriangle))
+    # print("Edges : " + str(edges))
     edge1 = edges[0]
     # print("edge1: " + str(edge1))
     # print("tr_vertex_coordinates[edge1[0]]: " + str(tr_vertex_coordinates[edge1[0]]))
@@ -558,13 +596,15 @@ def generateTriangles2(tr_vertex_coordinates, tr_vertex_ws, tr_num_of_vertices,e
     # d0 = depthInformation[edge1[0]][1]
     # d1 = depthInformation[edge1[0]][2]
     if np.isnan(t0) or np.isnan(t1) or np.isnan(t2):
-        print("NAN value found")
+        # print("NAN value found")
         return
     
     raster0[0] = min(imageWidth - 1, (int)((t0 + 1) * 0.5 * imageWidth)) 
     raster0[1] = min(imageHeight - 1,(int)((1 - (t1 + 1) * 0.5) * imageHeight))
     # raster0[2] = t2
     raster0[2] = tr_vertex_ws[edge1[0]]
+
+    # print("First Vertex: " + str(raster0))
     
     firstVertex = edge1[0]
     secondVertex = edge1[1]
@@ -597,12 +637,15 @@ def generateTriangles2(tr_vertex_coordinates, tr_vertex_ws, tr_num_of_vertices,e
         # raster1[2] = t2
         raster1[2] = tr_vertex_ws[secondVertex]
         
+        # print("Second Vertex: " + str(raster1)) 
+        
         # d2 = depthInformation[secondVertex][1]
         # d3 = depthInformation[secondVertex][2]
         
         t0 = tr_vertex_coordinates[thirdVertex][0]/ tr_vertex_ws[thirdVertex]
         t1 = tr_vertex_coordinates[thirdVertex][1]/ tr_vertex_ws[thirdVertex]
         t2 = tr_vertex_coordinates[thirdVertex][2]/ tr_vertex_ws[thirdVertex]
+
 
         if np.isnan(t0) or np.isnan(t1) or np.isnan(t2):
             print("NAN value found")
@@ -613,7 +656,7 @@ def generateTriangles2(tr_vertex_coordinates, tr_vertex_ws, tr_num_of_vertices,e
         # raster2[2] = t2
         raster2[2] = tr_vertex_ws[thirdVertex]
         
-       
+        # print("Third Vertex: " + str(raster2))
         # d4 = depthInformation[thirdVertex][1]
         # d5 = depthInformation[thirdVertex][2]
 
@@ -632,7 +675,8 @@ def generateTriangles2(tr_vertex_coordinates, tr_vertex_ws, tr_num_of_vertices,e
     
     
     
-    
+
+
 
 def renderATriangle(currTriangle,xp, yp,zp):
     
@@ -674,12 +718,21 @@ def renderATriangle(currTriangle,xp, yp,zp):
     v2Vertex = [vertices[currTriangleVertices[2]*3+0], vertices[currTriangleVertices[2]*3+1],vertices[currTriangleVertices[2]*3+2] ]
 
 
-    if Counter(v0Vertex) == Counter(v1Vertex) or Counter(v0Vertex) == Counter(v2Vertex) or Counter(v1Vertex) == Counter(v2Vertex):
-        # print(v0Vertex, v1Vertex, v2Vertex)
-        # print("Error triangle")
-        # print(currTriangle)
-        return 0
+    # if Counter(v0Vertex) == Counter(v1Vertex) or Counter(v0Vertex) == Counter(v2Vertex) or Counter(v1Vertex) == Counter(v2Vertex):
+    #     # print(v0Vertex, v1Vertex, v2Vertex)
+    #     # print("Error triangle")
+    #     # print(currTriangle)
+    #     return 0
    
+    # print("v0Vertex = ",v0Vertex)
+    # print("v1Vertex = ",v1Vertex)
+    # print("v2Vertex = ",v2Vertex)
+    if v0Vertex == v1Vertex or v0Vertex == v2Vertex or v1Vertex == v2Vertex:
+            # print("Error triangle")
+            # print("v0Vertex ", v0Vertex)
+            # print("v1Vertex ", v1Vertex)
+            # print("v2Vertex ", v2Vertex)
+            return 0
     
     
     # numberOfInvRegions = 0  
@@ -858,6 +911,7 @@ def renderATriangle(currTriangle,xp, yp,zp):
     currImageColours = dict()
     currImageColours.clear()
     
+    # print("currTriangleVertices: " + str(currTriangleVertices))
     currImageColours[0] = [environment.vertColours[currTriangleVertices[0]*3+0],
                             environment.vertColours[currTriangleVertices[0]*3+1],
                             environment.vertColours[currTriangleVertices[0]*3+2]] 
@@ -871,6 +925,7 @@ def renderATriangle(currTriangle,xp, yp,zp):
                             environment.vertColours[currTriangleVertices[2]*3+2]] 
     
     
+    # print("currImageColours: " + str(currImageColours)) 
     
     # newvertices = [0]*numOfVertices*3*5
     # newVerticesNumber = 0
@@ -953,7 +1008,7 @@ def renderATriangle(currTriangle,xp, yp,zp):
     # print("Outcodes = ",outcodeP0)
     # print("outValue0 = ",outValue0, "outValue1 = ",outValue1, "outValue2 = ",outValue2)
     # print("outW0 = ",outW0, "outW1 = ",outW1, "outW2 = ",outW2)
-    # print("posXp = ",posXp, "posYp = ",posYp, "posZp = ",posZp)
+    # # print("posXp = ",posXp, "posYp = ",posYp, "posZp = ",posZp)
     
     
     # outValueToWorld0 = outValueToWorldCoordinates([outValue0[0], outValue0[1], outValue0[2]])
@@ -1073,6 +1128,8 @@ def renderATriangle(currTriangle,xp, yp,zp):
         pass
     else:
         # print("Some vertices inside and some outside the frustum. Intersecting edges, clipping needed")
+
+        ClippingTriangleList.append(currTriangle)
                 
         
         #find data of the fully inside vertices
@@ -1382,7 +1439,7 @@ def renderATriangle(currTriangle,xp, yp,zp):
                 outsideVertex1 = tr_outside_vertex_set[0]
                 outsideVertex2 = tr_outside_vertex_set[1]
                 
-               
+                # print("\noutsideVertex1 = ", outsideVertex1, "outsideVertex2 = ", outsideVertex2)
                 
                 edge1_1, edge1_2 =  findEdges(outsideVertex1, edges)
 
@@ -1403,7 +1460,7 @@ def renderATriangle(currTriangle,xp, yp,zp):
                 # print("Edges = ",edges)
                 # print("edge1_1 = ", edge1_1, "edge1_2 = ", edge1_2)
                 # print("insidevertexOfoutside1 = ", insidevertexOfoutside1, "outsidevertexOfOutside1 = ", outsidevertexOfOutside1)
-                
+                # print("tr_vertex_coordinates = ", tr_vertex_coordinates)
                 
                 
                 insideVertex1_cord = tr_vertex_coordinates[insidevertexOfoutside1]
@@ -1411,13 +1468,20 @@ def renderATriangle(currTriangle,xp, yp,zp):
                 outsideVertex1_cord = tr_vertex_coordinates[outsideVertex1]
                 outsideVertex1W =tr_vertex_ws[outsideVertex1]
                 
+
                 prop_t1, intersectionPoint1, intersectionPoint1W = cpp_vertexPlaneIntersectionPoint(insideVertex1_cord, outsideVertex1_cord, 
                                                                                     insideVertex1W, outsideVertex1W, currPlane)
 
                 removeEdges(outsideVertex1)
-        
+
+                # print("remove edges of : ", outsideVertex1)
+                # print("Edges = ",edges)
+                # print("tr_vertices_set = ", tr_vertices_set)
+
                 tr_vertices_set.remove(outsideVertex1)
                 tr_num_of_vertices = tr_num_of_vertices-1
+
+                # print("tr_vertices_set = ", tr_vertices_set)
                 
                 # print("intersectionPoint1 = ", intersectionPoint1)
                 # print("intersectionPoint1W = ", intersectionPoint1W)
@@ -1458,6 +1522,8 @@ def renderATriangle(currTriangle,xp, yp,zp):
                 edges.append([tr_curr_num_of_vertex-1,outsidevertexOfOutside1])
 
                 
+
+                # print("Edges = ",edges)
                 
                 edge2_1, edge2_2 =  findEdges(outsideVertex2, edges)
                 
@@ -1475,7 +1541,8 @@ def renderATriangle(currTriangle,xp, yp,zp):
                 else:
                     outsidevertexOfOutside2 = edge2_2
                 
-                
+                # print("insidevertexOfoutside2 = ", insidevertexOfoutside2, "outsidevertexOfOutside2 = ", outsidevertexOfOutside2)
+
                 insideVertex2_cord = tr_vertex_coordinates[insidevertexOfoutside2]
                 insideVertex2W = tr_vertex_ws[insidevertexOfoutside2]
                 
@@ -1518,22 +1585,15 @@ def renderATriangle(currTriangle,xp, yp,zp):
                 edges.append([tr_curr_num_of_vertex-1,insidevertexOfoutside2])
                 edges.append([tr_curr_num_of_vertex-1,outsidevertexOfOutside2])  
                 
-                
+               
                 
                 
 
 
-                # print("pixel values of intersection points \n---------")
-                # print("intersectionPoint1 = ", pixelValue(intersectionPoint1, intersectionPoint1W))
-                # print("intersectionPoint2 = ", pixelValue(intersectionPoint2, intersectionPoint2W))
-        
+       
+
         generateTriangles2(tr_vertex_coordinates, tr_vertex_ws, tr_num_of_vertices,edges,currTriangle, currImageColours)
         
-        return
-
-        # exit()
-        
-        # print("\n=========statistics1=========")
         # print("Vertices after the clipping operation = ", tr_vertices_set)
         # print("number of vertices after clipping = ", tr_num_of_vertices)
         # print("edges after clipping = ", edges) 
@@ -1542,305 +1602,18 @@ def renderATriangle(currTriangle,xp, yp,zp):
         # print("vertex ws after clipping = ", tr_vertex_ws)
         # print("Fully inside vertices = ", fullyInsideVerticesNumber)
         # print("Intersecting data = ", intersectingData)
-        # print("\n==============================")     
-                   
+        # # print("\n==============================")     
 
-        # intersectingVertices = list(set(tr_vertices_set) - set(fullyInsideVerticesNumber))
-        # print("Intersecting vertices to consider = ",intersectingVertices)
-        
-        # #DOING
-        # #compute world coordinates of the end points of each edge
-        # #compute pixel coordinates of the intersecting point
-        # #prepare the intersecting data to pass to PPL
-        
-        # for currVert in intersectingVertices:
-        #     print("\ncurrent vertex to consider = ", currVert)
-        #     currIntersectingData = intersectingData[currVert]
-        #     print("currIntersectingData = ", currIntersectingData)
-            
-        #     currInsideVertCoordinates =[0,0,0]
-        #     currOutsideVertCoordinates =[0,0,0]
-            
-        #     if currIntersectingData[1] <3:
-        #         currInsideVertCoordinates = vertices[currTriangleVertices[currIntersectingData[1]]*3:currTriangleVertices[currIntersectingData[1]]*3+3]
-        #     else:   
-        #         tempCoordinates = outValueToWorldCoordinates(tr_vertex_coordinates[currIntersectingData[1]])
-        #         currInsideVertCoordinates = [tempCoordinates[0]+posXp, tempCoordinates[1]+posYp, tempCoordinates[2]+posZp]
-            
-        #     if currIntersectingData[2] <3:
-        #         currOutsideVertCoordinates = vertices[currTriangleVertices[currIntersectingData[2]]*3:currTriangleVertices[currIntersectingData[2]]*3+3]
-        #     else:
-        #         tempCoordinates = outValueToWorldCoordinates(tr_vertex_coordinates[currIntersectingData[2]])
-        #         currOutsideVertCoordinates = [tempCoordinates[0]+posXp, tempCoordinates[1]+posYp, tempCoordinates[2]+posZp]
-        
-        #     currentIntersectingPlane = currIntersectingData[3]
-            
-        #     isIntersect, vertexPixelValue2,intersectionPoint,mp,mq =planeEdgeIntersectionUpdated(currentIntersectingPlane,currInsideVertCoordinates, currOutsideVertCoordinates,m,1)
-                   
-            
-        #     # print("currInsideVertCoordinates = ", currInsideVertCoordinates)
-        #     # print("currOutsideVertCoordinates = ", currOutsideVertCoordinates)
-        #     # print("currentIntersectingPlane = ", currentIntersectingPlane)
-        #     # print("isIntersect = ", isIntersect)
-        #     # print("vertexPixelValue2 = ", vertexPixelValue2)
-        #     # print("intersectionPoint = ", intersectionPoint)
-        #     # print("mp = ", mp)
-        #     # print("mq = ", mq)
-            
-        #     if( isIntersect== 1):
-        #         # currentIntersectingPlane =0
-        #         x = intersectionPoint[0]
-        #         y = intersectionPoint[1]
-        #         z = intersectionPoint[2]
 
-        #         fflag =0
-        #         currIntersectionData = []
-        #         for vPixel in range(0, len(vertexPixelValue2),2):
-        #             if( (vertexPixelValue2[vPixel]>=0 and vertexPixelValue2[vPixel]<=49) and 
-        #                 (vertexPixelValue2[vPixel+1]>=0 and vertexPixelValue2[vPixel+1]<=49)
-        #                 ) : 
-                        
-        #                 if fflag == 0:
-        #                     # numberOfIntersectingPlanes +=1
-        #                     numberOfIntersectingEdges += 1
-        #                     fflag = 1
-                        
-        #                 xpixel = vertexPixelValue2[vPixel]
-        #                 ypixel = vertexPixelValue2[vPixel+1]    
-                        
-        #                 if((currIntersectingData[1] >2 and currIntersectingData[2] >2) and ((xpixel == 0 and ypixel ==0) or(xpixel ==49 and ypixel==0) or
-        #                                                                                     (xpixel == 0 and ypixel ==49) or(xpixel ==49 and ypixel==49))):
-                            
-        #                     singleIntersectingData = [-2, currInsideVertCoordinates,currOutsideVertCoordinates,currentIntersectingPlane,\
-        #                                         xpixel,ypixel, currIntersectingData[1], currIntersectingData[2], currIntersectingData[0]] 
-        #                 else:                                                      
-        #                     singleIntersectingData = [-1, currInsideVertCoordinates,currOutsideVertCoordinates,currentIntersectingPlane,\
-        #                                         xpixel,ypixel, currIntersectingData[1], currIntersectingData[2], currIntersectingData[0]]                            
-        #                 intersectingEdgeDataToPPL.append(singleIntersectingData) 
-        #                 currIntersectionData.append(singleIntersectingData)                           
-        #                 currImage.append([xpixel,ypixel])
-        #         if fflag == 1:
-        #             globalIntersectingVertexDataToPPL.append(currIntersectionData)
-        #     else:
-        #         t0 = int(tr_vertex_coordinates[currIntersectingData[0]][0]/tr_vertex_ws[currIntersectingData[0]])
-        #         t1 = int(tr_vertex_coordinates[currIntersectingData[0]][1]/tr_vertex_ws[currIntersectingData[0]])
-                
-        #         xpixel =  min(imageWidth-1, int((t0 + 1) * 0.5 * imageWidth))
-        #         ypixel =  min(imageHeight-1, int((1 - (t1 + 1) * 0.5) * imageHeight))
-                
-            
-        #         currIntersectionData = []
-                
-                
-        #         singleIntersectingData = [-3, currInsideVertCoordinates,currOutsideVertCoordinates,currentIntersectingPlane,\
-        #                                         xpixel,ypixel, currIntersectingData[1], currIntersectingData[2], currIntersectingData[0]]
-                
-        #         intersectingEdgeDataToPPL.append(singleIntersectingData) 
-        #         currIntersectionData.append(singleIntersectingData)                           
-        #         currImage.append([xpixel,ypixel])
-        #         numberOfIntersectingEdges += 1
-        #         globalIntersectingVertexDataToPPL.append(currIntersectionData)
-                
-    
-    
-        
-            
-        # currImageName = currGroupName+str(numberOfInvRegions)
-        # print("currImageName :",currImageName)
-        # print("PPL Inv region generation :start")
-        
-        # ##region computation edited for 27/40####
-        
-        
-        
-                    
-                    
-                  
-        # print("\n===================\nnumber of fully inside vertices" , numberOfFullyInsideVertices)
-        # print("global inside vertex data to ppl = ", globalInsideVertexDataToPPL)
-        # for l in itertools.product(*globalInsideVertexDataToPPL):
-        #     print(l)
-        
 
-        # print("number of intersecting data = ", numberOfIntersectingEdges)
-        # print("globalIntersectingVertexDataToPPL = ", globalIntersectingVertexDataToPPL)
-        # for l in itertools.product(*globalIntersectingVertexDataToPPL):
-        #     print(l)
 
-        
-        # combinedDataToPPL = globalInsideVertexDataToPPL+ globalIntersectingVertexDataToPPL
-        
+        return
 
-        # # print("computing pixel values: done ")
-        # allImages.append(currImage)
-        # # print("Passing values to PPL for polyhedron computation") 
-        
-      
-        
-        
-        
-        # print("Number of invariant regions = ", numberOfInvRegions)
-        # print("\n combinedDataToPPL = ",combinedDataToPPL)
-        # findARegion =0
-        # tempRegionCons = []
-        # tempConsString = ""
-        # dataToComputeDepth = []
-        
-        # for l in itertools.product(*combinedDataToPPL):
-        #     print("\n=========\n",l)
-        #     dataToComputeDepth = l
-        #     print("Fully inside data")
-        #     print(l[0:numberOfFullyInsideVertices])
-        #     print("\n\n intersecting data")
-        #     print(l[numberOfFullyInsideVertices:])
+     
 
-        #     insideVertexDetailsToPPL = l[0:numberOfFullyInsideVertices]
-        #     intersectingEdgeDataToPPL = l[numberOfFullyInsideVertices:]
+ 
 
-        #     print("\n", insideVertexDetailsToPPL)
-        #     print("\n\n", intersectingEdgeDataToPPL)
-
-        #     currImageSetConStringPolyhedra = pyparma_posInvRegion40.computeRegion(currGroupName,posZp,numberOfFullyInsideVertices,insideVertexDetailsToPPL,\
-        #     numberOfIntersectingEdges,intersectingEdgeDataToPPL,posXp,posYp,posZp,m[xp0],m[yp0],m[zp0], outcodeP0,currImageName)
-        
-        #     print(currImageSetConStringPolyhedra.minimized_constraints())
-            
-        #     # print("inv region generated")
-        #     currImageSetConString = str(currImageSetConStringPolyhedra.minimized_constraints())
-        #     currImageSetConString = currImageSetConString.replace("x0","xp0")
-        #     currImageSetConString = currImageSetConString.replace("x1","yp0")
-        #     currImageSetConString = currImageSetConString.replace("x2","zp0")
-        #     currImageSetConString = currImageSetConString.replace(" = ","==")
-        #     currImageSetConString = currImageSetConString.replace("Constraint_System {"," ")
-        #     currImageSetConString = currImageSetConString.replace("}"," ")
-            
-        #     if(str(currImageSetConString).replace(" ","") == "-1==0" or str(currImageSetConString).replace(" ","") == "0==-1"):
-        #         print("Continue with the next point")
-        #         sleep(4)
-        #         continue
-            
-            
-            
-            
-        #     tempConsString = currImageSetConString
-        #     findARegion = 1
-        #     currImageSetConString = "And("+str(currImageSetConString)+")"
-        #     currImageSetCons = eval(currImageSetConString)
-            
-        #     print("checking pos inclusion")
-        #     scheck2 = Solver()
-        #     scheck2.add(currImageSetCons)
-        #     scheck2.add(currGroupRegionCons)
-        #     # # scheck.add(z3invRegionCons)
-            
-        #     # scheck.push()
-        #     scheck2.add(And(xp0 ==m[xp0], yp0 == m[yp0], zp0 == m[zp0]))
-        #     if(scheck2.check() != sat):
-        #         print("Point Outside the region, Continue with the next point")
-        #         sleep(3)
-        #         continue
-            
-             
-            
-            
-            
-        #     print("Pos is inside the region")
-        #     s2.add(Not(currImageSetCons))             
-        #     tempRegionCons.append(currImageSetConString)             
-        #     break    
-            
        
-        # if findARegion == 0:
-        #     print("Check for error: -1==0")
-        #     criticalFile=open("ErrorLog.txt","a")
-            
-        #     criticalFile.write("Current Triangle = "+str(currTriangle))
-        #     criticalFile.write("currGroupRegionCons = "+str(currGroupRegionCons))
-            
-        
-        #     criticalFile.close()
-        #     # exit()
-        #     return numberOfInvRegions-1
-        
-        # currImageSetConString = tempConsString
-        
-        
-        
-        # #######################Depth code to copy##################
-        # #########################################################
-        # #########################################################
-        # ### New implementation of depth computation. ##############
-        # ########################################################
-        # #######################################################
-        
-        
-        # print("\n\n Data to compute the depth info ")
-        # print(dataToComputeDepth)  
-        
-        # print("Fully inside data")
-        # print(dataToComputeDepth[0:numberOfFullyInsideVertices])
-        # print("\n\n intersecting data")
-        # print(dataToComputeDepth[numberOfFullyInsideVertices:])   
-        
-        
-        # depthInformation = dict()
-        # depthInformation.clear()
-        # for inVert in range(0,numberOfFullyInsideVertices):
-        #     vert_x = vertices[dataToComputeDepth[inVert][0]*3+0]
-        #     vert_y = vertices[dataToComputeDepth[inVert][0]*3+1]
-        #     vert_z = vertices[dataToComputeDepth[inVert][0]*3+2]
-        #     print("Computing depth of the fully inside vertex ", inVert)
-        #     print(dataToComputeDepth[inVert])
-        #     print("Vertex data = ",vert_x,vert_y,vert_z)
-            
-        #     mindepth = 0
-        #     maxdepth = 1000000
-        #     # print("finding mindepth")
-        #     mindepth = gurobiGetDepths4.getDepthInterval(currImageSetConString,vert_x,vert_y,vert_z, currGroupRegionCons )
-        #     mindepth = math.sqrt(mindepth)
-        #     # print("mindepth = ", mindepth)
-        #     # sleep(3)
-        #     # print("finding maxdepth")
-        #     # maxdepth = gurobiGetDepths4.getDepthInterval2(currImageSetConString,vert_x,vert_y,vert_z,currGroupRegionCons )
-        #     # maxdepth = math.sqrt(maxdepth)
-            
-        #     maxdepth = mindepth + environment.depthOfTheInitialCube
-        #     print("mindepth, maxdepth =", mindepth,maxdepth)
-            
-        #     depthInformation[dataToComputeDepth[inVert][3]] = [inVert, mindepth,maxdepth]
-        # print("\n-------")
-        # for intVert in range(0,numberOfIntersectingEdges):
-        #     print("Computing depth of the intersecting point ", intVert)
-        #     print(dataToComputeDepth[numberOfFullyInsideVertices+intVert])
-            
-            
-        #     mindepth = gurobiGetDepths4.getDepthIntervals3(currImageSetConString,dataToComputeDepth[numberOfFullyInsideVertices+intVert],\
-        #                                                             currGroupRegionCons,edgeVertexIndices, currTriangleVertices)
-                                                                    
-            
-        #     # # maxdepth = gurobiGetDepths4.getDepthIntervals4(currImageSetConString,dataToComputeDepth[numberOfFullyInsideVertices+intVert],\
-        #     #                                                         currGroupRegionCons,edgeVertexIndices, currTriangleVertices)
-                                                                    
-        #     mindepth = math.sqrt(mindepth)                                                        
-        #     maxdepth = mindepth + environment.depthOfTheInitialCube
-            
-        #     print("Final mindepth = ", mindepth) 
-        #     print("\n\n") 
-        #     # sleep(20)          
-            
-        #     depthInformation[dataToComputeDepth[numberOfFullyInsideVertices+intVert][8]] = [numberOfFullyInsideVertices+intVert,
-        #                              mindepth,maxdepth]                                          
-                                                                    
-        # # exit()                     
-        
-        
-        # ###################depth code ends here ######################
-        
-        # # print("Current Triangle Interval Image = ", currTriangleIntervalImage)
-        # intervalImageFunctions1.computeSingleImage(currImageName, numberOfInvRegions, dataToComputeDepth, depthInformation, 
-        #     tr_vertices_set, tr_vertex_coordinates, tr_vertex_ws, edges, numberOfFullyInsideVertices, numberOfIntersectingEdges, tr_num_of_vertices, 
-        #     currTriangle, currTriangleIntervalImage, currImageColours)
-        # # print("Current Triangle Interval Image = ", currTriangleIntervalImage)
         
         
 def computeScreenCoordinates():
@@ -1887,8 +1660,31 @@ def renderAnImage(xp, yp, zp, currImage):
     frameBuffer.clear()
     depthBuffer.clear()  
     computeScreenCoordinates()    
+    global mProj
+    # print(mProj)
     
     for i in range(0,environment.numOfTriangles):
+       
+
+        # if i != 2 and i !=6:
+        #     continue
+        # if i!=155 and i!=246:
+        #     continue
+        # tLIst = [0, 1, 6, 7, 8, 9, 18, 19, 22, 23, 376, 377, 433, 438, 439, 448, 454, 457, 459, 460, 491, 492, 496, 497, 513, 514, 520, 521, 570, 573, 575, 576, 609, 610, 615, 616, 647, 650, 652, 653, 699, 700, 705, 706, 727, 728, 732, 735, 745, 746, 761, 764, 767, 769, 834, 835, 840, 841, 873, 876, 878, 879, 923, 925, 929, 930, 965, 967, 969, 971, 973, 984, 992, 993, 1108, 1109, 1112, 1118, 1119, 1120, 1123, 1240, 1241, 1249, 1266, 1269, 1297, 1298, 1300, 1301, 1302, 1305, 1308, 1309, 1312, 1315, 1318, 1321, 1322, 1337, 1338, 1342, 1343, 1357, 1358, 1366, 1369, 1373, 1374, 1382, 1385, 1389, 1390, 1393, 1394, 1398, 1399, 1409, 1410, 1414, 1415, 1425, 1426, 1824, 1825, 1833, 1834, 1865, 1866, 1898, 1899, 1941, 1942, 1943, 1944, 1954, 1956, 1961, 1962, 2053, 2054, 2059, 2061]
+
+        # if i in tLIst:
+        #     continue
+        # if i != 31525:
+        #     continue
+
+        # tLIst = [ 2239,2642,2645]
+        # if i not in tLIst:
+        #     continue
+
+        # if i not in [31493]:
+        #     continue
+
+        # print(f"\n\n\nRendering Triangle {i} \n %##########################", i)
         renderATriangle(i,xp,yp,zp)
 
 
@@ -1938,7 +1734,7 @@ def main():
 
     print("Rendering image at : ", xPos, yPos, zPos)
     renderAnImage(xPos, yPos, zPos, imgName)
-
+    # print("clipping triangle list = ", ClippingTriangleList )
 if __name__=="__main__":
     main()
 

@@ -6,6 +6,7 @@ import array
 imageWidth = environment.imageWidth
 imageHeight = environment.imageHeight
 frameBuffer = dict()
+
 nvertices = environment.nvertices
 vertColours = environment.vertColours
 
@@ -40,6 +41,9 @@ def edgeFunction(a, b, c):
 
 
 def drawTriangle(raster0,raster1,raster2,currTriangle,d0,d1,d2,d3,d4,d5, currTriangleIntervalImage, currVertexColours, currImg):
+    # print("\n\nDrawing Triangle: " + str(currTriangle))
+    # print("raster0: " + str(raster0)+ " , raster1: " + str(raster1)+ " , raster2: " + str(raster2))
+    # print("d0: " + str(d0) + " , d1: " + str(d1) + " , d2: " + str(d2) + " , d3: " + str(d3) + " , d4: " + str(d4) + " , d5: " + str(d5))
     
     
     
@@ -61,7 +65,11 @@ def drawTriangle(raster0,raster1,raster2,currTriangle,d0,d1,d2,d3,d4,d5, currTri
     
     minAngle = min(angle0, angle1, angle2)
     
-   
+    # print("Center Point: " + str(centerPoint))
+    # print("Angle0: " + str(angle0))
+    # print("Angle1: " + str(angle1))
+    # print("Angle2: " + str(angle2))
+    # print("Min Angle: " + str(minAngle))
     
     
     tempV0 = [0,0,0]
@@ -93,6 +101,9 @@ def drawTriangle(raster0,raster1,raster2,currTriangle,d0,d1,d2,d3,d4,d5, currTri
         v0MinDepth = d4
         v0MaxDepth = d5
     
+    # print("after first step v0Raster: " + str(tempV0))
+    # print("v0MinDepth: " + str(v0MinDepth) + " , v0MaxDepth: " + str(v0MaxDepth))
+
  
     if(v0flag == 0):
         if(angle1<=angle2):
@@ -128,6 +139,8 @@ def drawTriangle(raster0,raster1,raster2,currTriangle,d0,d1,d2,d3,d4,d5, currTri
             v1MinDepth = d2
             v1MaxDepth = d3
     
+    # print("after second step v0Raster: " + str(tempV0)+ " , v1Raster: " + str(tempV1))
+    # print("v0MinDepth: " + str(v0MinDepth) + " , v1MinDepth: " + str(v1MinDepth) + " , v2MinDepth: " + str(v2MinDepth))
     
     if(v0flag != 0 and v1flag != 0 ):
         tempV2 = raster0
@@ -142,6 +155,8 @@ def drawTriangle(raster0,raster1,raster2,currTriangle,d0,d1,d2,d3,d4,d5, currTri
         v2MinDepth = d4
         v2MaxDepth = d5
     
+    # print("after third step v0Raster: " + str(tempV0)+ " , v1Raster: " + str(tempV1)+ " , v2Raster: " + str(tempV2))
+    # print("v0MinDepth: " + str(v0MinDepth) + " , v1MinDepth: " + str(v1MinDepth) + " , v2MinDepth: " + str(v2MinDepth))
     
     v0Raster = [0,0,0]
     v1Raster = [0,0,0]
@@ -158,6 +173,10 @@ def drawTriangle(raster0,raster1,raster2,currTriangle,d0,d1,d2,d3,d4,d5, currTri
     v2Raster[0] = tempV0[0]
     v2Raster[1] = tempV0[1]
     v2Raster[2] = tempV0[2]
+
+
+    # print("v0Raster: " + str(v0Raster)+ " , v1Raster: " + str(v1Raster)+ " , v2Raster: " + str(v2Raster))
+    # print("v0MinDepth: " + str(v0MinDepth) + " , v1MinDepth: " + str(v1MinDepth) + " , v2MinDepth: " + str(v2MinDepth))
     
     xmin = min(v0Raster[0], v1Raster[0], v2Raster[0])
     ymin = min(v0Raster[1], v1Raster[1], v2Raster[1])
@@ -165,10 +184,12 @@ def drawTriangle(raster0,raster1,raster2,currTriangle,d0,d1,d2,d3,d4,d5, currTri
     ymax = max(v0Raster[1], v1Raster[1], v2Raster[1])
     
     if (xmin > imageWidth - 1 or xmax < 0 or ymin > imageHeight - 1 or ymax < 0):
-        
+        print("Out of screen")
         return
     
-   
+    # print("((((((((((Drawing Triangle)))))))))))))")
+    # print("v0Raster: " + str(v0Raster)+ " , v1Raster: " + str(v1Raster)+ " , v2Raster: " + str(v2Raster))
+    
     
     x0 = max(0, (int)(math.floor(xmin)))
     x1 = min(imageWidth - 1, (int)(math.floor(xmax)))
@@ -177,7 +198,7 @@ def drawTriangle(raster0,raster1,raster2,currTriangle,d0,d1,d2,d3,d4,d5, currTri
     
     area = edgeFunction(v0Raster, v1Raster, v2Raster)
     
-   
+    # print("area: " + str(area))
 
     if (area <= 0):
         return
@@ -193,27 +214,53 @@ def drawTriangle(raster0,raster1,raster2,currTriangle,d0,d1,d2,d3,d4,d5, currTri
                 w0 = w0 / area
                 w1 = w1 / area
                 w2 = w2 / area
-                oneOverZ = v0Raster[2] * w0 + v1Raster[2] * w1 + v2Raster[2] * w2
-                z = 1 / oneOverZ
-                storeZasDepth = z
+                # oneOverZ = v0Raster[2] * w0 + v1Raster[2] * w1 + v2Raster[2] * w2
+                # # z = 1 / oneOverZ
+                # z = oneOverZ
+                # storeZasDepth = z
                 
+                ####tz0 = 1/(zp-z0) 
+
+                tz0 = (v0Raster[2]+-1.002002002002002)/-2.002002002002002
+                tz1 = (v1Raster[2]+-1.002002002002002)/-2.002002002002002
+                tz2 = (v2Raster[2]+-1.002002002002002)/-2.002002002002002
+                oneOverZ = w0*tz0 + w1*tz1 + w2*tz2
+                # print("oneOverZ = ",oneOverZ)
+                # sleep(0.2)
+                z = 1 / oneOverZ
+                # z= oneOverZ    
+                # print("z = ",z)
                 
                 
                 # r = w0 * currVertexColours[0][0]*255 + w1 * currVertexColours[1][0]*255 + w2 * currVertexColours[2][0]*255 
                 # g = w0 * currVertexColours[0][1]*255 + w1 * currVertexColours[1][1]*255 + w2 * currVertexColours[2][1]*255
                 # b = w0 * currVertexColours[0][2]*255 + w1 * currVertexColours[1][2]*255 + w2 * currVertexColours[2][2]*255
-                
+
+
+
 
                 r =  currVertexColours[0][0]*255 
                 g = currVertexColours[0][1]*255 
                 b =  currVertexColours[0][2]*255 
 
 
+               
+                
+                # currMinDepth = v2MinDepth * w0 + v1MinDepth * w1 + v0MinDepth * w2
+                # currMaxDepth = v2MaxDepth * w0 + v1MaxDepth * w1 + v0MaxDepth * w2
+                currMinDepth = (1/v2MinDepth) * w0 + (1/v1MinDepth) * w1 + (1/v0MinDepth) * w2
+                currMaxDepth = (1/v2MaxDepth) * w0 + (1/v1MaxDepth) * w1 + (1/v0MaxDepth) * w2
 
-                currMinDepth = v0MinDepth * w0 + v1MinDepth * w1 + v2MinDepth * w2
-                currMaxDepth = v0MaxDepth * w0 + v1MaxDepth * w1 + v2MaxDepth * w2
+
+                # print("currMinDepth: " + str(currMinDepth) + " , currMaxDepth: " + str(currMaxDepth))
+                currMinDepth = 1/currMinDepth
+                currMaxDepth = 1/currMaxDepth
+                # print("currMinDepth Updated: " + str(currMinDepth) + " , currMaxDepth: " + str(currMaxDepth))
                
                 frameBuffer[y * imageWidth + x] = [int(r),int(g),int(b)]
+
+
+               
                 
                 if currTriangleIntervalImage.get(y*imageWidth+x):
                     # print(y*imageWidth+x, "already exists")
@@ -223,6 +270,18 @@ def drawTriangle(raster0,raster1,raster2,currTriangle,d0,d1,d2,d3,d4,d5, currTri
                 else:
                     currTriangleIntervalImage[y*imageWidth+x] = [[r,g,b,currMinDepth,currMaxDepth]]
 
+                # if 1347 == y*imageWidth+x :
+                    
+                #     print("\n\nw0: " + str(w0) + " , w1: " + str(w1) + " , w2: " + str(w2))
+                #     print("v2MinDepth: " + str(v2MinDepth) + " , v1MinDepth: " + str(v1MinDepth) + " , v0MinDepth: " + str(v0MinDepth))
+               
+
+                #     print("\n0MinDepth: " + str(v0MinDepth) + " , v1MinDepth: " + str(v1MinDepth) + " , v2MinDepth: " + str(v2MinDepth))
+                
+                #     print("~~~~~~intersecting~~~~~~1347, r, g,b,d ===> ", r,g,b, currMinDepth,currMaxDepth)
+                #     print("43 ===> ", currTriangleIntervalImage[y*imageWidth+x])
+                #     print("currTriangle =", currTriangle)
+                #     print("43 ===> ", w0,w1,w2)
                 # print(y*imageWidth + x,int(r),int(g),int(b))
 
                 
@@ -278,8 +337,11 @@ def computeSingleImage(currImageName, numberOfInvRegions, dataToComputeDepth, de
     raster1 = [0,0,0]
     raster2 = [0,0,0]
     
+
     edge1 = edges[0]
-   
+    # print("edge1: " + str(edge1))
+    # print("tr_vertex_coordinates[edge1[0]]: " + str(tr_vertex_coordinates[edge1[0]]))
+    
     t0 = tr_vertex_coordinates[edge1[0]][0]/ tr_vertex_ws[edge1[0]]
     t1 = tr_vertex_coordinates[edge1[0]][1]/ tr_vertex_ws[edge1[0]]
     t2 = tr_vertex_coordinates[edge1[0]][2]/ tr_vertex_ws[edge1[0]]
@@ -291,6 +353,9 @@ def computeSingleImage(currImageName, numberOfInvRegions, dataToComputeDepth, de
     raster0[0] = min(imageWidth - 1, (int)((t0 + 1) * 0.5 * imageWidth)) 
     raster0[1] = min(imageHeight - 1,(int)((1 - (t1 + 1) * 0.5) * imageHeight))
     raster0[2] = t2
+
+    # print("raster0: " + str(raster0))   
+    # print("d0: " + str(d0) + " , d1: " + str(d1))
     
     firstVertex = edge1[0]
     secondVertex = edge1[1]
@@ -307,7 +372,8 @@ def computeSingleImage(currImageName, numberOfInvRegions, dataToComputeDepth, de
         else:
             thirdVertex = vertex4
     
-       
+        # print("firstVertex: " + str(firstVertex)+ " , secondVertex: " + str(secondVertex)+ " , thirdVertex: " + str(thirdVertex))
+ 
  
         t0 = tr_vertex_coordinates[secondVertex][0]/ tr_vertex_ws[secondVertex]
         t1 = tr_vertex_coordinates[secondVertex][1]/ tr_vertex_ws[secondVertex]
@@ -318,8 +384,12 @@ def computeSingleImage(currImageName, numberOfInvRegions, dataToComputeDepth, de
         raster1[2] = t2
         
         
+        
         d2 = depthInformation[secondVertex][1]
         d3 = depthInformation[secondVertex][2]
+
+        # print("raster1: " + str(raster1))
+        # print("d2: " + str(d2) + " , d3: " + str(d3))
         
         t0 = tr_vertex_coordinates[thirdVertex][0]/ tr_vertex_ws[thirdVertex]
         t1 = tr_vertex_coordinates[thirdVertex][1]/ tr_vertex_ws[thirdVertex]
@@ -333,8 +403,10 @@ def computeSingleImage(currImageName, numberOfInvRegions, dataToComputeDepth, de
         d4 = depthInformation[thirdVertex][1]
         d5 = depthInformation[thirdVertex][2]
 
+        # print("raster2: " + str(raster2))
+        # print("d4: " + str(d4) + " , d5: " + str(d5))
         # print("Draw traingle : ", raster0,raster1,raster2)
-        # 
+        
         
         currVertexColours = [currImageColours[firstVertex], currImageColours[secondVertex], currImageColours[thirdVertex]]
         # print("Vertex Colours: " + str(currVertexColours))
@@ -363,7 +435,6 @@ def computeSingleImage(currImageName, numberOfInvRegions, dataToComputeDepth, de
  
 
 def updateSingleIntervalImage(currTriangleIntervalImage,  currTriangle, minmaxDepths, centerPointImage):
-
     vertex0 = nvertices[currTriangle*3+0]
     # vertex1 = nvertices[currTriangle*3+1]
     # vertex2 = nvertices[currTriangle*3+2]
@@ -372,6 +443,8 @@ def updateSingleIntervalImage(currTriangleIntervalImage,  currTriangle, minmaxDe
     r = vertColours[vertex0*3+0]*255
     g = vertColours[vertex0*3+1]*255
     b = vertColours[vertex0*3+2]*255
+
+    # print("\n\n\n\nr,g,b", r,g,b)
     for currPixel in centerPointImage:
         if currTriangleIntervalImage.get(currPixel):
             # print(y*imageWidth+x, "already exists")
@@ -382,7 +455,8 @@ def updateSingleIntervalImage(currTriangleIntervalImage,  currTriangle, minmaxDe
             currTriangleIntervalImage[currPixel] = [[r,g,b,minmaxDepths[0],minmaxDepths[1]]]
 
 
-    
+        
+        
     
     
     

@@ -1,0 +1,165 @@
+Collision detected 1883
+time Taken = 1:23:43.420887
+currGroupName = A_0_0_0_0_0_0_0_0_0_0_0_0_2_0_2_1_1_1_0_0_0_0_0_0_0_0
+currDnnOutput = 0triangle = 1883
+pathHullConString = And( 250*zp0-35179>=0, 2*yp0-9>=0, 10*xp0+99>=0, -100*yp0+451>=0, -43300*xp0+25000*zp0-3946137>=0, -125*zp0+17699>=0, 2165*xp0-1250*zp0+197341>=0, -100*xp0-939>=0 )
+True  >>>>>>>>>>>> Spurios Collision<<<<<<<<09809<<<<time Taken = 9:03:45.054439
+Collision detected 1919
+time Taken = 9:03:50.301457
+currGroupName = A_0_0_0_0_0_0_0_0_0_0_0_0_2_0_2_1_1_1_0_0_0_0_0_0_0_0
+currDnnOutput = 0triangle = 1919
+pathHullConString = And( 250*zp0-35179>=0, 2*yp0-9>=0, 10*xp0+99>=0, -100*yp0+451>=0, -43300*xp0+25000*zp0-3946137>=0, -125*zp0+17699>=0, 2165*xp0-1250*zp0+197341>=0, -100*xp0-939>=0 )
+True  >>>>>>>>>>>> Spurios Collision<<<<<<<<09809<<<<time Taken = 9:03:50.302823
+Collision detected 2778
+time Taken = 9:56:17.410913
+currGroupName = A_0_0_0_0_0_0_0_0_0_0_0_0_2_0_2_1_1_0
+currDnnOutput = 0triangle = 2778
+pathHullConString = And( 5*xp0+32>=0, 2*yp0-9>=0, 2165*xp0-1250*zp0+198591>=0, -43300*xp0+25000*zp0-3971137>=0, -500*zp0+74327>=0, -100*xp0-589>=0, 500*zp0-73889>=0, -100*yp0+451>=0 )
+Collision detected 1883
+time Taken = 1:19:12.614420
+currGroupName = A_0_0_0_0_0_0_0_0_0_0_0_0_2_0_2_1_1_1_0_0_0_0_0_0_0_0
+currDnnOutput = 0triangle = 1883
+pathHullConString = And( 250*zp0-35179>=0, 2*yp0-9>=0, 10*xp0+99>=0, -100*yp0+451>=0, -43300*xp0+25000*zp0-3946137>=0, -125*zp0+17699>=0, 2165*xp0-1250*zp0+197341>=0, -100*xp0-939>=0 )
+True  >>>>>>>>>>>> Spurios Collision<<<<<<<<09809<<<<time Taken = 3:07:46.866524
+Collision detected 1919
+time Taken = 3:07:52.121993
+currGroupName = A_0_0_0_0_0_0_0_0_0_0_0_0_2_0_2_1_1_1_0_0_0_0_0_0_0_0
+currDnnOutput = 0triangle = 1919
+pathHullConString = And( 250*zp0-35179>=0, 2*yp0-9>=0, 10*xp0+99>=0, -100*yp0+451>=0, -43300*xp0+25000*zp0-3946137>=0, -125*zp0+17699>=0, 2165*xp0-1250*zp0+197341>=0, -100*xp0-939>=0 )
+True  >>>>>>>>>>>> Spurios Collision<<<<<<<<09809<<<<time Taken = 3:07:52.123422
+Collision detected 2778
+time Taken = 4:02:40.492937
+currGroupName = A_0_0_0_0_0_0_0_0_0_0_0_0_2_0_2_1_1_0
+currDnnOutput = 0triangle = 2778
+pathHullConString = And( 5*xp0+32>=0, 2*yp0-9>=0, 2165*xp0-1250*zp0+198591>=0, -43300*xp0+25000*zp0-3971137>=0, -500*zp0+74327>=0, -100*xp0-589>=0, 500*zp0-73889>=0, -100*yp0+451>=0 )
+Collision detected 1883
+time Taken = 1:17:37.886584
+currGroupName = A_0_0_0_0_0_0_0_0_0_0_0_0_2_0_2_1_1_1_0_0_0_0_0_0_0_0
+currDnnOutput = 0triangle = 1883
+pathHullConString = And( 250*zp0-35179>=0, 2*yp0-9>=0, 10*xp0+99>=0, -100*yp0+451>=0, -43300*xp0+25000*zp0-3946137>=0, -125*zp0+17699>=0, 2165*xp0-1250*zp0+197341>=0, -100*xp0-939>=0 )
+True  >>>>>>>>>>>> Spurios Collision<<<<<<<<09809<<<<time Taken = 1:40:22.681754
+Collision detected 1919
+time Taken = 1:40:27.940603
+currGroupName = A_0_0_0_0_0_0_0_0_0_0_0_0_2_0_2_1_1_1_0_0_0_0_0_0_0_0
+currDnnOutput = 0triangle = 1919
+pathHullConString = And( 250*zp0-35179>=0, 2*yp0-9>=0, 10*xp0+99>=0, -100*yp0+451>=0, -43300*xp0+25000*zp0-3946137>=0, -125*zp0+17699>=0, 2165*xp0-1250*zp0+197341>=0, -100*xp0-939>=0 )
+True  >>>>>>>>>>>> Spurios Collision<<<<<<<<09809<<<<time Taken = 1:40:27.942752
+Collision detected 2778
+time Taken = 2:34:12.256166
+currGroupName = A_0_0_0_0_0_0_0_0_0_0_0_0_2_0_2_1_1_0
+currDnnOutput = 0triangle = 2778
+pathHullConString = And( 5*xp0+32>=0, 2*yp0-9>=0, 2165*xp0-1250*zp0+198591>=0, -43300*xp0+25000*zp0-3971137>=0, -500*zp0+74327>=0, -100*xp0-589>=0, 500*zp0-73889>=0, -100*yp0+451>=0 )
+True  >>>>>>>>>>>> Spurios Collision<<<<<<<<09809<<<<time Taken = 3:07:37.819705
+Collision detected 2780
+time Taken = 3:07:41.966987
+currGroupName = A_0_0_0_0_0_0_0_0_0_0_0_0_2_0_2_1_1_0
+currDnnOutput = 0triangle = 2780
+pathHullConString = And( 5*xp0+32>=0, 2*yp0-9>=0, 2165*xp0-1250*zp0+198591>=0, -43300*xp0+25000*zp0-3971137>=0, -500*zp0+74327>=0, -100*xp0-589>=0, 500*zp0-73889>=0, -100*yp0+451>=0 )
+Collision detected 1883
+time Taken = 1:25:31.184968
+currGroupName = A_0_0_0_0_0_0_0_0_0_0_0_0_2_0_2_1_1_1_0_0_0_0_0_0_0_0
+currDnnOutput = 0triangle = 1883
+pathHullConString = And( 250*zp0-35179>=0, 2*yp0-9>=0, 10*xp0+99>=0, -100*yp0+451>=0, -43300*xp0+25000*zp0-3946137>=0, -125*zp0+17699>=0, 2165*xp0-1250*zp0+197341>=0, -100*xp0-939>=0 )
+True  >>>>>>>>>>>> Spurios Collision<<<<<<<<09809<<<<time Taken = 1:48:37.599733
+Collision detected 1919
+time Taken = 1:48:42.811734
+currGroupName = A_0_0_0_0_0_0_0_0_0_0_0_0_2_0_2_1_1_1_0_0_0_0_0_0_0_0
+currDnnOutput = 0triangle = 1919
+pathHullConString = And( 250*zp0-35179>=0, 2*yp0-9>=0, 10*xp0+99>=0, -100*yp0+451>=0, -43300*xp0+25000*zp0-3946137>=0, -125*zp0+17699>=0, 2165*xp0-1250*zp0+197341>=0, -100*xp0-939>=0 )
+True  >>>>>>>>>>>> Spurios Collision<<<<<<<<09809<<<<time Taken = 1:48:42.813901
+Collision detected 2778
+time Taken = 2:45:39.942562
+currGroupName = A_0_0_0_0_0_0_0_0_0_0_0_0_2_0_2_1_1_0
+currDnnOutput = 0triangle = 2778
+pathHullConString = And( 5*xp0+32>=0, 2*yp0-9>=0, 2165*xp0-1250*zp0+198591>=0, -43300*xp0+25000*zp0-3971137>=0, -500*zp0+74327>=0, -100*xp0-589>=0, 500*zp0-73889>=0, -100*yp0+451>=0 )
+True  >>>>>>>>>>>> Spurios Collision<<<<<<<<09809<<<<time Taken = 3:19:12.124089
+Collision detected 2780
+time Taken = 3:19:16.276117
+currGroupName = A_0_0_0_0_0_0_0_0_0_0_0_0_2_0_2_1_1_0
+currDnnOutput = 0triangle = 2780
+pathHullConString = And( 5*xp0+32>=0, 2*yp0-9>=0, 2165*xp0-1250*zp0+198591>=0, -43300*xp0+25000*zp0-3971137>=0, -500*zp0+74327>=0, -100*xp0-589>=0, 500*zp0-73889>=0, -100*yp0+451>=0 )
+True  >>>>>>>>>>>> Spurios Collision<<<<<<<<09809<<<<time Taken = 3:42:10.365606
+Collision detected 2842
+time Taken = 3:42:51.746787
+currGroupName = A_0_0_0_0_0_0_0_0_0_0_0_0_2_0_2_1_1_0_0_0
+currDnnOutput = 0triangle = 2842
+pathHullConString = And( 5*xp0+37>=0, 2*yp0-9>=0, 2165*xp0-1250*zp0+198591>=0, -43300*xp0+25000*zp0-3971137>=0, -500*zp0+73461>=0, -100*xp0-689>=0, 500*zp0-73023>=0, -100*yp0+451>=0 )
+True  >>>>>>>>>>>> Spurios Collision<<<<<<<<09809<<<<time Taken = 4:23:33.849988
+Collision detected 2847
+time Taken = 4:23:38.100093
+currGroupName = A_0_0_0_0_0_0_0_0_0_0_0_0_2_0_2_1_1_0_0_0
+currDnnOutput = 0triangle = 2847
+pathHullConString = And( 5*xp0+37>=0, 2*yp0-9>=0, 2165*xp0-1250*zp0+198591>=0, -43300*xp0+25000*zp0-3971137>=0, -500*zp0+73461>=0, -100*xp0-689>=0, 500*zp0-73023>=0, -100*yp0+451>=0 )
+True  >>>>>>>>>>>> Spurios Collision<<<<<<<<09809<<<<time Taken = 4:54:58.585206
+Collision detected 1871
+time Taken = 4:56:22.470871
+currGroupName = A_0_0_0_0_0_0_0_0_0_0_0_0_2_0_2_1_1_0_0_0_0_0_0_0_0
+currDnnOutput = 0triangle = 1871
+pathHullConString = And( 250*zp0-35429>=0, 2*yp0-9>=0, 10*xp0+99>=0, -100*yp0+451>=0, -43300*xp0+25000*zp0-3971137>=0, -125*zp0+17824>=0, 2165*xp0-1250*zp0+198591>=0, -100*xp0-939>=0 )
+True  >>>>>>>>>>>> Spurios Collision<<<<<<<<09809<<<<time Taken = 5:23:12.327326
+Collision detected 2845
+time Taken = 5:23:25.175926
+currGroupName = A_0_0_0_0_0_0_0_0_0_0_0_0_2_0_2_1_1_0_0_0
+currDnnOutput = 2triangle = 2845
+pathHullConString = And( 2*yp0-9>=0, -100*xp0-639>=0, -100*yp0+451>=0, 4330*xp0+2500*zp0-337403>=0, -500*zp0+73461>=0, 10*xp0+69>=0, 500*zp0-73023>=0, -43300*xp0-25000*zp0+3374713>=0 )
+True  >>>>>>>>>>>> Spurios Collision<<<<<<<<09809<<<<time Taken = 5:52:19.150244
+Collision detected 2845
+time Taken = 5:52:28.765804
+currGroupName = A_0_0_0_0_0_0_0_0_0_0_0_0_2_0_2_1_1_0_0_0
+currDnnOutput = 1triangle = 2845
+pathHullConString = And( 125*zp0-18239>=0, 2*yp0-9>=0, 10*xp0+69>=0, -100*yp0+451>=0, -500*zp0+73461>=0, -100*xp0-689>=0 )
+True  >>>>>>>>>>>> Spurios Collision<<<<<<<<09809<<<<time Taken = 6:21:23.255403
+Collision detected 2846
+time Taken = 6:21:34.279129
+currGroupName = A_0_0_0_0_0_0_0_0_0_0_0_0_2_0_2_1_1_0_0
+currDnnOutput = 2triangle = 2846
+pathHullConString = And( 125*zp0-18364>=0, 4330*xp0+2500*zp0-341733>=0, 2*yp0-9>=0, -100*yp0+451>=0, -100*xp0-589>=0, -250*zp0+36947>=0, -43300*xp0-25000*zp0+3418013>=0, 5*xp0+32>=0 )
+True  >>>>>>>>>>>> Spurios Collision<<<<<<<<09809<<<<time Taken = 6:51:42.723084
+Collision detected 2846
+time Taken = 6:51:55.345985
+currGroupName = A_0_0_0_0_0_0_0_0_0_0_0_0_2_0_2_1_1_0_0
+currDnnOutput = 1triangle = 2846
+pathHullConString = And( 2*yp0-9>=0, 5*xp0+32>=0, -100*xp0-639>=0, 500*zp0-73389>=0, -100*yp0+451>=0, -250*zp0+36947>=0 )
+True  >>>>>>>>>>>> Spurios Collision<<<<<<<<09809<<<<time Taken = 7:22:11.868037
+Collision detected 1920
+time Taken = 7:45:00.101007
+currGroupName = A_0_0_0_0_0_0_0_0_0_0_0_0_2_0_2_1_2_0_0_0_0_0_0_0_0_0
+currDnnOutput = 0triangle = 1920
+pathHullConString = And( 125*zp0-17623>=0, 2*yp0-9>=0, 10*xp0+99>=0, -100*yp0+451>=0, -43300*xp0+25000*zp0-3952837>=0, -50*zp0+7093>=0, 2165*xp0-1250*zp0+197676>=0, -100*xp0-939>=0 )
+True  >>>>>>>>>>>> Spurios Collision<<<<<<<<09809<<<<time Taken = 8:12:58.306515
+Collision detected 2778
+time Taken = 8:22:21.791020
+currGroupName = A_0_0_0_0_0_0_0_0_0_0_0_0_2_0_2_1_0_0
+currDnnOutput = 0triangle = 2778
+pathHullConString = And( 125*zp0-18489>=0, 2*yp0-9>=0, 10*xp0+69>=0, -100*yp0+451>=0, -43300*xp0+25000*zp0-3996137>=0, -250*zp0+37197>=0, 2165*xp0-1250*zp0+199841>=0, -100*xp0-639>=0 )
+True  >>>>>>>>>>>> Spurios Collision<<<<<<<<09809<<<<time Taken = 9:08:40.733719
+Collision detected 2778
+time Taken = 9:08:54.507832
+currGroupName = A_0_0_0_0_0_0_0_0_0_0_0_0_2_0_2_1_0_0
+currDnnOutput = 2triangle = 2778
+pathHullConString = And( 125*zp0-18489>=0, 4330*xp0+2500*zp0-344233>=0, 2*yp0-9>=0, -100*yp0+451>=0, -100*xp0-589>=0, -250*zp0+37197>=0, -43300*xp0-25000*zp0+3443013>=0, 5*xp0+32>=0 )
+True  >>>>>>>>>>>> Spurios Collision<<<<<<<<09809<<<<time Taken = 9:43:45.106481
+Collision detected 2780
+time Taken = 9:43:49.262913
+currGroupName = A_0_0_0_0_0_0_0_0_0_0_0_0_2_0_2_1_0_0
+currDnnOutput = 2triangle = 2780
+pathHullConString = And( 125*zp0-18489>=0, 4330*xp0+2500*zp0-344233>=0, 2*yp0-9>=0, -100*yp0+451>=0, -100*xp0-589>=0, -250*zp0+37197>=0, -43300*xp0-25000*zp0+3443013>=0, 5*xp0+32>=0 )
+True  >>>>>>>>>>>> Spurios Collision<<<<<<<<09809<<<<time Taken = 10:02:38.371934
+Collision detected 2778
+time Taken = 10:02:52.374810
+currGroupName = A_0_0_0_0_0_0_0_0_0_0_0_0_2_0_2_1_0_0
+currDnnOutput = 1triangle = 2778
+pathHullConString = And( 2*yp0-9>=0, 5*xp0+32>=0, -100*xp0-639>=0, 500*zp0-73889>=0, -100*yp0+451>=0, -250*zp0+37197>=0 )
+True  >>>>>>>>>>>> Spurios Collision<<<<<<<<09809<<<<time Taken = 10:38:00.186929
+Collision detected 2778
+time Taken = 11:07:24.624549
+currGroupName = A_0_0_0_0_0_0_0_0_0_0_0_0_2_0_2_2_0_0
+currDnnOutput = 0triangle = 2778
+pathHullConString = And( 5*xp0+32>=0, 2*yp0-9>=0, 2165*xp0-1250*zp0+198926>=0, -43300*xp0+25000*zp0-3977837>=0, -500*zp0+74461>=0, -100*xp0-589>=0, 500*zp0-74023>=0, -100*yp0+451>=0 )
+True  >>>>>>>>>>>> Spurios Collision<<<<<<<<09809<<<<time Taken = 12:01:42.535928
+Collision detected 2777
+time Taken = 12:08:09.556642
+currGroupName = A_0_0_0_0_0_0_0_0_0_0_0_0_2_0_2_0_0
+currDnnOutput = 0triangle = 2777
+pathHullConString = And( 125*zp0-18614>=0, 2*yp0-9>=0, 10*xp0+69>=0, -100*yp0+451>=0, -43300*xp0+25000*zp0-4021137>=0, -250*zp0+37447>=0, 2165*xp0-1250*zp0+201091>=0, -100*xp0-639>=0 )
+Time taken12:08:19.801107triangle = 2777currGroupNameA_0_0_0_0_0_0_0_0_0_0_0_0_2_0_2_0_0

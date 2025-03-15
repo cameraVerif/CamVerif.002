@@ -1,6 +1,6 @@
-Program Started @ : 2025-01-11 13:44:47.011989
+Program Started @ : 2025-03-14 16:40:13.021451
 
-Number of edges = 36
+Number of edges = 5187
 Initial region cons: And(10*xp0 >= 1,
     100*xp0 <= 11,
     10*yp0 >= 45,

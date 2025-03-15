@@ -5,7 +5,10 @@ def getPoly():
     yp0 = Variable(1)
     zp0 = Variable(2)
     pd3 = NNC_Polyhedron(3)
-    pd3.add_constraint(10* xp0 == 1)
-    pd3.add_constraint(2* yp0 == 9)
-    pd3.add_constraint(100* zp0 == 19451)
+    pd3.add_constraint(1*10*xp0>=-19*1)
+    pd3.add_constraint(1*100*xp0<=-189*1)
+    pd3.add_constraint(1*2*yp0>=9*1)
+    pd3.add_constraint(1*100*yp0<=451*1)
+    pd3.add_constraint(1*250*zp0>=47759*1)
+    pd3.add_constraint(1*500*zp0<=95523*1)
     return pd3

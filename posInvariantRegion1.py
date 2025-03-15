@@ -95,7 +95,7 @@ def getVertexPixelValueIntersectZ3(x,y,z):
             
         return p
     else:
-        
+        print("no sat image")
         exit()  
          
 
@@ -400,10 +400,11 @@ def planeEdgeIntersection(plane,insideVertex, outsideVertex,posXp,posYp,posZp,in
         # print("Returning planeEdgeIntersection")
         return 1
     elif result == unsat:
-      
+        print("not intersecting with the left plane")
+        print("Returning planeEdgeIntersection")
         return 0   
     else:
-        
+        print("timeout occured")
         sleep(100)
                          
     
@@ -532,7 +533,7 @@ def getVertexPixelValueZ3(xp,yp,zp,x,y,z):
         exit()  
 
 def computePosInvariantRegion(posXp, posYp, posZp, m, currRegionPPL ):
- 
+    print("computing image invariant region")
     currImage =[]
     
     outcodeP0 = [0]*numOfVertices*6
@@ -583,8 +584,8 @@ def computePosInvariantRegion(posXp, posYp, posZp, m, currRegionPPL ):
         intersectingEdgeDataToPPL = []
         
         pixelMapCons = And(True)
-        
-       
+        print("classify edges inside, outside, intersec : done")
+        print("computing pixel values: start ")
         for j in range(0,numOftedges):
             if(j %25 == 0):
                 print(j)
@@ -1327,7 +1328,9 @@ def computePosInvariantRegion(posXp, posYp, posZp, m, currRegionPPL ):
                 
                     
                 
-       
+        print("computing pixel values: start:done ")
+        # allImages.append(currImage)
+        print("Passing values to PPL for polyhedron computation") 
         
         currGroupName ="dummyGroup"
         currImageName ="singlePosImage"
@@ -1335,6 +1338,8 @@ def computePosInvariantRegion(posXp, posYp, posZp, m, currRegionPPL ):
         currImageSetConStringPolyhedra = pyparma_posInvRegion32.computeRegion(currGroupName,posZp,numberOfFullyInsideVertices,insideVertexDetailsToPPL,\
             numberOfIntersectingEdges,intersectingEdgeDataToPPL,posXp,posYp,posZp,m[xp0],m[yp0],m[zp0], outcodeP0,currImageName,currRegionPPL)
         
+        
+        print(currImageSetConStringPolyhedra.minimized_constraints())
         
         
         return currImageSetConStringPolyhedra

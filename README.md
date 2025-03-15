@@ -153,7 +153,7 @@ initCubeCon = And(10*xp0>=1, 1000*xp0<=101, 10*yp0>=45, 1000*yp0<=4501, 10*zp0>=
 To compute an interval image, run:
 
 ```bash
-python intervalImageMain.py
+python intervalImageMainP3.py
 ```
 
 The intervals for each pixel in the image are saved in two files:

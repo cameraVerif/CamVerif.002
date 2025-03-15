@@ -9,7 +9,8 @@ from fractions import Fraction
 import anytree
 
 import re
-import pythonRenderAnImage2
+# import pythonRenderAnImage2
+import renderAnImageForP3
 import invariantRegionP3_1
 import ast
 
@@ -29,12 +30,11 @@ from tensorflow.keras.models import load_model
 
 import floatingpointExpToRational4
 import gurobiminmaxRegion
-# import singleTriangleInvRegions31_P3_1
-# import singleTriangleInvRegions30_P3_cv_1
+import singleTriangleInvRegions31_P3_1
+import singleTriangleInvRegions30_P3_cv_1
 # import singleTriangleInvRegions9
 import pyparmaFunctions1
-import singleTriangleInvRegions30
-# import intervalImageP3_4
+import intervalImageP3_4
 
 import json
 from datetime import datetime
@@ -102,7 +102,7 @@ def find_ancestor_with_multiple_children(node):
 
 def getDNNOutput(inputImage):
     model = load_model('saved_models/3_2')
-    print("inputImage = ",inputImage)
+    # print("inputImage = ",inputImage)
     dnnOutput = 1
 
     image = cv2.imread(inputImage)    
@@ -114,7 +114,7 @@ def getDNNOutput(inputImage):
     image2 = tf.convert_to_tensor(image)
     dnnOutput  = np.argmax(model.predict(image2))
 
-    print("dnnOutput = ", dnnOutput)
+    # print("dnnOutput = ", dnnOutput)
     return dnnOutput 
 
 
@@ -194,7 +194,7 @@ def getHullCornerPoints(hullCons):
 
 
 def checkForCollision(pathHullConString, currTriangle):
-    print("checkForCollision==>    Checking collision with triangle "+str(currTriangle))
+    # print("checkForCollision==>    Checking collision with triangle "+str(currTriangle))
     s1 = Solver()
     set_param('parallel.enable', True)
     set_option(rational_to_decimal=True)
@@ -240,7 +240,7 @@ def checkForCollision(pathHullConString, currTriangle):
     solverResult = s1.check()
     if( solverResult == sat):
         # del(s1)
-        print("collision detected. On the path ")
+        # print("collision detected. On the path ")
         return 1
     elif( solverResult == unsat): 
         # del(s1)
@@ -268,7 +268,7 @@ def  backTrackRegion( previousRegionName,previousDNNOuput, intersectionRegionCon
     
     
     singleImageCubeString = intersectionRegionConZ3
-    print("moving single image frustum moving backward based on the previous dnn output")
+    # print("moving single image frustum moving backward based on the previous dnn output")
     
     xp0,yp0,zp0 = Reals('xp0 yp0 zp0')
     xp1,yp1,zp1 = Reals('xp1 yp1 zp1')
@@ -284,10 +284,10 @@ def  backTrackRegion( previousRegionName,previousDNNOuput, intersectionRegionCon
         # print("current group dnn op = ", previousDNNOuput)
         newFormula1 = Exists([xp0,yp0,zp0],And( singleImageCubeString ,xp1==xp0+.5,yp1==yp0,zp1==zp0+0.866)) 
     elif(int(previousDNNOuput) == 1):
-        print("current group dnn op = ", previousDNNOuput)
+        # print("current group dnn op = ", previousDNNOuput)
         newFormula1 = Exists([xp0,yp0,zp0],And( singleImageCubeString ,xp1==xp0,yp1==yp0,zp1==zp0+1)) 
     elif(int(previousDNNOuput) == 2):
-        print("current group dnn op = ", previousDNNOuput)
+        # print("current group dnn op = ", previousDNNOuput)
         newFormula1 = Exists([xp0,yp0,zp0],And( singleImageCubeString ,xp1==xp0-.5,yp1==yp0,zp1==zp0+0.866)) 
     
     # print("new formula ;")    
@@ -306,8 +306,8 @@ def  backTrackRegion( previousRegionName,previousDNNOuput, intersectionRegionCon
     # print (t(g)[0])
     
     
-    print("\n\n single image cons in current previous region : t(g)[0][0]")
-    print(t(g)[0][0])
+    # print("\n\n single image cons in current previous region : t(g)[0][0]")
+    # print(t(g)[0][0])
     
     
     singleImageCubeStringInCurrRegion = str(t(g)[0])
@@ -322,9 +322,9 @@ def  backTrackRegion( previousRegionName,previousDNNOuput, intersectionRegionCon
 
     singleImageCubeStringInCurrRegion = "And("+str(singleImageCubeStringInCurrRegion)+")"
     singleImageCube = eval(singleImageCubeStringInCurrRegion)
-    print("\n\n")
-    print("After replacing constraints of image frustum from the next region in the currRegion")
-    print(simplify(singleImageCube))
+    # print("\n\n")
+    # print("After replacing constraints of image frustum from the next region in the currRegion")
+    # print(simplify(singleImageCube))
     
     # global returnCurrImageConZ3
     # returnCurrImageConZ3 = singleImageCubeStringInCurrRegion
@@ -346,7 +346,7 @@ def  backTrackRegion( previousRegionName,previousDNNOuput, intersectionRegionCon
     
     s1.add(simplify(currCubeCons))
     
-    print(s1.check())
+    # print(s1.check())
     
     i=-1
     while(s1.check() == sat):
@@ -356,7 +356,7 @@ def  backTrackRegion( previousRegionName,previousDNNOuput, intersectionRegionCon
         posYp = (eval("m[yp0].numerator_as_long()/m[yp0].denominator_as_long()"))
         posZp = (eval("m[zp0].numerator_as_long()/m[zp0].denominator_as_long()"))
         
-        print(m)
+        # print(m)
         
         rendererPosFile = open("imagePoses.txt",'w')    
         rendererPosFile.write(str(1)+"\n");
@@ -367,49 +367,56 @@ def  backTrackRegion( previousRegionName,previousDNNOuput, intersectionRegionCon
         
         rendererPosFile.close()
         
-        print(str(datetime.now()))
+        # print(str(datetime.now()))
         # # tempstring = "./renderImageAtPosClipped2"
         # tempstring = "./renderImageAtPosClipped6_image4"
         # os.system(tempstring)
         # # print("intervals Updated")
         # print(str(datetime.now()))
         
-        pythonRenderAnImage2.renderAnImage(posXp,posYp, posZp,"collisionImage2_"+str(i)+"0")
+        renderAnImageForP3.renderAnImage(posXp,posYp, posZp,"collisionImage2_"+str(i)+"0")
     
         
-        
+        # print("running dnn")
+        # print("images/"+str("collisionImage2_"+str(i))+"0.ppm")
         currImageDnnOutput= getDNNOutput("images/"+str("collisionImage2_"+str(i))+"0.ppm")
         # currImageDnnOutput = 1
-        
+        # print("running on second model")
         iisc_net_dnnoutput = getDNNOutput_onnx("images/"+str("collisionImage2_"+str(i))+"0.ppm",environment.networkName)
         
-     
+        # print(currImageDnnOutput, previousDNNOuput)
+        
+        # print("OGmodel dnn output = ", currImageDnnOutput)
+        # print("iisc net dnn output = ", iisc_net_dnnoutput)
+        # print("Expected output = ", previousDNNOuput)
+        # sleep(10)
         
         currImageCons = And(True)
         if(int(iisc_net_dnnoutput) == int(previousDNNOuput)):
         #if(1==1):
             if(currGroup =="A" ):
-                print("\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-                print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-                print("backTrackAndCheck==>   True collision happended!!!!!!!!!!!!!!")
-                print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-                print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-                print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-                print(str(currGroup))
-                # print("imageName : ",imageName)
-                # global numberOfCollisions
-                # print("numberOfCollisions = ",numberOfCollisions)
-                # numberOfCollisions += 1
-                # global collisionFlag
-                # collisionFlag = 1
-                print(datetime.now())
-                # print("time Taken = ", datetime.now() - programStartTime)
-                print("program finished with collision")
+                # print("\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                # print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                # print("backTrackAndCheck==>   True collision happended!!!!!!!!!!!!!!")
+                # print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                # print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                # print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                # print(str(currGroup))
+                # # print("imageName : ",imageName)
+                # # global numberOfCollisions
+                # # print("numberOfCollisions = ",numberOfCollisions)
+                # # numberOfCollisions += 1
+                # # global collisionFlag
+                # # collisionFlag = 1
+                # print(datetime.now())
+                # # print("time Taken = ", datetime.now() - programStartTime)
+                # print("program finished with collision")
                 # sleep(100)
                 
                 exit(0)
             
             else:
+                # print("\n\n\nRegion with a possible collision found, need to backtrack!!!!!!!!!!")
                 
                 #get current image region 
                 currRegionPPL = environment.groupCube[currGroup] 
@@ -417,6 +424,7 @@ def  backTrackRegion( previousRegionName,previousDNNOuput, intersectionRegionCon
                 currRegionPolyhedra = posInvariantRegion1.computePosInvariantRegion(posXp, posYp, posZp, m, currRegionPPL )
                 currImageConsString = str(currRegionPolyhedra.minimized_constraints())
                 
+                # print("Current image polyhedra = ", currImageConsString)
                 
                 currImageConsString = currImageConsString.replace("x0","xp0")
                 currImageConsString = currImageConsString.replace("x1","yp0")
@@ -426,28 +434,37 @@ def  backTrackRegion( previousRegionName,previousDNNOuput, intersectionRegionCon
                 currImageConsString = currImageConsString.replace("}"," ")
                 currImageConsString = "And("+currImageConsString+" )"
                 currImageCons = eval(currImageConsString)
-               
+                # print("Current image cons = ", currImageCons)
                 
                 intersectionRegionConZ3 = And(currImageCons,currCubeCons )
+                # print("currRegionCons = ", intersectionRegionConZ3)
                 
                 currImageRegionName = currGroup
                 # print("\n\npreviousOfcurrImageGroup : ",previousOfcurrImageGroup)
+                # print("currImageRegionName : ",currImageRegionName)
                 # print("currDnnOutput : ",currGroupDnnOutput)
                 
                 # # previousDNNOuput =  currGroup[currGroup.rfind("_")+1: ] 
                 previousRegionName = currImageRegionName[0:currImageRegionName.rfind("_")]
+                # print("previousRegionName :"+str(previousRegionName))
                 # print("previousGroup.rfind(\"\_\") : "+str(previousGroup.rfind("_")))
                 previousDNNOuput =  currImageRegionName[currImageRegionName.rfind("_")+1: ]
+                # print("previousDNNOuput = ", previousDNNOuput)
+                # 
                 
+                # print("back tracking again !!!......")
                 # sleep(2)
                 backTrackRegion( previousRegionName,previousDNNOuput, intersectionRegionConZ3)
         
         else:
-           
+            # print("dnn output does not mathch, compute image region to add to the solver")
+            # sleep(5)
             currRegionPPL = environment.groupCube[currGroup] 
             # currRegionPPL = 
             currRegionPolyhedra = posInvariantRegion1.computePosInvariantRegion(posXp, posYp, posZp, m, currRegionPPL )
             currImageConsString = str(currRegionPolyhedra.minimized_constraints())
+            
+            # print("Current image polyhedra = ", currImageConsString)
             
             currImageConsString = currImageConsString.replace("x0","xp0")
             currImageConsString = currImageConsString.replace("x1","yp0")
@@ -457,6 +474,7 @@ def  backTrackRegion( previousRegionName,previousDNNOuput, intersectionRegionCon
             currImageConsString = currImageConsString.replace("}"," ")
             currImageConsString = "And("+currImageConsString+" )"
             currImageCons = eval(currImageConsString)
+            # print("Current image cons = ", currImageCons)
                 
             
         ##Add current image invariant region
@@ -464,6 +482,7 @@ def  backTrackRegion( previousRegionName,previousDNNOuput, intersectionRegionCon
         s1.add(Not(currImageCons))
         
         
+    # print("Current region does not find a valid collision, back tracking return to validity check function")
     return
         
             
@@ -512,20 +531,31 @@ def checkForRandomPoints(currGroupName, triangle,currRegionPPL,currDnnOutput, nu
             
             rendererPosFile.close()
             
-          
+            # print(str(datetime.now()))
+            # tempstring = "./renderImageAtPosClipped2"
+            # tempstring = "./renderImageAtPosClipped6_image4"
+            # os.system(tempstring)
+            # print("intervals Updated")
+            # print(str(datetime.now()))
             
             
-            pythonRenderAnImage2.renderAnImage(posXp,posYp, posZp,"collisionImage_"+str(i)+"0")
+            renderAnImageForP3.renderAnImage(posXp,posYp, posZp,"collisionImage_"+str(i)+"0")
     
             
-          
+            # print("running dnn")
+            # print("images/"+str("collisionImage_"+str(i))+"0.ppm")
+       
             currImageDnnOutput= getDNNOutput("images/"+str("collisionImage_"+str(i))+"0.ppm")
-            
+            # print("running on second model")
             iisc_net_dnnoutput = getDNNOutput_onnx("images/"+str("collisionImage_"+str(i))+"0.ppm",environment.networkName)
         
             # print(currImageDnnOutput, previousDNNOuput)
             
-           
+            # print("OGmodel dnn output = ", currImageDnnOutput)
+            # print("OGMODEL ONNx dnn output = ", iisc_net_dnnoutput)
+            # print("expected output = ", currDnnOutput)
+            # sleep(10)
+        
         
             # print("currImageDnnOutput = ",currImageDnnOutput)
             # sleep(2)
@@ -542,6 +572,7 @@ def checkForRandomPoints(currGroupName, triangle,currRegionPPL,currDnnOutput, nu
             currImageSetConString = currImageSetConString.replace("}"," ")
             currImageSetConString = "And("+currImageSetConString+" )"
             currGroupCons = eval(currImageSetConString)
+            # print("Current image cons = ", currGroupCons)
             
             currImageConsZ3 = currGroupCons
 
@@ -555,14 +586,19 @@ def checkForRandomPoints(currGroupName, triangle,currRegionPPL,currDnnOutput, nu
                 xp0,yp0,zp0 = Reals('xp0 yp0 zp0')
                 xp1,yp1,zp1 = Reals('xp1 yp1 zp1')
                 if(currDnnOutput == 0):
+                    # print("currDnnOutput = ", currDnnOutput)
                     newFormula1 = Exists([xp0,yp0,zp0],And( currGroupCons ,xp1==xp0-.5,yp1==yp0,zp1==zp0-.866)) 
                 elif(currDnnOutput == 1):
+                    # print("currDnnOutput = ", currDnnOutput)
                     newFormula1 = Exists([xp0,yp0,zp0],And( currGroupCons ,xp1==xp0,yp1==yp0,zp1==zp0-1)) 
                 elif(currDnnOutput == 2):
+                    # print("currDnnOutput = ", currDnnOutput)
                     newFormula1 = Exists([xp0,yp0,zp0],And( currGroupCons ,xp1==xp0+.5,yp1==yp0,zp1==zp0-.866))  
                     
                 
-               
+                # print("new formula --->")
+                # print(newFormula1)
+                # # sleep(2)
                 
                 set_option(rational_to_decimal=False)
                 set_option(precision=10)
@@ -572,13 +608,16 @@ def checkForRandomPoints(currGroupName, triangle,currRegionPPL,currDnnOutput, nu
                 t1 = Tactic('simplify')
                 t2 = Tactic('qe')
                 t  = Then(t2, t1)
+                # print (t(g))
                 
+                # print("\n\n converting to PPL expression")
                 oldExp = t(g)[0]
                 # print(oldExp)
                 updatedExpString =[]
                 
                 for n in range(0,len(t(g)[0])):
                     exp = str( t(g)[0][n])
+                    # print(exp)
                     exp = exp.replace("xp1","xp0")
                     exp = exp.replace("yp1","yp0")
                     exp = exp.replace("zp1","zp0")
@@ -587,6 +626,7 @@ def checkForRandomPoints(currGroupName, triangle,currRegionPPL,currDnnOutput, nu
                     try:
                         updatedExpString.append(eval(exp))
                     except:
+                        # print("exception handled")
                         exp = exp.replace("/","//")
                         updatedExpString.append(eval(exp))
                 
@@ -594,14 +634,23 @@ def checkForRandomPoints(currGroupName, triangle,currRegionPPL,currDnnOutput, nu
                 
                 updateExp = []
                 
-               
+                # print("\n\n")
                 for n in range(0,len(t(g)[0])):
                     exp = t(g)[0][n]
+                    # print("current expression to conversion")
+                    # print(exp)
                     
+                    # exp = str(exp).replace("xp0","xp1")
+                    # exp = str(exp).replace("yp0","yp1")
+                    # exp = str(exp).replace("zp0","zp1")
+                    # exp = str(exp).replace("\n", "")
+                    # print(exp)
+                    # print("\n\n")
                 
                     try:
                         exp = eval(str(exp).replace("\n",""))
                     except:
+                        # print("exception handled2 main_abs_1 @108")
                         exit(0)
                     
                     newExp = floatingpointExpToRational4.converteToPPLExpression(exp)
@@ -611,8 +660,13 @@ def checkForRandomPoints(currGroupName, triangle,currRegionPPL,currDnnOutput, nu
                     newExp = newExp.replace("yp1","yp0")
                     newExp = newExp.replace("zp1","zp0")
                     newExp = newExp.replace("\n", "")
-                   
+                    # print("\n\n")
+                    # print("returned expression ")
+                    # print(newExp)
                     updateExp.append(newExp)
+                # print("\n\n")
+                # print("oldExp = ",oldExp)
+                # print("updateExp = ",updateExp)
                 
                 
                 pd4 = NNC_Polyhedron(3)
@@ -620,6 +674,7 @@ def checkForRandomPoints(currGroupName, triangle,currRegionPPL,currDnnOutput, nu
                 yp0 = Variable(1)
                 zp0 = Variable(2)
             
+                # print("Opening create poly")
                 conFile = open("createPoly.py","w")
                 tempstring = "from pyparma import *\n\ndef getPoly():\n    xp0 = Variable(0)\n"
                 tempstring += "    yp0 = Variable(1)\n"
@@ -637,12 +692,18 @@ def checkForRandomPoints(currGroupName, triangle,currRegionPPL,currDnnOutput, nu
                 createPoly = reload(createPoly)   
                 pd4= createPoly.getPoly()
 
+                # print("next region")
+                # print(pd4.minimized_constraints())
                 
                 pd5 = NNC_Polyhedron(3)
                 pd5.add_constraints(currImageCons)
                 
+                # print("current region cons :", pd5.minimized_constraints()) 
+                # print("next region cons : ", pd4.minimized_constraints())
+                
                 pd5.poly_hull_assign(pd4)
                 
+                # print("path hull cons ", pd5.minimized_constraints())  
                 
                 pathHullConString = pd5.minimized_constraints()  
                 
@@ -655,15 +716,24 @@ def checkForRandomPoints(currGroupName, triangle,currRegionPPL,currDnnOutput, nu
                 pathHullConString = pathHullConString.replace("}"," ")
                 pathHullConString = "And("+str(pathHullConString)+")"
                 
-               
+                # print("\n after replacing path hull cons\n")
+                # print("\n\n",pathHullConString)
+                
+            
+                
+                # print("\n\n")
+                #global collisionFlag
+                #collisionFlag = 0
+                
+                # print("checking collision of pathHull with the triangle "+str(t))
                 collision = checkForCollision(pathHullConString, triangle)
                 # if collision == 1:
                 if(collision == 1 and (currGroupName =="A_0" or currGroupName =="A_1" or currGroupName =="A_2" ) ):
-                    print("\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n")
-                    print("checkCollisionValidity==>True collision happended")
-                    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n")
-                    print(str(currGroupName))
-                    print("triangle id = "+str(triangle))
+                    # print("\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n")
+                    # print("checkCollisionValidity==>True collision happended")
+                    # print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n")
+                    # print(str(currGroupName))
+                    # print("triangle id = "+str(triangle))
                     # global numberOfCollisions
                     # print("numberOfCollisions = ",numberOfCollisions)
                     # numberOfCollisions += 1
@@ -671,9 +741,9 @@ def checkForRandomPoints(currGroupName, triangle,currRegionPPL,currDnnOutput, nu
                     # global collisionFlag
                     # collisionFlag = 1
                     # print(datetime.now())
-                    # # print("time Taken = ", datetime.now() - programStartTime)
+                    # print("time Taken = ", datetime.now() - programStartTime)
                     # print("program finished with collision")
-                    # # sleep(10)
+                    # sleep(10)
                     
                     exit(0)
                     return 
@@ -682,7 +752,8 @@ def checkForRandomPoints(currGroupName, triangle,currRegionPPL,currDnnOutput, nu
                     # #              
                     
                     
-                  
+                    # print("\ncollision detected from validity check function backtracking.................\n\n")
+                    # sleep(2)
                     
                     pdOriginalImageRegion = NNC_Polyhedron(3)
                     pdOriginalImageRegion.add_constraints(currImageCons)
@@ -782,10 +853,15 @@ def checkForRandomPoints(currGroupName, triangle,currRegionPPL,currDnnOutput, nu
                    
                    
                    
-                   
+                    # print("\n\n\n trianglePolyhedron.minimized_constraints()")
+                    # print(trianglePolyhedron.constraints())
+                    # print(trianglePolyhedron.minimized_constraints())
+                    
+                    
                     # #find the exact intersecting region
                     pd5.intersection_assign(trianglePolyhedron)
-                    
+                    # print("triangle hull intersection region :", pd5.minimized_constraints()) 
+                    # print("\n")
                     
                     currIntersectionRegionConsString = str(pd5.minimized_constraints())
                     
@@ -815,18 +891,22 @@ def checkForRandomPoints(currGroupName, triangle,currRegionPPL,currDnnOutput, nu
                     pplGrpConsInputFile.close()
                     
                     tempstring = "touch pplTrianglePath.cpp"
+                    # print("touching file")
                     os.system(tempstring)
 
                     # tempstring = "gcc pplTrianglePath.cpp -o pplTrianglePath -L/home2/habeebp/opt/include/ -L/home2/habeebp/opt/lib/ -I/home2/habeebp/opt/include/ -lstdc++ -lppl -lgmpxx -lgmp"
                     tempstring = "gcc pplTrianglePath.cpp -o pplTrianglePath -L/home/habeeb/projectFinal/softwares/ppl-1.2/include/ -L/home/habeeb/projectFinal/softwares/ppl-1.2/lib/ -I/home/habeeb/projectFinal/softwares/ppl-1.2/include/ -lstdc++ -lppl -lgmpxx -lgmp"
     
+                    # print("compiling pplTrianglePath.cpp")
                     os.system(tempstring)
 
                     tempstring = "./pplTrianglePath"
                     os.system(tempstring)
 
                     pplOutputFilePtr = open("triangleHullRegionpolyhedron.txt",'r')
+                    # print("\n\n From ppl\n")
                     preRegionpolyhedronConString = pplOutputFilePtr.read()
+                    # print(preRegionpolyhedronConString)
                     pplOutputFilePtr.close()
                     
                     preRegionpolyhedronConString = str(preRegionpolyhedronConString)
@@ -837,6 +917,7 @@ def checkForRandomPoints(currGroupName, triangle,currRegionPPL,currDnnOutput, nu
                     preRegionpolyhedronConStringList = preRegionpolyhedronConString.split(",")
                     
                     
+                    # print(preRegionpolyhedronConStringList)
                     
                     xp0,yp0,zp0 = Reals('xp0 yp0 zp0')
                     newCons = And(True)
@@ -844,20 +925,25 @@ def checkForRandomPoints(currGroupName, triangle,currRegionPPL,currDnnOutput, nu
                         newCons = simplify(And(newCons,eval(str(preRegionpolyhedronConStringList[r]))))
                     
                     
+                    # print(newCons)
                     intersectionRegionConZ3 = And(currImageConsZ3,newCons)
                     
-                    
+                    # print("Final Intersection region to back track =")
+                    # print(simplify(intersectionRegionConZ3))
                     
                     # print(simplify(intersectionRegionConZ3))
                     
                     currImageRegionName = currGroupName
                     # print("\n\npreviousOfcurrImageGroup : ",previousOfcurrImageGroup)
+                    # print("currImageRegionName : ",currImageRegionName)
                     # print("currDnnOutput : ",currGroupDnnOutput)
                     
                     # # previousDNNOuput =  currGroup[currGroup.rfind("_")+1: ] 
                     previousRegionName = currImageRegionName[0:currImageRegionName.rfind("_")]
+                    # print("previousRegionName :"+str(previousRegionName))
                     # print("previousGroup.rfind(\"\_\") : "+str(previousGroup.rfind("_")))
                     previousDNNOuput =  currImageRegionName[currImageRegionName.rfind("_")+1: ]
+                    # print("previousDNNOuput = ", previousDNNOuput)
                     # print("previousDNNOuput =  previousGroup[previousGroup.rfind(\"\_\")+1: ] : "+str(previousDNNOuput))
                     # # pplGrpConsInputFile.write("\nint previousDNNOutput  ="+str(previousDNNOuput)+";\n\n");
                             
@@ -872,18 +958,20 @@ def checkForRandomPoints(currGroupName, triangle,currRegionPPL,currDnnOutput, nu
                     backTrackRegion( previousRegionName,previousDNNOuput, intersectionRegionConZ3)
                     
                 
-                else:
-                    # print("checkCollisionValidity==> NO Collision with image"+str(i))
-                    # print("\n\n\n")
-                    pass
-            else:
-                
-                pass
+                # else:
+                #     print("checkCollisionValidity==> NO Collision with image"+str(i))
+                #     print("\n\n\n")
+                #     pass
+            # else:
+            #     print("current image dnn output does not match")
+            #     print("checking for next point")
                 # sleep(10)
 
         else:
+            # print("breaking random point check")
             break
     
+    # print("random points done, no valid collision found")
     return
                     
                     
@@ -897,12 +985,22 @@ def renderImageAndGetDnnOutput(posXp,posYp, posZp, i):
     
     rendererPosFile.close()
     
-   
+    # print(str(datetime.now()))
+    # print("Rendering image @",posXp,posYp, posZp)
+    # tempstring = "./renderImageAtPosClipped2"
+    # tempstring = "./renderImageAtPosClipped6_image4"
+    # os.system(tempstring)
     
     
-    pythonRenderAnImage2.renderAnImage(posXp,posYp, posZp,"collisionImage_"+str(i)+"0")
+    renderAnImageForP3.renderAnImage(posXp,posYp, posZp,"collisionImage_"+str(i)+"0")
     
-   
+    # print(str(datetime.now()))
+    
+    # print("running dnn")
+    # print("images/"+str("collisionImage_"+str(i))+"0.ppm")
+
+    # currImageDnnOutput= getDNNOutput("images/"+str("collisionImage_"+str(i))+"0.ppm")
+    # print("running on second model")
     iisc_net_dnnoutput = getDNNOutput_onnx("images/"+str("collisionImage_"+str(i))+"0.ppm",environment.networkName)
 
     # print(currImageDnnOutput, previousDNNOuput)
@@ -930,7 +1028,10 @@ def splitRegionAndCheckCollisionValidity(currGroup, triangle,currRegionPPL,dnnOu
     
     minVal,maxVal, intervalLength = gurobiminmaxRegion.getSplitLength(ConString, variableToSplit, numberOfSplits)
     
-  
+    # print(minVal,maxVal, intervalLength)
+    
+    #rearrange regions based on the priority
+    
     
     originalRegionCons = ConString
     
@@ -938,10 +1039,12 @@ def splitRegionAndCheckCollisionValidity(currGroup, triangle,currRegionPPL,dnnOu
     
     for i in range(1, numberOfSplits+1):
         currAbsGroupName = "split_"+str(environment.splitCount)
+        # print(i)
         currConString = originalRegionCons+", "+variableToSplit+">= "+str(minVal+(i-1)*intervalLength)+" ,"+ variableToSplit +"<="+str(minVal+ i*intervalLength)
         
         currCons = "And("+str(currConString)+")"
         
+        # print(currCons)
         
         xp0 = Variable(0)
         yp0 = Variable(1)
@@ -951,19 +1054,27 @@ def splitRegionAndCheckCollisionValidity(currGroup, triangle,currRegionPPL,dnnOu
         
         tempMin = int(float(minVal+(i-1)*intervalLength)*pow(10,5)//1)
         tempMax = int(float(minVal+ i*intervalLength)*pow(10,5)//1)  
-    
+        
+        # print(tempMin, tempMax)
+        # print(currSplitRegionPd.minimized_constraints())
         if(variableToSplit == "xp0"):
+            # print("adding split region cons")
             currSplitRegionPd.add_constraint(pow(10,5)*xp0>= tempMin)
             currSplitRegionPd.add_constraint(pow(10,5)*xp0<= tempMax)
         elif(variableToSplit == "yp0"):
+            # print("adding split region cons")
             currSplitRegionPd.add_constraint(pow(10,5)*yp0>= tempMin)
             currSplitRegionPd.add_constraint(pow(10,5)*yp0<= tempMax)
         elif(variableToSplit == "zp0"):
+            # print("adding split region cons")
             currSplitRegionPd.add_constraint(pow(10,5)*zp0>= tempMin)
             currSplitRegionPd.add_constraint(pow(10,5)*zp0<= tempMax)
             
+        # print("spllit region cons added")
         environment.splitRegionPd[currAbsGroupName] = currSplitRegionPd.minimized_constraints()
-        
+        # print(currSplitRegionPd.minimized_constraints())
+        # print("\n\ngoing to compute interval image")
+        # sleep(3)
         xp0,yp0,zp0 = Reals('xp0 yp0 zp0')
         # import singleTriangleInvRegions9
 
@@ -992,31 +1103,31 @@ def splitRegionAndCheckCollisionValidity(currGroup, triangle,currRegionPPL,dnnOu
         environment.splitCount += 1
         # splitRegionAndCheckCollisionValidity(currGroup, triangle,currConString,dnnOutput, variableToSplit, 2)
         
-        print("possible dnn outputs = ", currRegionDnnoutputs)
+        # print("possible dnn outputs = ", currRegionDnnoutputs)
         
         if dnnOutput in currRegionDnnoutputs:
-            print("same dnnoutput detected, checking for a possible collision")
+            # print("same dnnoutput detected, checking for a possible collision")
             
-            print("computing pathhull")
+            # print("computing pathhull")
             xp0,yp0,zp0 = Reals('xp0 yp0 zp0')
             xp1,yp1,zp1 = Reals('xp1 yp1 zp1')
             currDnnOutput = dnnOutput
             currGroupCons = eval(currCons)
             currImageCons = environment.splitRegionPd[currAbsGroupName]
             if(currDnnOutput == 0):
-                print("currDnnOutput = ", currDnnOutput)
+                # print("currDnnOutput = ", currDnnOutput)
                 newFormula1 = Exists([xp0,yp0,zp0],And( currGroupCons ,xp1==xp0-.5,yp1==yp0,zp1==zp0-.866)) 
             elif(currDnnOutput == 1):
-                print("currDnnOutput = ", currDnnOutput)
+                # print("currDnnOutput = ", currDnnOutput)
                 newFormula1 = Exists([xp0,yp0,zp0],And( currGroupCons ,xp1==xp0,yp1==yp0,zp1==zp0-1)) 
             elif(currDnnOutput == 2):
-                print("currDnnOutput = ", currDnnOutput)
+                # print("currDnnOutput = ", currDnnOutput)
                 newFormula1 = Exists([xp0,yp0,zp0],And( currGroupCons ,xp1==xp0+.5,yp1==yp0,zp1==zp0-.866))  
                 
             
             # print("new formula --->")
             # print(newFormula1)
-            # # sleep(2)
+            # sleep(2)
             
             set_option(rational_to_decimal=False)
             set_option(precision=10)
@@ -1026,7 +1137,7 @@ def splitRegionAndCheckCollisionValidity(currGroup, triangle,currRegionPPL,dnnOu
             t1 = Tactic('simplify')
             t2 = Tactic('qe')
             t  = Then(t2, t1)
-            print (t(g))
+            # print (t(g))
             
             # print("\n\n converting to PPL expression")
             oldExp = t(g)[0]
@@ -1035,7 +1146,7 @@ def splitRegionAndCheckCollisionValidity(currGroup, triangle,currRegionPPL,dnnOu
             
             for n in range(0,len(t(g)[0])):
                 exp = str( t(g)[0][n])
-                print(exp)
+                # print(exp)
                 exp = exp.replace("xp1","xp0")
                 exp = exp.replace("yp1","yp0")
                 exp = exp.replace("zp1","zp0")
@@ -1044,7 +1155,7 @@ def splitRegionAndCheckCollisionValidity(currGroup, triangle,currRegionPPL,dnnOu
                 try:
                     updatedExpString.append(eval(exp))
                 except:
-                    print("exception handled")
+                    # print("exception handled")
                     exp = exp.replace("/","//")
                     updatedExpString.append(eval(exp))
             
@@ -1092,7 +1203,7 @@ def splitRegionAndCheckCollisionValidity(currGroup, triangle,currRegionPPL,dnnOu
             yp0 = Variable(1)
             zp0 = Variable(2)
         
-            print("Opening create poly")
+            # print("Opening create poly")
             conFile = open("createPoly.py","w")
             tempstring = "from pyparma import *\n\ndef getPoly():\n    xp0 = Variable(0)\n"
             tempstring += "    yp0 = Variable(1)\n"
@@ -1169,9 +1280,8 @@ def splitRegionAndCheckCollisionValidity(currGroup, triangle,currRegionPPL,dnnOu
                     checkForRandomPoints(currGroup, triangle,currSplitRegionPd.minimized_constraints(),dnnOutput, numberOfRandomPointsToCheck = 500)
                     # print("sleeping")
                     # sleep(3)
-            else:
-                # print("No collision with the current region")
-                pass
+            # else:
+            #     print("No collision with the current region")
                     
                     
                     
@@ -1189,10 +1299,10 @@ def splitRegionAndCheckCollisionValidity(currGroup, triangle,currRegionPPL,dnnOu
 
 
 def backTrackRandomPoints(xp, yp, zp, currGroup):
-
-    
+    # print("\n\n-------\nBack tracking random points")
+    # print(xp, yp, zp, currGroup)
     currLen = len(currGroup)
-   
+    # print("currLen = ", currLen)
 
     currGroupBackup = currGroup
     
@@ -1204,6 +1314,7 @@ def backTrackRandomPoints(xp, yp, zp, currGroup):
         
         # previousDnnOutput = int(currGroup[str(currGroup).rfind("_")+1:])
         
+        # print("dnnOutput = ", dnnOutput)
         # print("previousDnnOutput =", previousDnnOutput)
         
         if dnnOutput == 0:
@@ -1221,27 +1332,36 @@ def backTrackRandomPoints(xp, yp, zp, currGroup):
             yp = yp
             zp = zp+0.866
         
+        # print(" new xp,yp,zp ", xp,yp,zp)  
+        
         
         currentNodeString = str(currGroup)
         currentNode = anytree.find(environment.A, filter_=lambda node: node.name==currentNodeString)
         numOfCurrNodeChilds = len(currentNode.children)
-       
+        # print("numOfCurrNodeChilds = ",numOfCurrNodeChilds)
+        
         if numOfCurrNodeChilds > 1:
             currDnnOutput = renderImageAndGetDnnOutput(xp,yp,zp,currLen)      
             
+            # print("Current point Dnn Output = ", currDnnOutput)
+            # print("previousDnnOutput = ", previousDnnOutput)
             
             if(int(currDnnOutput) == int(dnnOutput)) :
-                      
+                # print("Dnn outputs match, back tracking again....")
+                # print("expected dnnOutput = ", dnnOutput)        
                 return backTrackRandomPoints(xp, yp, zp, currGroup)
             else:
-                
+                # print("Dnn outputs does not match, returnig to the collision prev region.")
+                # print("Current point Dnn Output = ", currDnnOutput)
+                # print("expected dnnOutput = ", dnnOutput)
+                # sleep(7)
                 return 0
         else:
-            
+            # print("Current node has only one child so simply backtracking to parent node")
             return backTrackRandomPoints(xp, yp, zp, currGroup)
             
     else:
-        
+        # print("Backtracking reached initial region, successfully")
         return 1
         # dnnOutput = currGroup[str(currGroup).rfind("_")+1:]
         # currDnnOutput = renderImageAndGetDnnOutput(xp,yp,zp,currLen)       
@@ -1266,7 +1386,8 @@ def randomPointsCheckLastRegion(intersectionRegionConZ3,dnnOutput, triangle, cur
     currGroupCons = environment.groupCubeZ3[currGroup]
     s.add(currGroupCons)
 
-    
+    # print(intersectionRegionConZ3)
+    # print(s.check())
     numberOfRandomPointsToCheck = 5
     for i in range(0, numberOfRandomPointsToCheck):
         if(s.check() == sat):
@@ -1284,29 +1405,31 @@ def randomPointsCheckLastRegion(intersectionRegionConZ3,dnnOutput, triangle, cur
             
             iisc_net_dnnoutput = renderImageAndGetDnnOutput(posXp,posYp, posZp, i)
             # print("OGmodel dnn output = ", currImageDnnOutput)
-           
+            # print("OGMODEL ONNx dnn output = ", iisc_net_dnnoutput)
+            # print("expected output = ", dnnOutput)
             
         
             if(iisc_net_dnnoutput == dnnOutput):
-                
+                # print("Dnn output matching ")
+                # print("Back tracking points")
                 backtrackStatus = backTrackRandomPoints(posXp, posYp, posZp, currGroup)
                 if(backtrackStatus == 1):
                     # print("Real collision detected!!!!!!!!!!!!!!!")
                     return 1
-                else:
-                    # print("This is not a valid collision, backtracking failed")
-                    pass
+                # else:
+                #     print("This is not a valid collision, backtracking failed")
                     
                 # sleep(10)
-            else:
-                # print(f"Current random point's ({i}) dnn output does not match, continue with another point")
-                # sleep(10)  
-                pass   
+            # else:
+            #     print(f"Current random point's ({i}) dnn output does not match, continue with another point")
+                # sleep(10)     
             
         else:
-      
+            # print("No more points in the region to check")
+            # print("spurious collision")
             return 2
-   
+    # print("All random points checked and failed successfully!!!!!\n check for refinement.")
+    # sleep(3)
     return 0
 
 
@@ -1317,28 +1440,31 @@ def backTrackARegionNStep(currentRegionCons,currentRegionPath, steps ):
 
     for i in range(0, steps):
     # for i in range(0, 1):
-       
+        # print(f"Backtracking of step {i+1} started. ")
+        # print("Current region cons = ", currentRegionCons )
+        # print("currentRegionPath = ", currentRegionPath)
 
         currBackTrackDnnOutput = int(currentRegionPath[currentRegionPath.rfind("_")+1:])
         currRegionOutputToCheck = currBackTrackDnnOutput
-        
+        # print("currBackTrackDnnOutput = ", currBackTrackDnnOutput)
 
         #Propagate the current intersection region 1 step backward
         
         if(currBackTrackDnnOutput == 0):
-            
+            # print("currBackTrackDnnOutput = ", currBackTrackDnnOutput)
             newFormula1 = Exists([xp0,yp0,zp0],And( currentRegionCons ,xp1==xp0+.5,yp1==yp0,zp1==zp0+.866)) 
         elif(currBackTrackDnnOutput == 1):
-            
+            # print("currBackTrackDnnOutput = ", currBackTrackDnnOutput)
             newFormula1 = Exists([xp0,yp0,zp0],And( currentRegionCons ,xp1==xp0,yp1==yp0,zp1==zp0+1)) 
         elif(currBackTrackDnnOutput == 2):
-           
+            # print("currBackTrackDnnOutput = ", currBackTrackDnnOutput)
             newFormula1 = Exists([xp0,yp0,zp0],And( currentRegionCons ,xp1==xp0-.5,yp1==yp0,zp1==zp0+.866))  
         
-        
+        # print("region propagation constraints --->")
+        # print(newFormula1)
 
 
-       
+        # print("Eliminate xp1")
         set_option(rational_to_decimal=False)
         # set_option(precision=10)
         g  = Goal()
@@ -1347,7 +1473,8 @@ def backTrackARegionNStep(currentRegionCons,currentRegionPath, steps ):
         t1 = Tactic('simplify')
         t2 = Tactic('qe')
         t  = Then(t2, t1)
-            
+        # print("\n\nAfter elimination")
+        # print (t(g))      
         
         oldExp = t(g)[0]
 
@@ -1361,10 +1488,11 @@ def backTrackARegionNStep(currentRegionCons,currentRegionPath, steps ):
             
             currentRegionCons = And(currentRegionCons, eval(newExp))
 
-        
+        # print("\nBack tracked region constraints ", simplify(currentRegionCons))
         currentRegionPath = currentRegionPath[:currentRegionPath.rfind("_")]
-       
+        # print("Back tracking region path = ", currentRegionPath)
     
+    # print("Region backtracking finished")
     return currentRegionPath, currentRegionCons, currRegionOutputToCheck
 
 
@@ -1375,7 +1503,8 @@ def backTrackARegionNStep(currentRegionCons,currentRegionPath, steps ):
         
        
 def refineAndCheckCollisionValidity2(intersectionRegionConZ3,dnnOutput, triangle, currGroup, currDepth, fromBackTrack=0 ):
-   
+    # print("\n\n\n\n\n\n\n\n\n\n==============================================\n\n\n\n\nCollision refinement function reached.")
+    # print("currGroup = ", currGroup)
     global smallCubeCount
     global processes
     global numberOfProcessCreated
@@ -1389,7 +1518,8 @@ def refineAndCheckCollisionValidity2(intersectionRegionConZ3,dnnOutput, triangle
     currentRegionCons = intersectionRegionConZ3
     currentRegionPath = currGroup
 
-  
+    # print("currDepth = ", currDepth)
+    
     sCheck1= Solver()
     sCheck1.add(currentRegionCons)
     if(sCheck1.check() == unsat):
@@ -1397,39 +1527,58 @@ def refineAndCheckCollisionValidity2(intersectionRegionConZ3,dnnOutput, triangle
         return 0 
     
 
+    # if currDepth >=10:    
+    # print("Checking for random points from the current region before refinement")
+
     # sleep(5)
     status = randomPointsCheckLastRegion(currentRegionCons,dnnOutput, triangle, currentRegionPath )
 
     if status ==1:
-        
+        # print("True collision detected !!!!!!!")
         isValidCollision =1
         for process in processes:
             os.kill(process.pid, signal.SIGKILL) 
         return 1
     elif(status == 2):
-       
+        # print("All random points failed, No more points to check, Spurious collision")
+        # isValidCollision = 2
         return 0
 
-   
+    # print("Random point check failed it is time for refinment the region!!!!!!!!!")
+    # print("datetime:")
+    # print(str(datetime.now()))
     if currDepth >=4:
 
+        # print("Refinement depth reached, falling back to the previous invariant appraoch appraoch")
+        # sleep(1)
         
         uniqueId = str(currGroup)+"_"+str(smallCubeCount)
         uniqueIdList.append(uniqueId)
-        global num_processes
+
         # Ensure no more than `num_processes` processes are running
-        while len(processes) >= 10:
+        while len(processes) >= 30:
             for proc in processes:
                 if not proc.is_alive():  # Check if the process has finished
                     processes.remove(proc)
 
-         
+        # print("len(processes) = ", len(processes))  
         process = Process(target=invariantRegionP3_multiprocessing_3.computeInvRegions, args=(currGroup, intersectionRegionConZ3, dnnOutput, uniqueId))
         processes.append(process)
         numberOfProcessCreated += 1
         process.start()
 
         return 4
+        
+        
+        
+
+
+
+
+
+
+
+
         # sleep(5)
         valideRExist, invRList = invariantRegionP3_1.computeInvRegions(currGroup, intersectionRegionConZ3, dnnOutput, fromSplitRegion=0)
 
@@ -1483,39 +1632,14 @@ def refineAndCheckCollisionValidity2(intersectionRegionConZ3,dnnOutput, triangle
     # print("currentRegionCons = ", currentRegionCons)
     
     
-    # z3Cons = ""
-    
-    # s= Solver()
-    # s.add(simplify(currentRegionCons))
-    # print("number of cons = ", len(s.assertions()))
-    # #TODO: ensure the cons are conjuncts
-    # for c in s.assertions():
-    #     print(" -- =>", str(c))
-        
-    #     conToAppend = str(c).replace("And","")
-    #     conToAppend = conToAppend.replace("(","")
-    #     conToAppend = conToAppend.replace(")","")
-    #     conToAppend = conToAppend.replace("\n","")
-        
-    #     conToAppend = conToAppend.replace("xp0","xp1")
-    #     conToAppend = conToAppend.replace("yp0","yp1")
-    #     conToAppend = conToAppend.replace("zp0","zp1")
-        
-        
-    #     z3Cons  += str(conToAppend)
-    
-    
-    # z3ConsList = z3Cons.split(",") 
-    # print("z3ConsList = ", z3ConsList)
-    # updateExp = []    
-
     z3Cons = ""
     z3ConsList = []
     s= Solver()
     s.add(simplify(currentRegionCons))
-    
+    # print("number of cons = ", len(s.assertions()))
     #TODO: ensure the cons are conjuncts
     for c in s.assertions():
+        # print(" -- =>", str(c))
         
         # conToAppend = str(c).replace("And","")
         # conToAppend = conToAppend.replace("(","")
@@ -1534,7 +1658,7 @@ def refineAndCheckCollisionValidity2(intersectionRegionConZ3,dnnOutput, triangle
             # print("The string starts with 'And(' and ends with ')'")
             trimmed_string = input_string[4:-1]  # Remove "And(" and the final ")"
             input_string = trimmed_string
-            
+
         # Split the string into elements by commas, accounting for line breaks and indentation
         # elements = [element.strip() for element in trimmed_string.split(",") if element.strip()]
         # Split the string into elements by commas
@@ -1555,16 +1679,16 @@ def refineAndCheckCollisionValidity2(intersectionRegionConZ3,dnnOutput, triangle
     # z3ConsList = z3Cons.split(",") 
     # print("z3ConsList = ", z3ConsList)
     updateExp = []    
-
-   
+    # print("\n\n")
     for n in range(0,len(z3ConsList)):
         exp = z3ConsList[n]
-       
+        # print("current expression to conversion")
+        # print(exp)   
        
         try:
             exp = eval(str(exp).replace("\n",""))
         except:
-            print("exception handled2 ")
+            # print("exception handled2 ")
             exit(0)
         
         newExp = floatingpointExpToRational4.converteToPPLExpression(exp)
@@ -1579,8 +1703,10 @@ def refineAndCheckCollisionValidity2(intersectionRegionConZ3,dnnOutput, triangle
         # newExp =re.sub(r'(?<!<)(?<!>)=(?!=)', '==', newExp)
         newExp = re.sub(r'(?<![<>=!])=(?![<>=])', '==', newExp)
         updateExp.append(newExp)
-        
-   
+    #     print("returned expression ")
+    #     print(newExp)
+    # print("\n\n")
+    # print("updateExp = ",updateExp)
     
     pd4 = NNC_Polyhedron(3)
     xp0 = Variable(0)
@@ -1605,15 +1731,16 @@ def refineAndCheckCollisionValidity2(intersectionRegionConZ3,dnnOutput, triangle
     createPoly = reload(createPoly)   
     pd4= createPoly.getPoly()
     
-    
+    # print(pd4.minimized_constraints())
     currRegionCons = pd4.minimized_constraints()
     if(str(currRegionCons).replace(" ","") == "-1==0" or str(currRegionCons).replace(" ","") == "0==-1"):
         return 0
     
-   
+    
+    # print("spllit region cons added")
     currAbsGroupName = "split_"+str(environment.splitCount)
     environment.splitRegionPd[currAbsGroupName] = pd4.minimized_constraints()
-   
+    # print(pd4.minimized_constraints())
     # print("\n\ngoing to compute interval image")
     currentRegionPPLCons = pd4.minimized_constraints()
     # sleep(3)
@@ -1627,7 +1754,7 @@ def refineAndCheckCollisionValidity2(intersectionRegionConZ3,dnnOutput, triangle
     ConString = ConString.replace("Constraint_System {"," ")
     ConString = ConString.replace("}"," ")
     currCons = "And("+str(ConString)+")"
-   
+    # print("Cons in z3 format = ", currCons)
 
     
     ###Update for P3#######
@@ -1639,7 +1766,14 @@ def refineAndCheckCollisionValidity2(intersectionRegionConZ3,dnnOutput, triangle
 
     nextRegionMinMaxValues = getMinMaxValuesOfList(cornerPointsOfProjection)
 
+    # print("going to compute interval image for the new region, from the first place")
+    # print("cornerPointsOfProjectionafterrefinement = ", cornerPointsOfProjection)
+    # print("nextRegionMinMaxValues = ", nextRegionMinMaxValues)
+    
    
+    # print("environment.splitCount = ", environment.splitCount)
+    # print("environment.numberOfSplit = ", environment.numberOfSplit)
+    # sleep(2)
 
     currRegionDnnoutputs = []
     # if currDepth <20 :
@@ -1650,9 +1784,8 @@ def refineAndCheckCollisionValidity2(intersectionRegionConZ3,dnnOutput, triangle
     #     currRegionDnnoutputs = singleTriangleInvRegions30_P3_cv_1.computePixelIntervals(currAbsGroupName, eval(currCons), fromSplitRegion=1)
     
     if currDepth <= 3:
-        # currRegionDnnoutputs = intervalImageP3_4.computeIntervalImage_P3(currAbsGroupName, eval(currCons),
-        #                                     nextRegionMinMaxValues, cornerPointsOfProjection, fromSplitRegion=1)
-        currRegionDnnoutputs = singleTriangleInvRegions30.computePixelIntervals(currAbsGroupName, eval(currCons), fromSplitRegion=1)
+        currRegionDnnoutputs = intervalImageP3_4.computeIntervalImage_P3(currAbsGroupName, eval(currCons),
+                                            nextRegionMinMaxValues, cornerPointsOfProjection, fromSplitRegion=1)
     # if currDepth == 9:  
     #     print("running p2") 
     #     print("currDepth = ", currDepth)     
@@ -1672,16 +1805,26 @@ def refineAndCheckCollisionValidity2(intersectionRegionConZ3,dnnOutput, triangle
     
     
 
+
+
+
+    # environment.splitCount += 1
+    # splitRegionAndCheckCollisionValidity(currGroup, triangle,currConString,dnnOutput, variableToSplit, 2)
+    
+    # print("possible dnn outputs = ", currRegionDnnoutputs)
+    # # print("environment.numberOfSplit = ", environment.numberOfSplit)
+    # print("environment.splitCount = ", environment.splitCount)
+
     # sleep(2)
     
     #if region has a single dnn output and that is not as the currentDnnoutput of the path then
     #return spurious collision
     if len(currRegionDnnoutputs) == 1 and int(dnnOutput) != int(currRegionDnnoutputs[0]):
-       
+        # print("spurious collision ")
         # isValidCollision = 2
         return 0
     elif len(currRegionDnnoutputs) == 1 and int(dnnOutput) == int(currRegionDnnoutputs[0]):
-       
+        # print("Backpropagate the region into previous multichild parent")
         
         currentNodeString = str(currGroup)
         currentNode = anytree.find(environment.A, filter_=lambda node: node.name==currentNodeString)
@@ -1690,14 +1833,15 @@ def refineAndCheckCollisionValidity2(intersectionRegionConZ3,dnnOutput, triangle
         # if(int(numOfCurrNodeChilds) == 1):
         ancNodeWithMultChild, pathLengthToAncestor  = find_ancestor_with_multiple_children(currentNode)
         if(ancNodeWithMultChild == None):
-            print("It is a valid collision,")
+            # print("It is a valid collision,")
             isValidCollision = 1
             for process in processes:
                 os.kill(process.pid, signal.SIGKILL) 
 
             return 1            
             
-      
+        # print("ancNodeWithMultChild = ", ancNodeWithMultChild)
+        # print("pathLengthToAncestor = ", pathLengthToAncestor)
         # sleep(2)
         #bakcpropagate the region
         currentRegionPath, currentRegionCons, currRegionOutputToCheck = backTrackARegionNStep(intersectionRegionConZ3,currGroup, pathLengthToAncestor )
@@ -1709,26 +1853,38 @@ def refineAndCheckCollisionValidity2(intersectionRegionConZ3,dnnOutput, triangle
         
         
     else:
+        # print("Refine this region itself")
         
+        # ConString = str(currRegionPPL)
+        # ConString = ConString.replace("x0","xp0")
+        # ConString = ConString.replace("x1","yp0")
+        # ConString = ConString.replace("x2","zp0")
+        # ConString = ConString.replace(" = ","==")
+        # ConString = ConString.replace("Constraint_System {"," ")
+        # ConString = ConString.replace("}"," ")
 
         
         numberOfSplits = environment.numberOfSplit
 
-        
+        # print("totalNumRefinment = ", environment.totalNumRefinment)
         environment.totalNumRefinment += 1
         # sleep(5)
         
         variableToSplit = "xp0"
         # minXp,maxXp, xpIntervalLength = gurobiminmaxRegion.getSplitLength(ConString, variableToSplit, numberOfSplits)
         minXp,maxXp, xpIntervalLength = gurobiminmaxRegion.getSplitLength(ConString, variableToSplit, 2)
+        # print("minXp,maxXp, xpIntervalLength => ", minXp,maxXp, xpIntervalLength)
     
         variableToSplit = "yp0"
         minYp,maxYp, ypIntervalLength = gurobiminmaxRegion.getSplitLength(ConString, variableToSplit, 2)
+        # print("minYp,maxYp, ypIntervalLength => ", minYp,maxYp, ypIntervalLength)
         
         variableToSplit = "zp0"
         minZp,maxZp, zpIntervalLength = gurobiminmaxRegion.getSplitLength(ConString, variableToSplit, 1)
+        # print("minZp,maxZp, zpIntervalLength => ", minZp,maxZp, zpIntervalLength)
     
         
+        # print("currentRegionCons = ", currentRegionCons)
         # for i in range(1, environment.numberOfSplit+1):
         #     for j in range(1, environment.numberOfSplit+1):
         #         for k in range(1, environment.numberOfSplit+1):
@@ -1742,7 +1898,6 @@ def refineAndCheckCollisionValidity2(intersectionRegionConZ3,dnnOutput, triangle
                     # currXp = int(float(minXp+(i-1)*xpIntervalLength)*pow(10,5)//1)
                     # currYp = int(float(minYp+(j-1)*ypIntervalLength)*pow(10,5)//1)
                     # currZp = int(float(minZp+(k-1)*zpIntervalLength)*pow(10,5)//1)
-                    environment.refineCountNew += 1
                     
                     currXp = minXp+(i-1)*xpIntervalLength
                     currYp = minYp+(j-1)*ypIntervalLength
@@ -1822,7 +1977,7 @@ def refineAndCheckCollisionValidity2(intersectionRegionConZ3,dnnOutput, triangle
                         environment.splitRegionPd[currSmallCubeName] = currSplitRegionPd.minimized_constraints()
                         # print("Polyhedra constrain after adding small cube cons = ")
                         # print(currSplitRegionPd.minimized_constraints())
-                        # # sleep(2)
+                        # sleep(2)
                         xp0,yp0,zp0 = Reals('xp0 yp0 zp0')    
 
                         ###Update for P3#######
@@ -1844,12 +1999,13 @@ def refineAndCheckCollisionValidity2(intersectionRegionConZ3,dnnOutput, triangle
                         constraintToPassString = constraintToPassString.replace("Constraint_System {"," ")
                         constraintToPassString = constraintToPassString.replace("}"," ")
                         currConsToPass = "And("+str(constraintToPassString)+")"
-                        
+                        # print("Cons in z3 format = ", currConsToPass)
+
                         # sleep(2)
 
                         smallCubeReturn = refineAndCheckCollisionValidity2(eval(currConsToPass),dnnOutput, triangle, currGroup, currDepth+1,0)
                        
-                       
+                        # print("smallCubeCount = ", smallCubeCount)
                         smallCubeCount += 1
 
                         if smallCubeReturn == 1:
@@ -1939,6 +2095,7 @@ def refineAndCheckCollisionValidity2(intersectionRegionConZ3,dnnOutput, triangle
                         # print("small cube is outside the intersection region.")
                         pass
     
+    # print("All small cubes checked, so spurious collission")    
     
     return 10                   
                         
@@ -1953,7 +2110,7 @@ def handleMultipleLevelOfRefinement(triangle):
     global uniqueIdList
     global processes
     global isValidCollision
-    
+    # print("Reached mulitlevel handling")
     
     xp0, yp0, zp0 = Reals('xp0 yp0 zp0')
 
@@ -1971,7 +2128,8 @@ def handleMultipleLevelOfRefinement(triangle):
             else:
                 break  # Exit if there are less than three lines
         foundARegion = int(currDataFromFile[2])
-      
+        # print("foundARegion = ", foundARegion)
+        # print("dataFromProcessing ",dataFromProcessing)
         if foundARegion == 1:
             # numOfRegionsFound = int(currDataFromFile[3])
             # regionConsSetString = currFile.readline()
@@ -2234,7 +2392,7 @@ def checkValidityOfCollision(currGroup, triangle,currRegionPPL,dnnOutput,pd5):
     os.system(tempstring)
 
     tempstring = "./pplTrianglePath"
-    # os.system(tempstring)
+    os.system(tempstring)
 
     pplOutputFilePtr = open("triangleHullRegionpolyhedron.txt",'r')
     # print("\n\n From ppl\n")
@@ -2258,7 +2416,7 @@ def checkValidityOfCollision(currGroup, triangle,currRegionPPL,dnnOutput,pd5):
         newCons = simplify(And(newCons,eval(str(preRegionpolyhedronConStringList[r]))))
     
     
- 
+    # print(newCons)
     
     currImageSetConString = str(currRegionPPL)
     currImageSetConString = currImageSetConString.replace("x0","xp0")
@@ -2333,8 +2491,8 @@ def checkValidityOfCollision(currGroup, triangle,currRegionPPL,dnnOutput,pd5):
     if isValidCollision == 1:
         # print("True collision detected !!!!!!!")
         return 1, intersectionRegionConZ3
-    
-    # handleMultipleLevelOfRefinement(triangle)
+    # print("handling multilevel refinement")
+    #handleMultipleLevelOfRefinement(triangle)
     # print("Skipping Handle multilevel")
 
     # print("time taken @end ", datetime.now()-validityCheckStartTime)
@@ -2360,7 +2518,43 @@ def checkValidityOfCollision(currGroup, triangle,currRegionPPL,dnnOutput,pd5):
  
     
         
-    
+
+
+
+
+
+# currentNodeParentName = "A"
+# currentNode = "A_0"
+# currentNodeParent = anytree.find(environment.A, filter_=lambda node: node.name==currentNodeParentName)
+# currentNode = anytree.Node(currentNode, parent=currentNodeParent)
+
+
+# currentNodeParentName = "A"
+# currentNode = "A_1"
+# currentNodeParent = anytree.find(environment.A, filter_=lambda node: node.name==currentNodeParentName)
+# currentNode = anytree.Node(currentNode, parent=currentNodeParent)
+
+# currentNodeParentName = "A"
+# currentNode = "A_2"
+# currentNodeParent = anytree.find(environment.A, filter_=lambda node: node.name==currentNodeParentName)
+# currentNode = anytree.Node(currentNode, parent=currentNodeParent)
+
+# currentNodeParentName = "A_0"
+# currentNode = "A_0_0"
+# currentNodeParent = anytree.find(environment.A, filter_=lambda node: node.name==currentNodeParentName)
+# currentNode = anytree.Node(currentNode, parent=currentNodeParent)
+
+
+
+# for pre, fill, node in anytree.RenderTree(environment.A):
+#         print("%s%s" % (pre, node.name))
+
+# numberOfProcessCreated = 1
+# uniqueIdList.append("A_0_0_0")
+# handleMultipleLevelOfRefinement(1)
+# # for k in range(0, numberOfProcessCreated):
+# #         fileName = str("tempFiles/")+str(uniqueIdList[k])+".txt"
+# #         currFile = open(fileName,'r')
     
     
     

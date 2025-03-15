@@ -117,7 +117,7 @@ def addAvertexPixelConstraintIntersect(currZP, x,y,z, pixelX, pixelY, pd,planeId
     # print(px, qx, py, qy, pz, qz)
 
     if(z - currZP < 0):
-        print("z - currZP <0")
+        # print("z - currZP <0")
         
         # if (planeId == 0):
         # print("top")
@@ -432,61 +432,62 @@ def intersectingEdgeRegion(planeId, edgeId, insideVertex,outsideVertex, xPixel, 
             FF_bot_y = (y1+farCorner);
 
         i_BF_top_right_x = int(BF_top_right_x*pow(10,15)//1)
-        # print("BF_top_right_x = ", BF_top_right_x," : ", i_BF_top_right_x)
+        print("BF_top_right_x = ", BF_top_right_x," : ", i_BF_top_right_x)
 
 
         i_BF_top_left_x = int( BF_top_left_x*pow(10,15)//1)
-        # print("BF_top_left_x = ", BF_top_left_x," : ", i_BF_top_left_x)
+        print("BF_top_left_x = ", BF_top_left_x," : ", i_BF_top_left_x)
 
 
         i_BF_bot_right_x = int( BF_bot_right_x*pow(10,15)//1)
-        # print("BF_bot_right_x = ", BF_bot_right_x," : ", i_BF_bot_right_x)
+        print("BF_bot_right_x = ", BF_bot_right_x," : ", i_BF_bot_right_x)
 
         i_BF_bot_left_x = int( BF_bot_left_x*pow(10,15)//1)
-        # print("BF_bot_left_x = ", BF_bot_left_x," : ", i_BF_bot_left_x)
+        print("BF_bot_left_x = ", BF_bot_left_x," : ", i_BF_bot_left_x)
 
         i_BF_top_y = int(BF_top_y*pow(10,15)//1)
-        # print("BF_top_y = ", BF_top_y," : ", i_BF_top_y)
+        print("BF_top_y = ", BF_top_y," : ", i_BF_top_y)
 
 
         i_BF_bot_y = int( BF_bot_y*pow(10,15)//1)
-        # print("BF_bot_y = ", BF_bot_y," : ", i_BF_bot_y)
+        print("BF_bot_y = ", BF_bot_y," : ", i_BF_bot_y)
 
         i_BF_top_z = int( BF_top_z*pow(10,15)//1)
-        # print("BF_top_z = ", BF_top_z," : ", i_BF_top_z)
+        print("BF_top_z = ", BF_top_z," : ", i_BF_top_z)
 
         i_BF_bot_z = int( BF_bot_z *pow(10,15)//1)
-        # print("BF_bot_z = ", BF_bot_z," : ", i_BF_bot_z)
+        print("BF_bot_z = ", BF_bot_z," : ", i_BF_bot_z)
 
-        # print("\n\n")
+        print("\n\n")
 
         i_FF_top_right_x = int(FF_top_right_x*pow(10,15)//1)
-        # print("FF_top_right_x = ", FF_top_right_x," : ", i_FF_top_right_x)
+        print("FF_top_right_x = ", FF_top_right_x," : ", i_FF_top_right_x)
 
         i_FF_top_left_x = int( FF_top_left_x*pow(10,15)//1)
-        # print("FF_top_left_x = ", FF_top_left_x," : ", i_FF_top_left_x)
+        print("FF_top_left_x = ", FF_top_left_x," : ", i_FF_top_left_x)
 
         i_FF_bot_right_x =  int( FF_bot_right_x*pow(10,15)//1)
-        # print("FF_bot_right_x = ", FF_bot_right_x," : ", i_FF_bot_right_x)
+        print("FF_bot_right_x = ", FF_bot_right_x," : ", i_FF_bot_right_x)
 
         i_FF_bot_left_x =  int( FF_bot_left_x*pow(10,15)//1)
-        # print("FF_bot_left_x = ", FF_bot_left_x," : ", i_FF_bot_left_x)
+        print("FF_bot_left_x = ", FF_bot_left_x," : ", i_FF_bot_left_x)
 
         i_FF_top_y =  int( FF_top_y*pow(10,15)//1)
-        # print("FF_top_y = ", FF_top_y," : ", i_FF_top_y)
+        print("FF_top_y = ", FF_top_y," : ", i_FF_top_y)
 
 
         i_FF_bot_y =  int( FF_bot_y*pow(10,15)//1)
-        # print("FF_bot_y = ", FF_bot_y," : ", i_FF_bot_y)
+        print("FF_bot_y = ", FF_bot_y," : ", i_FF_bot_y)
 
         i_FF_top_z =  int( FF_top_z*pow(10,15)//1)
-        # print("FF_top_z = ", FF_top_z," : ", i_FF_top_z)
+        print("FF_top_z = ", FF_top_z," : ", i_FF_top_z)
 
         i_FF_bot_z =  int( FF_bot_z*pow(10,15)//1)
-        # print("FF_bot_z = ", FF_bot_z," : ", i_FF_bot_z)
+        print("FF_bot_z = ", FF_bot_z," : ", i_FF_bot_z)
 
 
-       
+        print("\n\n")
+
         
         pd2.add_generator(point( i_BF_top_right_x*xp0+i_BF_top_y*yp0+i_BF_top_z*zp0 ,pow(10,15)))
         pd2.add_generator(point( i_BF_top_left_x*xp0+ i_BF_top_y*yp0+ i_BF_top_z*zp0,pow(10,15)))
@@ -575,7 +576,7 @@ def intersectingEdgeRegion(planeId, edgeId, insideVertex,outsideVertex, xPixel, 
 
         
         
-       
+        print("\n\n")
 
         
         pd2.add_generator(point( i_BF_rVertex_x*xp0+i_BF_rVertex_top_y*yp0+i_BF_rVertex_z*zp0 ,pow(10,15)))
@@ -605,7 +606,8 @@ def intersectingEdgeRegion(planeId, edgeId, insideVertex,outsideVertex, xPixel, 
         plane0_v3 = [0.35820895522388063, 0.35820895522388063, -1]
         
         
-        
+        print("TODO: near plane pyparma 34")
+        print("exiting")
         exit()
        
 
@@ -613,7 +615,11 @@ def intersectingEdgeRegion(planeId, edgeId, insideVertex,outsideVertex, xPixel, 
 
     
 
-      
+    # print("\n\n")
+
+    
+    # print(pd2.generators())
+    # print(pd2.minimized_constraints())          
     
            
 
@@ -655,7 +661,9 @@ def findPosUpdated(x0, y0, z0, nearFar, xpixel, ypixel, planeId,intersectionPoin
     cons1 = ""
     cons2 = ""
 
-  
+    # print("x0,y0,z0,nearFar,xpixel,ypixel,planeId :",
+    #       x0, y0, z0, nearFar, xpixel, ypixel, planeId)
+
     # if xpixel == 49:
     #     xpixel =48.99
     # if ypixel == 49:
@@ -777,10 +785,10 @@ def findPosUpdated(x0, y0, z0, nearFar, xpixel, ypixel, planeId,intersectionPoin
         s.add(z0-zp == (u*pz2+v*pz3))
         
     else:
-      
+        print("Unknown zpos, nearFar")
         exit()
         
-    # print(s.check())
+    print(s.check())
     
     if planeId == 0:
         print("top")
@@ -811,9 +819,9 @@ def findPosUpdated(x0, y0, z0, nearFar, xpixel, ypixel, planeId,intersectionPoin
         newYPixel = Real('newYPixel')
         cons20 = "newYPixel == ((68.39567*(y0-yp))/(z0-zp))+24.5" 
         s3.add(eval(cons20))        
-        # print(s3.check())
+        print(s3.check())
         m3= s3.model()
-        # print(m3)
+        print(m3)
         
         
         if xpixel == 49:
@@ -823,12 +831,12 @@ def findPosUpdated(x0, y0, z0, nearFar, xpixel, ypixel, planeId,intersectionPoin
         cons1 = "xpixel == ((-68.39567*(x0-xp))/(z0-zp))+24.5"
         cons2 = "m3[newYPixel] == ((68.39567*(y0-yp))/(z0-zp))+24.5"       
         s.add((And(eval(cons1),eval(cons2))) )    
-        # print(s.check())  
+        print(s.check())  
         
         
         
     elif planeId == 1:
-        # print("bot")
+        print("bot")
         # if xpixel == 0:
         #     s.add(And(a>=0, a<=0.0000001))
         # else:
@@ -851,9 +859,9 @@ def findPosUpdated(x0, y0, z0, nearFar, xpixel, ypixel, planeId,intersectionPoin
         newYPixel = Real('newYPixel')
         cons20 = "newYPixel == ((68.39567*(y0-yp))/(z0-zp))+24.5" 
         s3.add(eval(cons20))        
-        # print(s3.check())
+        print(s3.check())
         m3= s3.model()
-        # print(m3)
+        print(m3)
         
         
         if xpixel == 49:
@@ -865,7 +873,7 @@ def findPosUpdated(x0, y0, z0, nearFar, xpixel, ypixel, planeId,intersectionPoin
         s.add((And(eval(cons1),eval(cons2))) )
         
     elif planeId == 2:
-        # print("right")
+        print("right")
         # s.add(And(a>=48.9999, a<=49))
         # # if ypixel == 0:
         #     s.add(And(b>=0, b<=0.01))
@@ -889,9 +897,9 @@ def findPosUpdated(x0, y0, z0, nearFar, xpixel, ypixel, planeId,intersectionPoin
         newXPixel = Real('newXPixel')
         cons20 = "newXPixel == ((-68.39567*(x0-xp))/(z0-zp))+24.5" 
         s3.add(eval(cons20))        
-        # print(s3.check())
+        print(s3.check())
         m3= s3.model()
-        # print(m3)
+        print(m3)
         
         if ypixel == 49:
             ypixel = 48.99
@@ -924,7 +932,7 @@ def findPosUpdated(x0, y0, z0, nearFar, xpixel, ypixel, planeId,intersectionPoin
         newXPixel = Real('newXPixel')
         cons20 = "newXPixel == ((-68.39567*(x0-xp))/(z0-zp))+24.5" 
         s3.add(eval(cons20))        
-        # print(s3.check())
+        print(s3.check())
         m3= s3.model()
         print(m3)
         
@@ -936,8 +944,8 @@ def findPosUpdated(x0, y0, z0, nearFar, xpixel, ypixel, planeId,intersectionPoin
         s.add((And(eval(cons1),eval(cons2))) )
 
 
-    # print("Intersecting or not")
-    # print(s.check())
+    print("Intersecting or not")
+    print(s.check())
     m= s.model()
     # print(m)
 
@@ -957,10 +965,10 @@ def findPosUpdated(x0, y0, z0, nearFar, xpixel, ypixel, planeId,intersectionPoin
 
     # print()
     result = s.check()
-    # print(result)
+    print(result)
     if result == sat:
         m = s.model()
-        # print(m)
+        print(m)
         # print("\n")
 
         posx = str(m[xp]).replace("?","")
@@ -972,11 +980,11 @@ def findPosUpdated(x0, y0, z0, nearFar, xpixel, ypixel, planeId,intersectionPoin
         # posz = m[zp]
         # posz = zpos
         
-        # print("Intersecting point on the line = ", float(str(m[u]).replace("?",""))*px0+(1-float(str(m[u]).replace("?",""))*px1))
+        print("Intersecting point on the line = ", float(str(m[u]).replace("?",""))*px0+(1-float(str(m[u]).replace("?",""))*px1))
 
-        # print(m[xp],m[yp],m[zp])
-        # print("\n\n")
-        # print(posx,posy,posz)
+        print(m[xp],m[yp],m[zp])
+        print("\n\n")
+        print(posx,posy,posz)
         
         # sleep(3)
 
@@ -989,12 +997,15 @@ def findPosUpdated(x0, y0, z0, nearFar, xpixel, ypixel, planeId,intersectionPoin
         del(s)
         return [posx, posy, posz]
     if result == unknown:
-        # print("timeout occured trying again")
+        print("timeout occured trying again")
         del(s)
         sleep(10)
         findPos(x0, y0, z0, zpos, xpixel, ypixel, planeId)
     else:
-        
+        print(result)
+        print("x0,y0,z0,zpos,xpixel,ypixel,planeId :",
+              x0, y0, z0, xpixel, ypixel, planeId)
+        print("no matching solution found, ")
         del(s)
         global unsatFlag
         unsatFlag = 1
@@ -1033,7 +1044,8 @@ def findPos(x0, y0, z0, zpos, xpixel, ypixel, planeId,intersectionPoint=0):
     cons1 = ""
     cons2 = ""
 
-    
+    print("x0,y0,z0,zpos,xpixel,ypixel,planeId :",
+          x0, y0, z0, zpos, xpixel, ypixel, planeId)
 
     if planeId == 0:
         # print("top plane")
@@ -1054,7 +1066,7 @@ def findPos(x0, y0, z0, zpos, xpixel, ypixel, planeId,intersectionPoint=0):
             cons2 = "ypixel == ((68.39567*(y0-yp))/(z0-zpos))+24.5"
 
     if planeId == 1:
-       
+        print("bottom plane")
         plane0_v0 = [-0.35820895522388063, -0.35820895522388063, -1]
         plane0_v1 = [0.35820895522388063, -0.35820895522388063, -1]
         plane0_v2 = [-358.20895522388063, -358.20895522388063, -1000]
@@ -1072,7 +1084,7 @@ def findPos(x0, y0, z0, zpos, xpixel, ypixel, planeId,intersectionPoint=0):
             cons2 = "ypixel == ((68.39567*(y0-yp))/(z0-zpos))+24.5"
 
     if planeId == 2:
-        
+        # print("right plane")
         plane0_v0 = [0.35820895522388063, 0.35820895522388063, -1]
         plane0_v1 = [0.35820895522388063, -0.35820895522388063, -1]
         plane0_v2 = [358.20895522388063, 358.20895522388063, -1000]
@@ -1089,7 +1101,7 @@ def findPos(x0, y0, z0, zpos, xpixel, ypixel, planeId,intersectionPoint=0):
             ypixel = 0
         cons2 = "ypixel == ((68.39567*(y0-yp))/(z0-zpos))+24.5"
     if planeId == 3:
-        
+        print("left plane ")
         plane0_v0 = [-0.35820895522388063, 0.35820895522388063, -1]
         plane0_v1 = [-0.35820895522388063, -0.35820895522388063, -1]
         plane0_v2 = [-358.20895522388063, 358.20895522388063, -1000]
@@ -1131,18 +1143,18 @@ def findPos(x0, y0, z0, zpos, xpixel, ypixel, planeId,intersectionPoint=0):
     pz3 = plane0_v3[2]
 
     if(intersectionPoint == 1):
-        # print("Intersection point, already in the camera coordinate system")
+        print("Intersection point, already in the camera coordinate system")
         s.add(x0 == (u*px0+v*px1+w*px2+g*px3))
         s.add(y0 == (u*py0+v*py1+w*py2+g*py3))
         s.add(z0 == (u*pz0+v*pz1+w*pz2+g*pz3))
         
-        
+        print(s.check())
         cons1 = "xpixel == ((-68.39567*(x0))/(z0))+24.5"
         cons2 = "ypixel == ((68.39567*(y0))/(z0))+24.5"
         
         s.add(eval(cons1))
         s.add(eval(cons2))
-       
+        print("intersecting point produces same pixel or not : ",s.check() )
         exit()
 
     else:
@@ -1150,23 +1162,23 @@ def findPos(x0, y0, z0, zpos, xpixel, ypixel, planeId,intersectionPoint=0):
         s.add(y0-yp == (u*py0+v*py1+w*py2+g*py3))
         s.add(z0-zpos == (u*pz0+v*pz1+w*pz2+g*pz3))
 
-    # print("Intersecting or not")
-    # print(s.check())
+    print("Intersecting or not")
+    print(s.check())
     m= s.model()
-    # print(m)
+    print(m)
 
-    # print( ((-68.39567*(x0-m[xp]))/(z0-zpos))+24.5 ) 
-    # print( ((68.39567*(y0-m[yp]))/(z0-zpos))+24.5 ) 
+    print( ((-68.39567*(x0-m[xp]))/(z0-zpos))+24.5 ) 
+    print( ((68.39567*(y0-m[yp]))/(z0-zpos))+24.5 ) 
     # cons1 = "xpixel == ((-68.39567*(x0-xp))/(z0-zpos))+24.5"
     # cons2 = "ypixel == ((68.39567*(y0-yp))/(z0-zpos))+24.5"
 
-    # print(eval(cons1))
-    # print(eval(cons2))
+    print(eval(cons1))
+    print(eval(cons2))
     
     s.add(eval(cons1))
-    # print(s.check())
+    print(s.check())
     s.add(eval(cons2))
-    # print(s.check())
+    print(s.check())
     # s.add(And(eval(cons1),eval(cons2)))
 
     # print()
@@ -1196,15 +1208,15 @@ def findPos(x0, y0, z0, zpos, xpixel, ypixel, planeId,intersectionPoint=0):
         del(s)
         return [posx, posy, posz]
     if result == unknown:
-        # print("timeout occured trying again")
+        print("timeout occured trying again")
         del(s)
         sleep(10)
         findPos(x0, y0, z0, zpos, xpixel, ypixel, planeId)
     else:
-        # print(result)
-        # print("x0,y0,z0,zpos,xpixel,ypixel,planeId :",
-        #       x0, y0, z0, zpos, xpixel, ypixel, planeId)
-        # print("no matching solution found, ")
+        print(result)
+        print("x0,y0,z0,zpos,xpixel,ypixel,planeId :",
+              x0, y0, z0, zpos, xpixel, ypixel, planeId)
+        print("no matching solution found, ")
         del(s)
         global unsatFlag
         unsatFlag = 1
@@ -1450,7 +1462,7 @@ def computeIntersectingRegionUpdated(planeId, edgeId, insideVertex, outsideVerte
         pointsList.append(tempList)
 
     
-    # 
+    # print("8 points computed exiting")
     
 
   
@@ -1525,7 +1537,9 @@ def computeIntersectingRegion2(planeId, edgeId, insideVertex, outsideVertex, xpi
     # pdIntersection.add_constraint( ( (67*qz*(py - qy*yp0) ) + (24*qy*(pz - qz*zp0)*1 ) ) <= ((pixelY)*qy*(pz - qz*zp0)*1)  )
     # pdIntersection.add_constraint( ( (67*qz*(py - qy*yp0) ) + (24*qy*(pz - qz*zp0)*1 ) ) > (( (pixelY+1))*qy*(pz - qz*zp0)*1)  )
 
-   
+    # print(pdIntersection.constraints())
+    # print(pdIntersection.minimized_constraints())
+    # sleep(300)
     exit(0)
     return pdIntersection
 
@@ -1833,83 +1847,6 @@ def computeEightPointsRegion(planeId, edgeId, insideVertex, outsideVertex, xpixe
         tempList[1] =  y1+(ypixel+1-24.5)*farPart
         tempList[2] = zpos0
         pointsList.append(tempList)  
-    
-    if planeId == 5:
-        # print("left plane")
-        
-        nearRight =0.35820895522388063
-        farRight = 358.20895522388063
-        
-        nearPart = (nearRight*2)/49
-        farPart = (farRight*2)/49
-        
-        
-        tempList = [0,0,0]
-        xpos0 = x0-(xpixel-24.5)*nearPart
-        ypos0 = y0+ (ypixel-24.5)*nearPart
-        zpos0 = z0 + 1
-        tempList[0] = xpos0
-        tempList[1] = ypos0
-        tempList[2] = zpos0
-        pointsList.append(tempList)
-        
-        tempList = [0,0,0]
-        tempList[0] = x0-(xpixel+1-24.5)*nearPart
-        tempList[1] = y0+(ypixel-24.5)*nearPart
-        tempList[2] = zpos0
-        pointsList.append(tempList)
-        
-        tempList = [0,0,0]
-        xpos0 = x0-(xpixel-24.5)*nearPart
-        ypos0 = y0+ (ypixel+1-24.5)*nearPart
-        zpos0 = z0 + 1
-        tempList[0] = xpos0
-        tempList[1] = ypos0
-        tempList[2] = zpos0
-        pointsList.append(tempList)
-        
-        tempList = [0,0,0]
-        xpos0 = x0-(xpixel+1-24.5)*nearPart
-        ypos0 = y0+ (ypixel+1-24.5)*nearPart
-        zpos0 = z0 + 1
-        tempList[0] = xpos0
-        tempList[1] = ypos0
-        tempList[2] = zpos0
-        pointsList.append(tempList)
-        
-        
-        tempList = [0,0,0]
-        xpos0 = x1-(xpixel-24.5)*nearPart
-        ypos0 = y1+ (ypixel-24.5)*nearPart
-        zpos0 = z1 + 1
-        tempList[0] = xpos0
-        tempList[1] = ypos0
-        tempList[2] = zpos0
-        pointsList.append(tempList)
-        
-        tempList = [0,0,0]
-        tempList[0] = x1-(xpixel+1-24.5)*nearPart
-        tempList[1] = y1+(ypixel-24.5)*nearPart
-        tempList[2] = zpos0
-        pointsList.append(tempList)
-        
-        tempList = [0,0,0]
-        xpos0 = x1-(xpixel-24.5)*nearPart
-        ypos0 = y1+ (ypixel+1-24.5)*nearPart
-        zpos0 = z1 + 1
-        tempList[0] = xpos0
-        tempList[1] = ypos0
-        tempList[2] = zpos0
-        pointsList.append(tempList)
-        
-        tempList = [0,0,0]
-        xpos0 = x1-(xpixel+1-24.5)*nearPart
-        ypos0 = y1+ (ypixel+1-24.5)*nearPart
-        zpos0 = z1 + 1
-        tempList[0] = xpos0
-        tempList[1] = ypos0
-        tempList[2] = zpos0
-        pointsList.append(tempList)
         
     
     
@@ -2698,14 +2635,15 @@ def computeEightPointsRegion2(planeId, insideVertex, outsideVertex, xpixel, ypix
 def computeRegion(currGroupName, currZP, numberOfFullyInsideVertices, insideVertexDetailsToPPL, numberOfIntersectingEdges,
                   intersectingEdgeDataToPPL, posXp1, posYp1, posZp1, mxp, myp, mzp, outcodeP0, currImageName, currGroupPolyhedra=dummyPolyhedraCons):
     # print("\ninside compute region function")
-    # print("\n\nPPL: Data received")
-    # print(insideVertexDetailsToPPL)
-    # print(currImageName)
-    # # print(insideVertexDetailsToPPL[0][1])
-    # # if(currImageName == "A_0" and insideVertexDetailsToPPL[0][0] == 94 ):
-    # #     sleep(5)
-    # #     insideVertexDetailsToPPL[0][1] =44
-    # #     insideVertexDetailsToPPL[0][2] =42
+    # # print("\n\nPPL: Data received")
+    # # print(insideVertexDetailsToPPL)
+    # print("currGroupName = ", currGroupName)
+    # print("currImageName = ", currImageName)
+    # print(insideVertexDetailsToPPL[0][1])
+    # if(currImageName == "A_0" and insideVertexDetailsToPPL[0][0] == 94 ):
+    #     sleep(5)
+    #     insideVertexDetailsToPPL[0][1] =44
+    #     insideVertexDetailsToPPL[0][2] =42
     # print(insideVertexDetailsToPPL)
     # print("intersecting edge data")
     # print(intersectingEdgeDataToPPL)
@@ -2726,19 +2664,11 @@ def computeRegion(currGroupName, currZP, numberOfFullyInsideVertices, insideVert
     # print(imageFrustumPolyhedron.minimized_constraints())
     # print("\n\n\n")
 
-    # print("imageFrustumPolyhedron ==> ",
-    #       imageFrustumPolyhedron.minimized_constraints())
-
     currImageCube_ph = NNC_Polyhedron(3)
     
     currImageName.startswith("split")
 
-    if currGroupName == "singleImagePosFinal":
-        currImageCube_ph.add_constraints(
-            environment.singleImagePolyh)
-        # print("singleImagePosFinal")
-
-    elif(currImageName != "singlePosImage" and (not currImageName.startswith("split"))):
+    if(currImageName != "singlePosImage" and (not currImageName.startswith("split"))):
         # print("pos from original computation")
         pathLength = currImageName.count('_')
         currImage_cubeName = ""
@@ -2751,6 +2681,7 @@ def computeRegion(currGroupName, currZP, numberOfFullyInsideVertices, insideVert
         else:
             # print("image from step = ", pathLength)
             currImage_cubeName = currImageName[0:currImageName.rfind("_")]
+            # print("currImage_cubeName = ", currImage_cubeName)
             #
 
         # print(currImage_cubeName)
@@ -2760,17 +2691,17 @@ def computeRegion(currGroupName, currZP, numberOfFullyInsideVertices, insideVert
         # print("currImageCube_ph ==> ", currImageCube_ph.minimized_constraints())
 
     elif (currImageName == "singlePosImage"):
-        # print("single PosImage")
+        print("single PosImage")
         currImageCube_ph.add_constraints(currGroupPolyhedra)
         # print("currImageCube_ph ==> ", currImageCube_ph.minimized_constraints())
     else:
-        # print("Split region")
+        print("Split region")
         # sleep(2)
         
         
         currImageCube_ph.add_constraints(environment.splitRegionPd["split_"+str(environment.splitCount)])
         # print("currImageCube_ph ==> ", currImageCube_ph.minimized_constraints())
-        # 
+        
         # sleep(2)
         
         
@@ -2782,7 +2713,7 @@ def computeRegion(currGroupName, currZP, numberOfFullyInsideVertices, insideVert
     #       imageFrustumPolyhedron.minimized_constraints())
 
     # print("numberOfFullyInsideVertices = ", numberOfFullyInsideVertices)
-   
+
     for i in range(0, numberOfFullyInsideVertices):
 
         currentVertexIndex = insideVertexDetailsToPPL[i][0]
@@ -2926,337 +2857,23 @@ def computeRegion(currGroupName, currZP, numberOfFullyInsideVertices, insideVert
             
             # print(pdC.minimized_constraints())
             # print("\n........\n")
-        
-        elif edgeId == -3:
-            
-            # print("edgeId = -2")
-            
-            pd2 = NNC_Polyhedron(3, 'empty')
-            currData = intersectingEdgeDataToPPL[i]
-            
-            # print(currData[3], currData[1],currData[2], currData[4], currData[5])
-            continue
+        # elif edgeId==-3:
            
-            pd2 = computeEightPointsRegion2(currData[3], currData[1],currData[2], currData[4], currData[5])
+        #     # print("edgeId = -3")
+        #     pd2 = NNC_Polyhedron(3, 'empty')
+        #     currData = intersectingEdgeDataToPPL[i]
+        #     # print(currData[3], currData[1],currData[2], currData[4], currData[5])
+        #     continue 
+        #     pd2 = computeEightPointsRegion2(currData[3], currData[1],currData[2], currData[4], currData[5])
             
-            # print(pd2.minimized_constraints())
+        #     print(pd2.minimized_constraints())
             
-            pdC.intersection_assign(pd2)
-            
-            # print(pdC.minimized_constraints())
-            # print("\n........\n")
-       
-       
-            
-        
-
-    # set_option(rational_to_decimal=False)
-
-    # # print(mxp,myp,mzp,posXp1,posYp1,posZp1)
-    # # print(mxp)
-    # # print(mxpOg)
-    # mxp1 = mxp
-    # myp1 = myp
-    # mzp1 = mzp
-    # mxpStr = [0, 1]
-    # mypStr = [0, 1]
-    # mzpStr = [0, 1]
-    # # Find lcm of denomenators of the pos values
-    # if "/" in str(mxp1):
-    #     mxpStr = str(mxp1).split("/")
-    # else:
-    #     mxpStr[0] = str(mxp1)
-    #     mxpStr[1] = 1
-
-    # if "/" in str(myp1):
-    #     mypStr = str(myp1).split("/")
-    # else:
-    #     mypStr[0] = str(myp1)
-    #     mypStr[1] = 1
-
-    # if "/" in str(mzp1):
-    #     mzpStr = str(mzp1).split("/")
-    # else:
-    #     mzpStr[0] = str(mzp1)
-    #     mzpStr[1] = 1
-
-    # numeratorList = [int(str(mxpStr[0])), int(
-    #     str(mypStr[0])), int(str(mzpStr[0]))]
-    # denomList = [int(int(str(mxpStr[1]))//1),
-    #              int(int(str(mypStr[1]))//1), int(int(str(mzpStr[1]))//1)]
-
-    # currLcm = lcm(denomList[0], lcm(denomList[1], denomList[2]))
-    # c0 = int(currLcm//(denomList[0]))
-    # c1 = int(currLcm//(denomList[1]))
-    # c2 = int(currLcm//(denomList[2]))
-    # # # # print("\nc0,c1,c2 ", c0,c1,c2)
-
-    # pd100 = NNC_Polyhedron(3, 'empty')
-    # xp0 = Variable(0)
-    # yp0 = Variable(1)
-    # zp0 = Variable(2)
-
-    # # pd100.add_generator(point( mxp1*xp0+myp1* yp0+mzp1*zp0 ,pow(10,80)))
-
-    # pd100.add_generator(point(
-    #     numeratorList[0]*c0 * xp0+numeratorList[1] * c1 * yp0+numeratorList[2] * c2*zp0, int(currLcm)))
-
-    # pd100.add_generator(point(
-    #     numeratorList[0]*c0 * (xp0+1)+numeratorList[1] * c1 * yp0+numeratorList[2] * c2*zp0, int(currLcm)))
-
-    # pd100.add_generator(point(
-    #     numeratorList[0]*c0 * (xp0-1)+numeratorList[1] * c1 * yp0+numeratorList[2] * c2*zp0, int(currLcm)))
-    
-    # pd100.add_generator(point(
-    #     numeratorList[0]*c0 * xp0+numeratorList[1] * c1 * (yp0+1)+numeratorList[2] * c2*zp0, int(currLcm)))
-
-    # pd100.add_generator(point(
-    #     numeratorList[0]*c0 * xp0+numeratorList[1] * c1 * (yp0-1)+numeratorList[2] * c2*zp0, int(currLcm)))
-    
-    # pd100.add_generator(point(
-    #     numeratorList[0]*c0 * xp0+numeratorList[1] * c1 * (yp0)+numeratorList[2] * c2*(zp0+1), int(currLcm)))
-    
-    # pd100.add_generator(point(
-    #     numeratorList[0]*c0 * xp0+numeratorList[1] * c1 * (yp0)+numeratorList[2] * c2*(zp0-1), int(currLcm)))
-
-
-
-
-
-    # print("\n pd100.minimized_constraints()")
-    # print( pd100.minimized_constraints())
-
-    # print("\n\n (pdC.minimized_constraints()) before mpos add" )
-    # print(pdC.minimized_constraints())
-
-    ################################################
-    # pdC.poly_hull_assign(pd100)
-    ##################################################
-    
-    
-    # print("\n\npdC.minimized_constraints() after add")
-    # print(pdC.minimized_constraints())
-
-    # sleep(3)
-
-    # print("\nFinal pd cons :")
-    # print(imageFrustumPolyhedron.minimized_constraints())
-    # return str(imageFrustumPolyhedron.minimized_constraints())
-    
-    
-    # for i in range(0, numberOfIntersectingEdges):
-    #     xpixel = eval(str(intersectingEdgeDataToPPL[i][4]))
-    #     ypixel = eval(str(intersectingEdgeDataToPPL[i][5]))
-        
-        
-
-    #     ix = eval(str(intersectingEdgeDataToPPL[i][6]).replace("\n",""))
-    #     iy = eval(str(intersectingEdgeDataToPPL[i][7]).replace("\n",""))
-    #     iz = eval(str(intersectingEdgeDataToPPL[i][8]).replace("\n",""))
-    #     planeId = eval(str(intersectingEdgeDataToPPL[i][3]))
-    #     print(ix,"\n",iy,"\n",iz)
-    #     print(xpixel, ypixel)
-    #     # if(planeId == 0 or planeId ==1):
-    #     addAvertexPixelConstraintIntersect(currZP,ix,iy,iz, xpixel, ypixel, pdC,planeId)
-    #     print(imageFrustumPolyhedron.minimized_constraints())
-    #     # sleep(2)
-
-    # print(pdC.minimized_constraints())
-
-    environment.imageCons[currImageName] = pdC.minimized_constraints()
-    # return str(pdC.minimized_constraints())
-    return pdC
-
-
-
-
-
-
-
-
-
-def computeRegion2(currGroupName, currZP, numberOfFullyInsideVertices, insideVertexDetailsToPPL, numberOfIntersectingEdges,
-                  intersectingEdgeDataToPPL, posXp1, posYp1, posZp1, mxp, myp, mzp, outcodeP0, currImageName, currGroupPolyhedra=dummyPolyhedraCons):
-    # print("\ninside compute region function")
-    # print("\n\nPPL: Data received")
-    # print(insideVertexDetailsToPPL)
-    # print(currImageName)
-    # print(insideVertexDetailsToPPL[0][1])
-    # if(currImageName == "A_0" and insideVertexDetailsToPPL[0][0] == 94 ):
-    #     sleep(5)
-    #     insideVertexDetailsToPPL[0][1] =44
-    #     insideVertexDetailsToPPL[0][2] =42
-    # print(insideVertexDetailsToPPL)
-    # print("intersecting edge data")
-    # print(intersectingEdgeDataToPPL)
-    # print(outcodeP0)
-    # exit()
-    # print(mxp, myp, mzp, posXp1, posYp1, posZp1)
-
-    mxpOg = mxp
-    mypOg = myp
-    mzpOg = mzp
-    # print("\n")
-    imageFrustumPolyhedron = NNC_Polyhedron(3)
-
-    # print("Image frustum polyhedron cons befor adding cons")
-    # getCurrentPosOutcodeCons2(outcodeP0, imageFrustumPolyhedron)
-    # print(imageFrustumPolyhedron.constraints())
-    # print("\n")
-    # print(imageFrustumPolyhedron.minimized_constraints())
-    # print("\n\n\n")
-
-    currImageCube_ph = NNC_Polyhedron(3)
-    
-    currImageName.startswith("split")
-
-    if(currImageName != "singlePosImage" and (not currImageName.startswith("split"))):
-        # print("pos from original computation")
-        pathLength = currImageName.count('_')
-        currImage_cubeName = ""
-
-        if(pathLength == 1):
-            # print("image from inital region")
-            currImage_cubeName = "initCubeCon"
-            # print(currImage_cubeName)
-
-        else:
-            # print("image from step = ", pathLength)
-            currImage_cubeName = currImageName[0:currImageName.rfind("_")]
-            #
-
-        # print(currImage_cubeName)
-
-        currImageCube_ph.add_constraints(
-            environment.groupCubePostRegion[currImage_cubeName])
-        # print("currImageCube_ph ==> ", currImageCube_ph.minimized_constraints())
-
-    elif (currImageName == "singlePosImage"):
-        # print("single PosImage")
-        currImageCube_ph.add_constraints(currGroupPolyhedra)
-        # print("currImageCube_ph ==> ", currImageCube_ph.minimized_constraints())
-    else:
-        # print("Split region")
-        # sleep(2)
-        
-        
-        currImageCube_ph.add_constraints(environment.splitRegionPd["split_"+str(environment.splitCount)])
-        # print("currImageCube_ph ==> ", currImageCube_ph.minimized_constraints())
-        
-        # sleep(2)
-        
-        
-        
-        
-
-    imageFrustumPolyhedron.intersection_assign(currImageCube_ph)
-    # print("imageFrustumPolyhedron ==> ",
-    #       imageFrustumPolyhedron.minimized_constraints())
-
-    # print("numberOfFullyInsideVertices = ", numberOfFullyInsideVertices)
-
-    for i in range(0, numberOfFullyInsideVertices):
-
-        currentVertexIndex = insideVertexDetailsToPPL[i][0]
-        xpixel = insideVertexDetailsToPPL[i][1]
-        ypixel = insideVertexDetailsToPPL[i][2]
-        # print("\n\n currentVertexIndex :",currentVertexIndex, " xpixel :",xpixel," ypixel : ",ypixel)
-        # print(imageFrustumPolyhedron.minimized_constraints())
-        addAvertexPixelConstraint(
-            currZP, currentVertexIndex, xpixel, ypixel, imageFrustumPolyhedron)
-        # print(imageFrustumPolyhedron.constraints())
-        # print(imageFrustumPolyhedron.minimized_constraints())
-        
-    # for i in range(0, numberOfIntersectingEdges):
-    #     xpixel = eval(str(intersectingEdgeDataToPPL[i][4]))
-    #     ypixel = eval(str(intersectingEdgeDataToPPL[i][5]))
-        
-        
-
-    #     ix = eval(str(intersectingEdgeDataToPPL[i][6]).replace("\n",""))
-    #     iy = eval(str(intersectingEdgeDataToPPL[i][7]).replace("\n",""))
-    #     iz = eval(str(intersectingEdgeDataToPPL[i][8]).replace("\n",""))
-    #     planeId = eval(str(intersectingEdgeDataToPPL[i][3]))
-    #     print(ix,"\n",iy,"\n",iz)
-    #     print(xpixel, ypixel)
-    #     # if(planeId == 0 or planeId ==1):
-    #     addAvertexPixelConstraintIntersect(currZP,ix,iy,iz, xpixel, ypixel, imageFrustumPolyhedron,planeId)
-    #     print(imageFrustumPolyhedron.minimized_constraints())
-    #     # sleep(2)
-
-    # addCamerPosCons(posXp,posYp,posZp,imageFrustumPolyhedron)
-    # print(imageFrustumPolyhedron.minimized_constraints())
-
-    # print("Fully inside vertices processed ")
-    # print(imageFrustumPolyhedron.minimized_constraints())
-    # print("\n\n")
-
-    # for i in range(0,numberOfIntersectingEdges):
-    # print("Intersecting edges started\n")
-    pdC = NNC_Polyhedron(3)
-    pdC = imageFrustumPolyhedron
-
-    # print("Number of intersecting edges = ", numberOfIntersectingEdges)
-    for i in range(0, numberOfIntersectingEdges):
-    # for i in range(0,0):
-        # if i!=1:
-        #     continue
-
-        edgeId = intersectingEdgeDataToPPL[i][0]
-        # if(edgeId ==5 or edgeId ==6 or edgeId ==7):
-        #     continue
-        # print("Current intersecting edge = ", i, edgeId)
-        insideVertex = intersectingEdgeDataToPPL[i][1]
-        outsideVertex = intersectingEdgeDataToPPL[i][2]
-
-        planeId = eval(str(intersectingEdgeDataToPPL[i][3]))
-        xpixel = eval(str(intersectingEdgeDataToPPL[i][4]))
-        ypixel = eval(str(intersectingEdgeDataToPPL[i][5]))
-
-        ix = intersectingEdgeDataToPPL[i][6]
-        iy = intersectingEdgeDataToPPL[i][7]
-        iz = intersectingEdgeDataToPPL[i][8]
-
-        mp = intersectingEdgeDataToPPL[i][9]
-        mq = intersectingEdgeDataToPPL[i][10]
-
-        # if edgeId % 5 == 0:
-        #     print(edgeId)
-        # print("insideVertex : ",insideVertex," OutsideVertex : ",outsideVertex," xpixel : ",xpixel,"  ypixel: ", ypixel)
-
-        # sleep(4)
-        # intersectingEdgeRegion(planeId, edgeId, insideVertex,outsideVertex, xpixel, ypixel, imageFrustumPolyhedron,\
-        #     posXp,posYp,posZp)
-        
-        # if planeId == 5:
-            
-        #     continue
-
-        # if(edgeId !=5 and edgeId != 38):
-        pd2 = NNC_Polyhedron(3, 'empty')
-        
-        # if planeId != 2:
-        #     continue
-        # pd2 = (computeIntersectingRegionUpdated(planeId, edgeId, insideVertex, outsideVertex, xpixel, ypixel, imageFrustumPolyhedron,
-        #                                   mxp, myp, mzp, ix, iy, iz, mp, mq, posXp1, posYp1, posZp1))
-        
-        pd2 = computeEightPointsRegion(planeId, edgeId, insideVertex, outsideVertex, xpixel, ypixel, imageFrustumPolyhedron,
-                                          mxp, myp, mzp, ix, iy, iz, mp, mq, posXp1, posYp1, posZp1)
-        
-        # pd2 = intersectingEdgeRegion(planeId, edgeId, insideVertex,outsideVertex, xpixel, ypixel,imageFrustumPolyhedron )
-        # global unsatFlag
-        # if(unsatFlag == 1):
-        #     unsatFlag = 0
-        #     continue
-        # print(pd2.minimized_constraints())
-        
-        # if i == 0:
-        #     pdC = pd2
-        # else:
         #     pdC.intersection_assign(pd2)
-        pdC.intersection_assign(pd2)
-        # sleep(1)
-        # print("\n\n")
+            
+        #     print(pdC.minimized_constraints())
+        #     print("\n........\n")
+            
+        
 
     # set_option(rational_to_decimal=False)
 
@@ -3378,650 +2995,5 @@ def computeRegion2(currGroupName, currZP, numberOfFullyInsideVertices, insideVer
 
 
 
-# def computeRegion3(currGroupName, currZP, numberOfFullyInsideVertices, insideVertexDetailsToPPL, numberOfIntersectingEdges,
-#                   intersectingEdgeDataToPPL, posXp1, posYp1, posZp1, mxp, myp, mzp, outcodeP0, currImageName, currGroupPolyhedra=dummyPolyhedraCons):
-#     print("\ninside compute region function")
-#     print("\n\nPPL: Data received")
-#     print(insideVertexDetailsToPPL)
-#     print(currImageName)
-#     # print(insideVertexDetailsToPPL[0][1])
-#     # if(currImageName == "A_0" and insideVertexDetailsToPPL[0][0] == 94 ):
-#     #     sleep(5)
-#     #     insideVertexDetailsToPPL[0][1] =44
-#     #     insideVertexDetailsToPPL[0][2] =42
-#     print(insideVertexDetailsToPPL)
-#     print("intersecting edge data")
-#     print(intersectingEdgeDataToPPL)
-#     # print(outcodeP0)
-#     # exit()
-#     # print(mxp, myp, mzp, posXp1, posYp1, posZp1)
-
-#     mxpOg = mxp
-#     mypOg = myp
-#     mzpOg = mzp
-#     # print("\n")
-#     imageFrustumPolyhedron = NNC_Polyhedron(3)
-
-#     # print("Image frustum polyhedron cons befor adding cons")
-#     # getCurrentPosOutcodeCons2(outcodeP0, imageFrustumPolyhedron)
-#     # print(imageFrustumPolyhedron.constraints())
-#     # print("\n")
-#     # print(imageFrustumPolyhedron.minimized_constraints())
-#     # print("\n\n\n")
-
-#     currImageCube_ph = NNC_Polyhedron(3)
-    
-#     currImageName.startswith("split")
-
-#     if(currImageName != "singlePosImage" and (not currImageName.startswith("split"))):
-#         print("pos from original computation")
-#         pathLength = currImageName.count('_')
-#         currImage_cubeName = ""
-
-#         if(pathLength == 1):
-#             print("image from inital region")
-#             currImage_cubeName = "initCubeCon"
-#             # print(currImage_cubeName)
-
-#         else:
-#             print("image from step = ", pathLength)
-#             currImage_cubeName = currImageName[0:currImageName.rfind("_")]
-#             #
-
-#         # print(currImage_cubeName)
-
-#         currImageCube_ph.add_constraints(
-#             environment.groupCubePostRegion[currImage_cubeName])
-#         print("currImageCube_ph ==> ", currImageCube_ph.minimized_constraints())
-
-#     elif (currImageName == "singlePosImage"):
-#         # print("single PosImage")
-#         currImageCube_ph.add_constraints(currGroupPolyhedra)
-#         print("currImageCube_ph ==> ", currImageCube_ph.minimized_constraints())
-#     else:
-#         print("Split region")
-#         # sleep(2)
-        
-        
-#         currImageCube_ph.add_constraints(environment.splitRegionPd["split_"+str(environment.splitCount)])
-#         print("currImageCube_ph ==> ", currImageCube_ph.minimized_constraints())
-        
-#         # sleep(2)
-        
-        
-        
-        
-
-#     imageFrustumPolyhedron.intersection_assign(currImageCube_ph)
-#     print("imageFrustumPolyhedron ==> ",
-#           imageFrustumPolyhedron.minimized_constraints())
-
-#     print("numberOfFullyInsideVertices = ", numberOfFullyInsideVertices)
-
-#     for i in range(0, numberOfFullyInsideVertices):
-
-#         currentVertexIndex = insideVertexDetailsToPPL[i][0]
-#         xpixel = insideVertexDetailsToPPL[i][1]
-#         ypixel = insideVertexDetailsToPPL[i][2]
-#         # print("\n\n currentVertexIndex :",currentVertexIndex, " xpixel :",xpixel," ypixel : ",ypixel)
-#         # print(imageFrustumPolyhedron.minimized_constraints())
-#         addAvertexPixelConstraint(
-#             currZP, currentVertexIndex, xpixel, ypixel, imageFrustumPolyhedron)
-#         print(imageFrustumPolyhedron.constraints())
-#         print(imageFrustumPolyhedron.minimized_constraints())
-        
-#     # for i in range(0, numberOfIntersectingEdges):
-#     #     xpixel = eval(str(intersectingEdgeDataToPPL[i][4]))
-#     #     ypixel = eval(str(intersectingEdgeDataToPPL[i][5]))
-        
-        
-
-#     #     ix = eval(str(intersectingEdgeDataToPPL[i][6]).replace("\n",""))
-#     #     iy = eval(str(intersectingEdgeDataToPPL[i][7]).replace("\n",""))
-#     #     iz = eval(str(intersectingEdgeDataToPPL[i][8]).replace("\n",""))
-#     #     planeId = eval(str(intersectingEdgeDataToPPL[i][3]))
-#     #     print(ix,"\n",iy,"\n",iz)
-#     #     print(xpixel, ypixel)
-#     #     # if(planeId == 0 or planeId ==1):
-#     #     addAvertexPixelConstraintIntersect(currZP,ix,iy,iz, xpixel, ypixel, imageFrustumPolyhedron,planeId)
-#     #     print(imageFrustumPolyhedron.minimized_constraints())
-#     #     # sleep(2)
-
-#     # addCamerPosCons(posXp,posYp,posZp,imageFrustumPolyhedron)
-#     # print(imageFrustumPolyhedron.minimized_constraints())
-
-#     # print("Fully inside vertices processed ")
-#     # print(imageFrustumPolyhedron.minimized_constraints())
-#     # print("\n\n")
-
-#     # for i in range(0,numberOfIntersectingEdges):
-#     # print("Intersecting edges started\n")
-#     pdC = NNC_Polyhedron(3)
-#     pdC = imageFrustumPolyhedron
-
-#     # print("Number of intersecting edges = ", numberOfIntersectingEdges)
-#     for i in range(0, numberOfIntersectingEdges):
-#     # for i in range(0,0):
-#         # if i!=1:
-#         #     continue
-
-#         edgeId = intersectingEdgeDataToPPL[i][0]
-#         # if(edgeId ==5 or edgeId ==6 or edgeId ==7):
-#         #     continue
-#         # print("Current intersecting edge = ", i, edgeId)
-#         insideVertex = intersectingEdgeDataToPPL[i][1]
-#         outsideVertex = intersectingEdgeDataToPPL[i][2]
-
-#         planeId = eval(str(intersectingEdgeDataToPPL[i][3]))
-#         xpixel = eval(str(intersectingEdgeDataToPPL[i][4]))
-#         ypixel = eval(str(intersectingEdgeDataToPPL[i][5]))
-
-#         ix = intersectingEdgeDataToPPL[i][6]
-#         iy = intersectingEdgeDataToPPL[i][7]
-#         iz = intersectingEdgeDataToPPL[i][8]
-
-#         mp = intersectingEdgeDataToPPL[i][9]
-#         mq = intersectingEdgeDataToPPL[i][10]
-
-#         # if edgeId % 5 == 0:
-#         #     print(edgeId)
-#         # print("insideVertex : ",insideVertex," OutsideVertex : ",outsideVertex," xpixel : ",xpixel,"  ypixel: ", ypixel)
-
-#         # sleep(4)
-#         # intersectingEdgeRegion(planeId, edgeId, insideVertex,outsideVertex, xpixel, ypixel, imageFrustumPolyhedron,\
-#         #     posXp,posYp,posZp)
-        
-#         # if planeId == 5:
-#         #     print("Near Plane")
-#         #     sleep(10)
-#         #     continue
-
-#         # if(edgeId !=5 and edgeId != 38):
-#         pd2 = NNC_Polyhedron(3, 'empty')
-        
-#         # if planeId != 2:
-#         #     continue
-#         # pd2 = (computeIntersectingRegionUpdated(planeId, edgeId, insideVertex, outsideVertex, xpixel, ypixel, imageFrustumPolyhedron,
-#         #                                   mxp, myp, mzp, ix, iy, iz, mp, mq, posXp1, posYp1, posZp1))
-        
-#         pd2 = computeEightPointsRegion(planeId, edgeId, insideVertex, outsideVertex, xpixel, ypixel, imageFrustumPolyhedron,
-#                                           mxp, myp, mzp, ix, iy, iz, mp, mq, posXp1, posYp1, posZp1)
-        
-#         # pd2 = intersectingEdgeRegion(planeId, edgeId, insideVertex,outsideVertex, xpixel, ypixel,imageFrustumPolyhedron )
-#         # global unsatFlag
-#         # if(unsatFlag == 1):
-#         #     unsatFlag = 0
-#         #     continue
-#         print(pd2.minimized_constraints())
-        
-#         # if i == 0:
-#         #     pdC = pd2
-#         # else:
-#         #     pdC.intersection_assign(pd2)
-#         pdC.intersection_assign(pd2)
-#         # sleep(1)
-#         # print("\n\n")
-
-#     # set_option(rational_to_decimal=False)
-
-#     # # print(mxp,myp,mzp,posXp1,posYp1,posZp1)
-#     # # print(mxp)
-#     # # print(mxpOg)
-#     # mxp1 = mxp
-#     # myp1 = myp
-#     # mzp1 = mzp
-#     # mxpStr = [0, 1]
-#     # mypStr = [0, 1]
-#     # mzpStr = [0, 1]
-#     # # Find lcm of denomenators of the pos values
-#     # if "/" in str(mxp1):
-#     #     mxpStr = str(mxp1).split("/")
-#     # else:
-#     #     mxpStr[0] = str(mxp1)
-#     #     mxpStr[1] = 1
-
-#     # if "/" in str(myp1):
-#     #     mypStr = str(myp1).split("/")
-#     # else:
-#     #     mypStr[0] = str(myp1)
-#     #     mypStr[1] = 1
-
-#     # if "/" in str(mzp1):
-#     #     mzpStr = str(mzp1).split("/")
-#     # else:
-#     #     mzpStr[0] = str(mzp1)
-#     #     mzpStr[1] = 1
-
-#     # numeratorList = [int(str(mxpStr[0])), int(
-#     #     str(mypStr[0])), int(str(mzpStr[0]))]
-#     # denomList = [int(int(str(mxpStr[1]))//1),
-#     #              int(int(str(mypStr[1]))//1), int(int(str(mzpStr[1]))//1)]
-
-#     # currLcm = lcm(denomList[0], lcm(denomList[1], denomList[2]))
-#     # c0 = int(currLcm//(denomList[0]))
-#     # c1 = int(currLcm//(denomList[1]))
-#     # c2 = int(currLcm//(denomList[2]))
-#     # # # # print("\nc0,c1,c2 ", c0,c1,c2)
-
-#     # pd100 = NNC_Polyhedron(3, 'empty')
-#     # xp0 = Variable(0)
-#     # yp0 = Variable(1)
-#     # zp0 = Variable(2)
-
-#     # # pd100.add_generator(point( mxp1*xp0+myp1* yp0+mzp1*zp0 ,pow(10,80)))
-
-#     # pd100.add_generator(point(
-#     #     numeratorList[0]*c0 * xp0+numeratorList[1] * c1 * yp0+numeratorList[2] * c2*zp0, int(currLcm)))
-
-#     # pd100.add_generator(point(
-#     #     numeratorList[0]*c0 * (xp0+1)+numeratorList[1] * c1 * yp0+numeratorList[2] * c2*zp0, int(currLcm)))
-
-#     # pd100.add_generator(point(
-#     #     numeratorList[0]*c0 * (xp0-1)+numeratorList[1] * c1 * yp0+numeratorList[2] * c2*zp0, int(currLcm)))
-    
-#     # pd100.add_generator(point(
-#     #     numeratorList[0]*c0 * xp0+numeratorList[1] * c1 * (yp0+1)+numeratorList[2] * c2*zp0, int(currLcm)))
-
-#     # pd100.add_generator(point(
-#     #     numeratorList[0]*c0 * xp0+numeratorList[1] * c1 * (yp0-1)+numeratorList[2] * c2*zp0, int(currLcm)))
-    
-#     # pd100.add_generator(point(
-#     #     numeratorList[0]*c0 * xp0+numeratorList[1] * c1 * (yp0)+numeratorList[2] * c2*(zp0+1), int(currLcm)))
-    
-#     # pd100.add_generator(point(
-#     #     numeratorList[0]*c0 * xp0+numeratorList[1] * c1 * (yp0)+numeratorList[2] * c2*(zp0-1), int(currLcm)))
-
-
-
-
-
-#     # print("\n pd100.minimized_constraints()")
-#     # print( pd100.minimized_constraints())
-
-#     # print("\n\n (pdC.minimized_constraints()) before mpos add" )
-#     # print(pdC.minimized_constraints())
-
-#     ################################################
-#     # pdC.poly_hull_assign(pd100)
-#     ##################################################
-    
-    
-#     # print("\n\npdC.minimized_constraints() after add")
-#     # print(pdC.minimized_constraints())
-
-#     # sleep(3)
-
-#     # print("\nFinal pd cons :")
-#     # print(imageFrustumPolyhedron.minimized_constraints())
-#     # return str(imageFrustumPolyhedron.minimized_constraints())
-    
-    
-#     # for i in range(0, numberOfIntersectingEdges):
-#     #     xpixel = eval(str(intersectingEdgeDataToPPL[i][4]))
-#     #     ypixel = eval(str(intersectingEdgeDataToPPL[i][5]))
-        
-        
-
-#     #     ix = eval(str(intersectingEdgeDataToPPL[i][6]).replace("\n",""))
-#     #     iy = eval(str(intersectingEdgeDataToPPL[i][7]).replace("\n",""))
-#     #     iz = eval(str(intersectingEdgeDataToPPL[i][8]).replace("\n",""))
-#     #     planeId = eval(str(intersectingEdgeDataToPPL[i][3]))
-#     #     print(ix,"\n",iy,"\n",iz)
-#     #     print(xpixel, ypixel)
-#     #     # if(planeId == 0 or planeId ==1):
-#     #     addAvertexPixelConstraintIntersect(currZP,ix,iy,iz, xpixel, ypixel, pdC,planeId)
-#     #     print(imageFrustumPolyhedron.minimized_constraints())
-#     #     # sleep(2)
-
-#     print(pdC.minimized_constraints())
-
-#     environment.imageCons[currImageName] = pdC.minimized_constraints()
-#     # return str(pdC.minimized_constraints())
-#     return pdC
-
-def computeRegion3(currGroupName, currZP, numberOfFullyInsideVertices, insideVertexDetailsToPPL, numberOfIntersectingEdges,
-                  intersectingEdgeDataToPPL, posXp1, posYp1, posZp1, mxp, myp, mzp, outcodeP0, currImageName, currGroupPolyhedra=dummyPolyhedraCons):
-    # print("\ninside compute region function")
-    # print("\n\nPPL: Data received")
-    # print(insideVertexDetailsToPPL)
-    # print(currImageName)
-    # print(insideVertexDetailsToPPL[0][1])
-    # if(currImageName == "A_0" and insideVertexDetailsToPPL[0][0] == 94 ):
-    #     sleep(5)
-    #     insideVertexDetailsToPPL[0][1] =44
-    #     insideVertexDetailsToPPL[0][2] =42
-    # print(insideVertexDetailsToPPL)
-    # print("intersecting edge data")
-    # print(intersectingEdgeDataToPPL)
-    # print(outcodeP0)
-    # exit()
-    # print(mxp, myp, mzp, posXp1, posYp1, posZp1)
-
-    mxpOg = mxp
-    mypOg = myp
-    mzpOg = mzp
-    # print("\n")
-    imageFrustumPolyhedron = NNC_Polyhedron(3)
-
-    # print("Image frustum polyhedron cons befor adding cons")
-    # getCurrentPosOutcodeCons2(outcodeP0, imageFrustumPolyhedron)
-    # print(imageFrustumPolyhedron.constraints())
-    # print("\n")
-    # print(imageFrustumPolyhedron.minimized_constraints())
-    # print("\n\n\n")
-
-    currImageCube_ph = NNC_Polyhedron(3)
-    
-    currImageName.startswith("split")
-
-    if currGroupName == "singleImagePosFinal":
-        currImageCube_ph.add_constraints(
-            environment.singleImagePolyh)
-        # print("singleImagePosFinal")
-    elif(currImageName != "singlePosImage" and (not currImageName.startswith("split"))):
-        # print("pos from original computation")
-        pathLength = currImageName.count('_')
-        currImage_cubeName = ""
-
-        if(pathLength == 1):
-            # print("image from inital region")
-            currImage_cubeName = "initCubeCon"
-            # print(currImage_cubeName)
-
-        else:
-            # print("image from step = ", pathLength)
-            currImage_cubeName = currImageName[0:currImageName.rfind("_")]
-            #
-
-        # print(currImage_cubeName)
-
-        currImageCube_ph.add_constraints(
-            environment.groupCubePostRegion[currImage_cubeName])
-        # print("currImageCube_ph ==> ", currImageCube_ph.minimized_constraints())
-
-    elif (currImageName == "singlePosImage"):
-        # print("single PosImage")
-        currImageCube_ph.add_constraints(currGroupPolyhedra)
-        # print("currImageCube_ph ==> ", currImageCube_ph.minimized_constraints())
-    else:
-        # print("Split region")
-        # sleep(2)
-        
-        
-        currImageCube_ph.add_constraints(environment.splitRegionPd["split_"+str(environment.splitCount)])
-        # print("currImageCube_ph ==> ", currImageCube_ph.minimized_constraints())
-        
-        # sleep(2)
-        
-        
-        
-        
-
-    imageFrustumPolyhedron.intersection_assign(currImageCube_ph)
-    # print("imageFrustumPolyhedron ==> ",
-    #       imageFrustumPolyhedron.minimized_constraints())
-
-    # print("numberOfFullyInsideVertices = ", numberOfFullyInsideVertices)
-
-    for i in range(0, numberOfFullyInsideVertices):
-
-        currentVertexIndex = insideVertexDetailsToPPL[i][0]
-        xpixel = insideVertexDetailsToPPL[i][1]
-        ypixel = insideVertexDetailsToPPL[i][2]
-        # print("\n\n currentVertexIndex :",currentVertexIndex, " xpixel :",xpixel," ypixel : ",ypixel)
-        # print(imageFrustumPolyhedron.minimized_constraints())
-        addAvertexPixelConstraint(
-            currZP, currentVertexIndex, xpixel, ypixel, imageFrustumPolyhedron)
-        # print(imageFrustumPolyhedron.constraints())
-        # print(imageFrustumPolyhedron.minimized_constraints())
-        
-    # for i in range(0, numberOfIntersectingEdges):
-    #     xpixel = eval(str(intersectingEdgeDataToPPL[i][4]))
-    #     ypixel = eval(str(intersectingEdgeDataToPPL[i][5]))
-        
-        
-
-    #     ix = eval(str(intersectingEdgeDataToPPL[i][6]).replace("\n",""))
-    #     iy = eval(str(intersectingEdgeDataToPPL[i][7]).replace("\n",""))
-    #     iz = eval(str(intersectingEdgeDataToPPL[i][8]).replace("\n",""))
-    #     planeId = eval(str(intersectingEdgeDataToPPL[i][3]))
-    #     print(ix,"\n",iy,"\n",iz)
-    #     print(xpixel, ypixel)
-    #     # if(planeId == 0 or planeId ==1):
-    #     addAvertexPixelConstraintIntersect(currZP,ix,iy,iz, xpixel, ypixel, imageFrustumPolyhedron,planeId)
-    #     print(imageFrustumPolyhedron.minimized_constraints())
-    #     # sleep(2)
-
-    # addCamerPosCons(posXp,posYp,posZp,imageFrustumPolyhedron)
-    # print(imageFrustumPolyhedron.minimized_constraints())
-
-    # print("Fully inside vertices processed ")
-    # print(imageFrustumPolyhedron.minimized_constraints())
-    # print("\n\n")
-
-    # for i in range(0,numberOfIntersectingEdges):
-    # print("Intersecting edges started\n")
-    pdC = NNC_Polyhedron(3)
-    pdC = imageFrustumPolyhedron
-
-    # print("Number of intersecting edges = ", numberOfIntersectingEdges)
-    for i in range(0, numberOfIntersectingEdges):
-    # for i in range(0,0):
-        # if i!=1:
-        #     continue
-
-        edgeId = intersectingEdgeDataToPPL[i][0]
-        # if(edgeId ==5 or edgeId ==6 or edgeId ==7):
-        #     continue
-        # print("Current intersecting edge = ", i, edgeId)
-        
-        if edgeId != -1 and edgeId != -2  and edgeId != -3:
-            insideVertex = intersectingEdgeDataToPPL[i][1]
-            outsideVertex = intersectingEdgeDataToPPL[i][2]
-
-            planeId = eval(str(intersectingEdgeDataToPPL[i][3]))
-            xpixel = eval(str(intersectingEdgeDataToPPL[i][4]))
-            ypixel = eval(str(intersectingEdgeDataToPPL[i][5]))
-
-            ix = intersectingEdgeDataToPPL[i][6]
-            iy = intersectingEdgeDataToPPL[i][7]
-            iz = intersectingEdgeDataToPPL[i][8]
-
-            mp = intersectingEdgeDataToPPL[i][9]
-            mq = intersectingEdgeDataToPPL[i][10]
-
-            # if edgeId % 5 == 0:
-            #     print(edgeId)
-            # print("insideVertex : ",insideVertex," OutsideVertex : ",outsideVertex," xpixel : ",xpixel,"  ypixel: ", ypixel)
-
-            # sleep(4)
-            # intersectingEdgeRegion(planeId, edgeId, insideVertex,outsideVertex, xpixel, ypixel, imageFrustumPolyhedron,\
-            #     posXp,posYp,posZp)
-            
-            if planeId == 5:
-                  continue
-
-            # if(edgeId !=5 and edgeId != 38):
-            pd2 = NNC_Polyhedron(3, 'empty')
-            
-            # if planeId != 2:
-            #     continue
-            # pd2 = (computeIntersectingRegionUpdated(planeId, edgeId, insideVertex, outsideVertex, xpixel, ypixel, imageFrustumPolyhedron,
-            #                                   mxp, myp, mzp, ix, iy, iz, mp, mq, posXp1, posYp1, posZp1))
-            
-            pd2 = computeEightPointsRegion(planeId, edgeId, insideVertex, outsideVertex, xpixel, ypixel, imageFrustumPolyhedron,
-                                            mxp, myp, mzp, ix, iy, iz, mp, mq, posXp1, posYp1, posZp1)
-            
-            # pd2 = intersectingEdgeRegion(planeId, edgeId, insideVertex,outsideVertex, xpixel, ypixel,imageFrustumPolyhedron )
-            # global unsatFlag
-            # if(unsatFlag == 1):
-            #     unsatFlag = 0
-            #     continue
-            # print(pd2.minimized_constraints())
-            
-            # if i == 0:
-            #     pdC = pd2
-            # else:
-            #     pdC.intersection_assign(pd2)
-            pdC.intersection_assign(pd2)
-            
-            # print(pdC.minimized_constraints())
-            # print("\n........\n")
-            
-            # sleep(1)
-            # print("\n\n")
-        elif edgeId == -1:
-            
-            # print("edgeId = -1")
-            
-            # if i < 5:            
-            pd2 = NNC_Polyhedron(3, 'empty')
-            currData = intersectingEdgeDataToPPL[i]
-            # print(currData[3], currData[1],currData[2], currData[4], currData[5])
-           
-            pd2 = computeEightPointsRegion2(currData[3], currData[1],currData[2], currData[4], currData[5])
-           
-            
-            # print(pd2.minimized_constraints())
-            
-            pdC.intersection_assign(pd2)
-            
-            # print(pdC.minimized_constraints())
-            # print("\n........\n")
-        elif edgeId == -2:
-            
-            # print("edgeId = -2")
-            
-            pd2 = NNC_Polyhedron(3, 'empty')
-            currData = intersectingEdgeDataToPPL[i]
-            
-            # print(currData[3], currData[1],currData[2], currData[4], currData[5])
-            # continue
-           
-            pd2 = computeEightPointsRegion2(currData[3], currData[1],currData[2], currData[4], currData[5])
-            
-           
-            
-            pdC.intersection_assign(pd2)
-            
-          
-            
-        
-
-    # set_option(rational_to_decimal=False)
-
-    # # print(mxp,myp,mzp,posXp1,posYp1,posZp1)
-    # # print(mxp)
-    # # print(mxpOg)
-    # mxp1 = mxp
-    # myp1 = myp
-    # mzp1 = mzp
-    # mxpStr = [0, 1]
-    # mypStr = [0, 1]
-    # mzpStr = [0, 1]
-    # # Find lcm of denomenators of the pos values
-    # if "/" in str(mxp1):
-    #     mxpStr = str(mxp1).split("/")
-    # else:
-    #     mxpStr[0] = str(mxp1)
-    #     mxpStr[1] = 1
-
-    # if "/" in str(myp1):
-    #     mypStr = str(myp1).split("/")
-    # else:
-    #     mypStr[0] = str(myp1)
-    #     mypStr[1] = 1
-
-    # if "/" in str(mzp1):
-    #     mzpStr = str(mzp1).split("/")
-    # else:
-    #     mzpStr[0] = str(mzp1)
-    #     mzpStr[1] = 1
-
-    # numeratorList = [int(str(mxpStr[0])), int(
-    #     str(mypStr[0])), int(str(mzpStr[0]))]
-    # denomList = [int(int(str(mxpStr[1]))//1),
-    #              int(int(str(mypStr[1]))//1), int(int(str(mzpStr[1]))//1)]
-
-    # currLcm = lcm(denomList[0], lcm(denomList[1], denomList[2]))
-    # c0 = int(currLcm//(denomList[0]))
-    # c1 = int(currLcm//(denomList[1]))
-    # c2 = int(currLcm//(denomList[2]))
-    # # # # print("\nc0,c1,c2 ", c0,c1,c2)
-
-    # pd100 = NNC_Polyhedron(3, 'empty')
-    # xp0 = Variable(0)
-    # yp0 = Variable(1)
-    # zp0 = Variable(2)
-
-    # # pd100.add_generator(point( mxp1*xp0+myp1* yp0+mzp1*zp0 ,pow(10,80)))
-
-    # pd100.add_generator(point(
-    #     numeratorList[0]*c0 * xp0+numeratorList[1] * c1 * yp0+numeratorList[2] * c2*zp0, int(currLcm)))
-
-    # pd100.add_generator(point(
-    #     numeratorList[0]*c0 * (xp0+1)+numeratorList[1] * c1 * yp0+numeratorList[2] * c2*zp0, int(currLcm)))
-
-    # pd100.add_generator(point(
-    #     numeratorList[0]*c0 * (xp0-1)+numeratorList[1] * c1 * yp0+numeratorList[2] * c2*zp0, int(currLcm)))
-    
-    # pd100.add_generator(point(
-    #     numeratorList[0]*c0 * xp0+numeratorList[1] * c1 * (yp0+1)+numeratorList[2] * c2*zp0, int(currLcm)))
-
-    # pd100.add_generator(point(
-    #     numeratorList[0]*c0 * xp0+numeratorList[1] * c1 * (yp0-1)+numeratorList[2] * c2*zp0, int(currLcm)))
-    
-    # pd100.add_generator(point(
-    #     numeratorList[0]*c0 * xp0+numeratorList[1] * c1 * (yp0)+numeratorList[2] * c2*(zp0+1), int(currLcm)))
-    
-    # pd100.add_generator(point(
-    #     numeratorList[0]*c0 * xp0+numeratorList[1] * c1 * (yp0)+numeratorList[2] * c2*(zp0-1), int(currLcm)))
-
-
-
-
-
-    # print("\n pd100.minimized_constraints()")
-    # print( pd100.minimized_constraints())
-
-    # print("\n\n (pdC.minimized_constraints()) before mpos add" )
-    # print(pdC.minimized_constraints())
-
-    ################################################
-    # pdC.poly_hull_assign(pd100)
-    ##################################################
-    
-    
-    # print("\n\npdC.minimized_constraints() after add")
-    # print(pdC.minimized_constraints())
-
-    # sleep(3)
-
-    # print("\nFinal pd cons :")
-    # print(imageFrustumPolyhedron.minimized_constraints())
-    # return str(imageFrustumPolyhedron.minimized_constraints())
-    
-    
-    # for i in range(0, numberOfIntersectingEdges):
-    #     xpixel = eval(str(intersectingEdgeDataToPPL[i][4]))
-    #     ypixel = eval(str(intersectingEdgeDataToPPL[i][5]))
-        
-        
-
-    #     ix = eval(str(intersectingEdgeDataToPPL[i][6]).replace("\n",""))
-    #     iy = eval(str(intersectingEdgeDataToPPL[i][7]).replace("\n",""))
-    #     iz = eval(str(intersectingEdgeDataToPPL[i][8]).replace("\n",""))
-    #     planeId = eval(str(intersectingEdgeDataToPPL[i][3]))
-    #     print(ix,"\n",iy,"\n",iz)
-    #     print(xpixel, ypixel)
-    #     # if(planeId == 0 or planeId ==1):
-    #     addAvertexPixelConstraintIntersect(currZP,ix,iy,iz, xpixel, ypixel, pdC,planeId)
-    #     print(imageFrustumPolyhedron.minimized_constraints())
-    #     # sleep(2)
-
-   
-    environment.imageCons[currImageName] = pdC.minimized_constraints()
-    # return str(pdC.minimized_constraints())
-    return pdC
 
 

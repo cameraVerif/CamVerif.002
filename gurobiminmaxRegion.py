@@ -59,26 +59,12 @@ def getSplitLength(RegionConsString, variable, numOfSplits):
     m.setObjective(obj, GRB.MINIMIZE)
     m.optimize()
 
-    if m.Status <= 2:    
-        
-        minVal =  minVal = obj.X
-    else: 
-        minVal = -2000
-        print("Min value not found")
-
-   
+    minVal = obj.X
     
     m.setObjective(obj, GRB.MAXIMIZE)
     m.optimize()
 
-
-    if m.Status <= 2:            
-        maxVal = obj.X
-    else: 
-        maxVal = 2000
-        print("Max value not found")
-
-    
+    maxVal = obj.X
     
     print("Variable = ", variable)
     print("\n\nminimum value got ", minVal)
